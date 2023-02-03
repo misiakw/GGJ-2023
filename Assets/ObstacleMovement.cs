@@ -8,7 +8,7 @@ public class ObstacleMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = new Vector3(-3, 0, 0);
+        rb.velocity = new Vector3(-5, 0, 0);
     }
 
     private void OnCollisionEnter(Collision collision)
