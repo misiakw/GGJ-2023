@@ -11,6 +11,14 @@ public class ObstacleMovement : MonoBehaviour
         rb.velocity = new Vector3(-3, 0, 0);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ClearZone"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
