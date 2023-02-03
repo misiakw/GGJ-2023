@@ -14,6 +14,14 @@ public class PlayerController : MonoBehaviour
             canJump = false;
             rb.AddForce(0, jumpStrength*100, 0);
         }
+        if(Input.GetKeyDown("s")) 
+        {
+            gameObject.transform.localScale = new Vector3(1,1,1);
+        }
+        if(Input.GetKeyUp("s")) 
+        {
+            gameObject.transform.localScale = new Vector3(1,2,1);
+        }
     }
 
     void OnCollisionEnter(Collision collided)
