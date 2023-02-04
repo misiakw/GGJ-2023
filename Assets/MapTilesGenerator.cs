@@ -31,7 +31,7 @@ public class MapTilesGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("GenerateMapTile", 0, 2);
+        //InvokeRepeating("GenerateMapTile", 0, 2);
         possibleConfigurations = Enum.GetNames(typeof(ObstacleConfigurations)).Count();
     }
 

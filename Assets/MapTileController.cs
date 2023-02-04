@@ -7,7 +7,7 @@ public class MapTileController : MonoBehaviour
 {
     public int height = 5;
     public float yPos = 0;
-    private GameObject ceiling;
+    //private GameObject ceiling;
     public Rigidbody rb;
 
     private Vector3 _defaultObstacleVelocity = new Vector3(-5, 0, 0);
@@ -18,8 +18,8 @@ public class MapTileController : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x, yPos, 0);    
         rb.velocity = _defaultObstacleVelocity;
-        ceiling = transform.Find("Ceiling").gameObject;
-        ceiling.transform.localPosition = new Vector3(0, height, 0);
+        //ceiling = transform.Find("Ceiling").gameObject;
+        //ceiling.transform.localPosition = new Vector3(0, height, 0);
     }
 
     // Update is called once per frame
