@@ -21,12 +21,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpStart(object sender, EventArgs args)
     {
-        if(GlobalStore.GameState == GameState.Running)
+        if (GlobalStore.GameState == GameState.Running && canJump)
         {
-            ManageRunningInput();
+            canJump = false;
+            rb.AddForce(0, jumpStrength * 100, 0);
         }
-
-        if (GlobalStore.GameState == GameState.Died && controller.IsJumpDown)
+        if (GlobalStore.GameState == GameState.Died)
         {
             RestartGame();
         }
@@ -50,19 +50,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ManageRunningInput()
-    {
-        if (canJump && controller.IsJumpDown)
-        {
-            canJump = false;
-            rb.AddForce(0, jumpStrength * 100, 0);
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
-        controller.Loop();
+       controller.Loop();
     }
 
     void OnCollisionEnter(Collision collided)
