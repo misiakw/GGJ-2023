@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -6,34 +8,33 @@ public class PlayerController : MonoBehaviour
     public float jumpStrength = 1;
     public bool canJump = false;
 
-    private IController controller;
+    private ControllerDevice controller = ControllerDevice.Instance;
 
     void Start()
     {
-        controller = ControllerDevice.Instance;
+        controller.OnCrouchEnter += (o, e) => gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+        controller.OnCrouchLeave += (o, e) => gameObject.transform.localScale = new Vector3(1, 1, 1);
+        controller.OnJumpStart += OnJumpStart;
     }
 
-        // Update is called once per frame
-        void Update()
+    public void OnJumpStart(object sender, EventArgs args)
     {
-        if(canJump && controller.IsJumpDown)
+        if (canJump)
         {
             canJump = false;
-            rb.AddForce(0, jumpStrength*100, 0);
+            rb.AddForce(0, jumpStrength * 100, 0);
         }
-        if(controller.IsCrouchDown) 
-        {
-            gameObject.transform.localScale = new Vector3(1, 0.5f ,1);
-        }
-        if(controller.IsCrouchUp) 
-        {
-            gameObject.transform.localScale = new Vector3(1,1,1);
-        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        controller.Loop();
     }
 
     void OnCollisionEnter(Collision collided)
     {
-        if(collided.gameObject.tag == "Floor") 
+        if (collided.gameObject.tag == "Floor")
         {
             canJump = true;
         }
