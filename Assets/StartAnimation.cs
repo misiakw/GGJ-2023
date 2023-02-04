@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StartAnimation : MonoBehaviour
@@ -9,7 +10,6 @@ public class StartAnimation : MonoBehaviour
 
     private Animator animator;
     private bool playerCreated = false;
-    private Vector3 initialPosition;
     private GameObject previousPlayer;
     private AudioSource _walkSound;
 
@@ -20,7 +20,6 @@ public class StartAnimation : MonoBehaviour
         var walkSoundObject = GameObject.Find("WalkSound");
         _walkSound = walkSoundObject.GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
-        initialPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
 
     // Update is called once per frame
@@ -42,7 +41,10 @@ public class StartAnimation : MonoBehaviour
     {
         transform.position = new Vector3(-12.57f, -3.57f, 0f);
         playerCreated = false;
-        Destroy(previousPlayer);
+        if(previousPlayer!= null && !previousPlayer.IsDestroyed()) {
+            Destroy(previousPlayer);
+            previousPlayer = null;
+        }
         animator.Play("RootAnimation");
         GetComponent<AudioSource>().Play();
     }

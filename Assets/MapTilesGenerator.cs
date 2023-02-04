@@ -26,13 +26,9 @@ public class MapTilesGenerator : MonoBehaviour
     private float previousMapTileYPos = 0;
     int possibleConfigurations = 0;
 
-    private List<GameObject> mapTilesList = new List<GameObject>();
-
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("GenerateMapTile", 0, 2);
-        GenerateBackgroundObject();
         possibleConfigurations = Enum.GetNames(typeof(ObstacleConfigurations)).Count();
     }
 
@@ -42,27 +38,19 @@ public class MapTilesGenerator : MonoBehaviour
         
     }
 
-    void GenerateMapTile()
+    public void GenerateMapTile()
     {
         GameObject mapTile = Instantiate(mapTilePrefab);
-        mapTilesList.Add(mapTile);
         previousMapTileYPos = Random.Range(previousMapTileYPos - 0.8f, previousMapTileYPos + 0.8f); //Comment this line to make single level tiles
         previousMapTileYPos = Math.Min(previousMapTileYPos, 9);
         previousMapTileYPos = Math.Max(previousMapTileYPos, -3);
-        mapTile.gameObject.GetComponent<MapTileController>().yPos = previousMapTileYPos;
+        var controller = mapTile.gameObject.GetComponent<MapTileController>();
+        controller.generator = this;
+        controller.yPos = previousMapTileYPos;
         GenerateObstacles(mapTile);
     }
 
     private List<string> backgroundImages = new List<string> { "bg1", "bg2", "bg3"};
-
-    void GenerateBackgroundObject()
-    {
-        //SpriteRenderer sr = new SpriteRenderer();
-        //sr.sprite = Resources.Load<Sprite>("EnvironmentImages/Background/" + backgroundImages[Random.Range(0, backgroundImages.Count)]);
-        //GameObject go = sr.gameObject;
-        //Instantiate(go);
-
-    }
 
     void GenerateObstacles(GameObject mapTile)
     {

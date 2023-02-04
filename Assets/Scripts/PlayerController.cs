@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         controller.OnJumpStart += OnJumpStart; 
     }
 
-    void Shrink()
+    void Shrink(object sender, EventArgs args)
     {
         if (GlobalStore.GameState == GameState.Died)
         {
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
     }
 
-    void Grow()
+    void Grow(object sender, EventArgs args)
     {
         if (GlobalStore.GameState == GameState.Died)
         {
@@ -61,15 +61,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void RestartGame()
+    public void RestartGame()
     {
         DestroyObstacles();
-
-        SceneManager.UnloadScene("MainScene");
-        controller.OnCrouchEnter = null;
-        controller.OnCrouchLeave = null;
-        controller.OnJumpStart = null;
-        SceneManager.LoadScene("MainScene");
+        startAnimation.StartGrow();
         BodyGameObject.transform.eulerAngles = new Vector3(0, 0, 0);
     }
 
@@ -109,5 +104,13 @@ public class PlayerController : MonoBehaviour
             GlobalStore.GameState = GameState.Died;
             BodyGameObject.transform.eulerAngles = new Vector3(0,0,-90);
         }
+    }
+
+    public void OnDestroy()
+    {
+        controller.OnCrouchEnter -= Shrink;
+        controller.OnCrouchLeave -= Grow;
+        controller.OnJumpStart -= OnJumpStart;
+
     }
 }

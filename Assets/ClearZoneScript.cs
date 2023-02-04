@@ -5,6 +5,7 @@ using UnityEngine;
 public class ClearZoneScript : MonoBehaviour
 {
     // Start is called before the first frame update
+    public bool OnlyPlayerCollider = false;
     void Start()
     {
         
@@ -18,6 +19,20 @@ public class ClearZoneScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(collision.gameObject);
+        if (OnlyPlayerCollider && collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerController>().RestartGame();
+            Destroy(collision.gameObject);
+        }
+        else if(!OnlyPlayerCollider)
+        {
+            var mapTileController = collision.gameObject.GetComponent<MapTileController>();
+            if (mapTileController != null)
+            {
+                mapTileController.GenerateNewTile();
+                Destroy(collision.gameObject);
+            }
+
+        }
     }
 }
