@@ -1,22 +1,40 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody rb;
+    private Rigidbody rb;
     public float jumpStrength = 4.5F;
     public bool canJump = false;
     private Vector3 _defaultPlayerPosition;
-    public GameObject BodyGameObject;
+    private GameObject BodyGameObject;
 
     private ControllerDevice controller = ControllerDevice.Instance;
-
+    
     void Start()
     {
-        controller.OnCrouchEnter += (o, e) => gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
-        controller.OnCrouchLeave += (o, e) => gameObject.transform.localScale = new Vector3(1, 1, 1);
+        rb = gameObject.GetComponent<Rigidbody>();
+        BodyGameObject = gameObject.transform.GetChild(0).gameObject;
+        controller.OnCrouchEnter += (o, e) => Shrink();
+        controller.OnCrouchLeave += (o, e) => Grow();
         controller.OnJumpStart += OnJumpStart;
+    }
+
+    void Shrink()
+    {
+        if(GlobalStore.GameState == GameState.Died) {
+            return;
+        }
+        gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+    }
+
+    void Grow() 
+    {
+        if(GlobalStore.GameState == GameState.Died) {
+            return;
+        }
+        gameObject.transform.localScale = new Vector3(1, 1, 1);
     }
 
     public void OnJumpStart(object sender, EventArgs args)
@@ -34,11 +52,12 @@ public class PlayerController : MonoBehaviour
 
     private void RestartGame()
     {
-        DestroyObstacles();
-
         GlobalStore.GameState = GameState.Running;
-        BodyGameObject.transform.eulerAngles = new Vector3(0, 0, 0);
-        gameObject.transform.position = _defaultPlayerPosition;
+        SceneManager.UnloadScene("MainScene");
+        controller.OnCrouchEnter = null;
+        controller.OnCrouchLeave = null;
+        controller.OnJumpStart = null;
+        SceneManager.LoadScene("MainScene");
     }
 
     private static void DestroyObstacles()
@@ -46,7 +65,7 @@ public class PlayerController : MonoBehaviour
         var obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
         foreach (var obstacle in obstacles)
         {
-        Destroy(obstacle);
+            Destroy(obstacle);
         }
     }
 
@@ -72,4 +91,6 @@ public class PlayerController : MonoBehaviour
             BodyGameObject.transform.eulerAngles = new Vector3(0,0,-90);
         }
     }
+
+
 }
