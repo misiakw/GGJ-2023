@@ -197,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8422299784453820245, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8422299784453820245, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
       propertyPath: m_LocalPosition.z
@@ -254,7 +254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8422299784453820245, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8422299784453820245, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
       propertyPath: m_LocalPosition.z
@@ -368,7 +368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8422299784453820245, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8422299784453820245, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
       propertyPath: m_LocalPosition.z
@@ -446,6 +446,7 @@ MonoBehaviour:
   rootPrefab: {fileID: 2779224734568502772, guid: 28dbbfead9db69a4eaa1216fb44034ea, type: 3}
   branchPrefab: {fileID: 3112771831680682890, guid: e88e742743ea8df4c8443f5cdd9375b6, type: 3}
   mapTilePrefab: {fileID: 8422299784453820247, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
+  floorPrefab: {fileID: 0}
 --- !u!114 &1566812653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,7 +530,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 18.911224
+  orthographic size: 7.114407
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -553,7 +554,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900725046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.81, y: -0.87, z: -10}
+  m_LocalPosition: {x: -4.5, y: 3.55, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -617,7 +618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8228458439895080514, guid: 5e3505453bb7ce44fb35ca5bf44fe3f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.34
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8228458439895080514, guid: 5e3505453bb7ce44fb35ca5bf44fe3f7, type: 3}
       propertyPath: m_LocalPosition.z
