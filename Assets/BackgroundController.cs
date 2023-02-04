@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class BackgroundController : MonoBehaviour
 {
-    public GameObject TreesPrefab;
-    public GameObject BacktreesPrefab;
-    public GameObject BackgroundFXPrefab;
-
     // Start is called before the first frame update
     void Start()
     {

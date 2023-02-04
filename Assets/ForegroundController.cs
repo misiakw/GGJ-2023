@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ForegroundController : MonoBehaviour
 {
-    public GameObject TreesPrefab;
-
     // Start is called before the first frame update
     void Start()
     {
