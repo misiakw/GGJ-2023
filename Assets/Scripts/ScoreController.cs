@@ -26,11 +26,13 @@ public class ScoreController : MonoBehaviour
         _text.text = Score.ToString();
         _resultText.text = $"Your score: {Score}";
         
-        if(GlobalStore.GameState == GameState.Running) 
+        if(GlobalStore.GameState == GameState.Running || Score == 0) 
         {
             TextObject.SetActive(true);
             ReslultTextObject.SetActive(false);
-            ManageScoreIncrement();
+            if(GlobalStore.GameState == GameState.Running) {
+                ManageScoreIncrement();
+            }
         }
         else {
             TextObject.SetActive(false);

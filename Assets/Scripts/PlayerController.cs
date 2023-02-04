@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
@@ -10,11 +9,14 @@ public class PlayerController : MonoBehaviour
     public bool canJump = false;
     public GameObject BodyGameObject;
     public StartAnimation startAnimation;
+    private AudioSource _jumpSound;
 
     private ControllerDevice controller = ControllerDevice.Instance;
 
     void Start()
     {
+        var jumpSoundObject = GameObject.Find("JumpSound");
+        _jumpSound = jumpSoundObject.GetComponent<AudioSource>();
         controller.OnCrouchEnter += (o, e) => Shrink();
         controller.OnCrouchLeave += (o, e) => Grow();
         controller.OnJumpStart += OnJumpStart; 
@@ -44,6 +46,7 @@ public class PlayerController : MonoBehaviour
         {
             canJump = false;
             rb.AddForce(0, jumpStrength * 100, 0);
+            _jumpSound.Play();
         }
         if (GlobalStore.GameState == GameState.Died)
         {
