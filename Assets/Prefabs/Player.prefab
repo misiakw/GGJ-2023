@@ -576,6 +576,8 @@ MonoBehaviour:
   canJump: 0
   BodyGameObject: {fileID: 8028034938991605985}
   startAnimation: {fileID: 0}
+  JoumpSoundObject: {fileID: 7831917226331914609, guid: b9eab04c89af0f54fa0ff0413f422687, type: 3}
+  _jumpSound: {fileID: 0}
 --- !u!95 &2772203599652651319
 Animator:
   serializedVersion: 5
