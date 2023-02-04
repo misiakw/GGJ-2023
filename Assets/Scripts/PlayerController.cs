@@ -3,9 +3,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody rb;
-    public float jumpStrength = 1;
+    public float jumpStrength = 4.5F;
     public bool canJump = false;
     private Vector3 _defaultPlayerPosition;
+    public GameObject BodyGameObject;
 
     private IController controller;
 
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
         DestroyObstacles();
 
         GlobalStore.GameState = GameState.Running;
-        gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+        BodyGameObject.transform.eulerAngles = new Vector3(0, 0, 0);
         gameObject.transform.position = _defaultPlayerPosition;
     }
 
@@ -77,7 +78,7 @@ public class PlayerController : MonoBehaviour
         if(collided.gameObject.tag == "Obstacle" && GlobalStore.GameState == GameState.Running) 
         {
             GlobalStore.GameState = GameState.Died;
-            gameObject.transform.eulerAngles = new Vector3(0,0,-90);
+            BodyGameObject.transform.eulerAngles = new Vector3(0,0,-90);
         }
     }
 }
