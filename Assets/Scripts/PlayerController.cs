@@ -6,21 +6,28 @@ public class PlayerController : MonoBehaviour
     public float jumpStrength = 1;
     public bool canJump = false;
 
-    // Update is called once per frame
-    void Update()
+    private IController controller;
+
+    void Start()
     {
-        if(canJump && Input.GetKeyDown("w"))
+        controller = ControllerDevice.Instance;
+    }
+
+        // Update is called once per frame
+        void Update()
+    {
+        if(canJump && controller.IsJumpDown)
         {
             canJump = false;
             rb.AddForce(0, jumpStrength*100, 0);
         }
-        if(Input.GetKeyDown("s")) 
+        if(controller.IsCrouchDown) 
+        {
+            gameObject.transform.localScale = new Vector3(1, 0.5f ,1);
+        }
+        if(controller.IsCrouchUp) 
         {
             gameObject.transform.localScale = new Vector3(1,1,1);
-        }
-        if(Input.GetKeyUp("s")) 
-        {
-            gameObject.transform.localScale = new Vector3(1,2,1);
         }
     }
 

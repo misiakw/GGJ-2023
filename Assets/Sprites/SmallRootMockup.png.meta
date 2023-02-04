@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a4312bdc3fc78e547994123a2ffcf17e
+guid: 81d00081cfd3d3443b1197ed3cf8712c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 510
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -115,112 +115,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: PlayerAlphaPng_7
-      rect:
-        serializedVersion: 2
-        x: 144
-        y: 132
-        width: 450
-        height: 442
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6e5773d88fc59a34da3c242682f5b689
-      internalID: -1649114369
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerAlphaPng_9
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 12
-        width: 116
-        height: 54
-      alignment: 9
-      pivot: {x: 0.68720514, y: 0.9257994}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6a09875cc68bf6745ab77018e37a7bf9
-      internalID: -1113995251
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerAlphaPng_11
-      rect:
-        serializedVersion: 2
-        x: 660
-        y: 33
-        width: 77
-        height: 61
-      alignment: 9
-      pivot: {x: 0.28433585, y: 0.9188187}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8ebe74e7b38bb4d4a83af717bb8c7c78
-      internalID: -1051782782
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerAlphaPng_0
-      rect:
-        serializedVersion: 2
-        x: 12
-        y: 629
-        width: 159
-        height: 216
-      alignment: 9
-      pivot: {x: 0.8856303, y: 0.08602792}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d162f4e14cd40ec4386b5dcd99ffc17c
-      internalID: 1681377966
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerAlphaPng_2
-      rect:
-        serializedVersion: 2
-        x: 486
-        y: 666
-        width: 287
-        height: 179
-      alignment: 9
-      pivot: {x: 0.037109483, y: 0.17172974}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: de144f6259674424c8a244c21901588c
-      internalID: -1834911532
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -231,20 +126,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      PlayerAlphaPng_5: 708375143
-      PlayerAlphaPng_0: 1681377966
-      PlayerAlphaPng_8: -860027440
-      PlayerAlphaPng_1: -2052112210
-      PlayerAlphaPng_10: -1546119125
-      PlayerAlphaPng_11: -1051782782
-      PlayerAlphaPng_9: -1113995251
-      PlayerAlphaPng_12: -1193190852
-      PlayerAlphaPng_4: -956207374
-      PlayerAlphaPng_2: -1834911532
-      PlayerAlphaPng_3: -1427999432
-      PlayerAlphaPng_7: -1649114369
-      PlayerAlphaPng_6: -686883889
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
