@@ -38,15 +38,17 @@ public class MapTilesGenerator : MonoBehaviour
         
     }
 
-    public void GenerateMapTile()
+    public void GenerateMapTile(Vector3 callerTransform)
     {
         GameObject mapTile = Instantiate(mapTilePrefab);
-        previousMapTileYPos = Random.Range(previousMapTileYPos - 0.8f, previousMapTileYPos + 0.8f); //Comment this line to make single level tiles
+        previousMapTileYPos = Random.Range(previousMapTileYPos - 1f, previousMapTileYPos + 1f); //Comment this line to make single level tiles
         previousMapTileYPos = Math.Min(previousMapTileYPos, 9);
         previousMapTileYPos = Math.Max(previousMapTileYPos, -3);
         var controller = mapTile.gameObject.GetComponent<MapTileController>();
         controller.generator = this;
-        controller.yPos = previousMapTileYPos;
+        //controller.yPos = previousMapTileYPos;
+        //controller.xPos = callerTransform.x + 60;
+        mapTile.transform.position = new Vector3(callerTransform.x + 60, previousMapTileYPos, 0f);
         GenerateObstacles(mapTile);
     }
 
@@ -88,7 +90,7 @@ public class MapTilesGenerator : MonoBehaviour
                 go.transform.localPosition += new Vector3(1, 0, 0);
                 break;
             case ObstacleConfigurations.NoFloor:
-                mapTile.transform.Find("Floor").localScale = new Vector3(5, 1, 1);
+                mapTile.GetComponent<MapTileController>().MakeHole();
                 break;
         }
     }

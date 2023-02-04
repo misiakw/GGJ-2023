@@ -1027,7 +1027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5226494553210361295, guid: 1b82f9be2519b454da7d7f3fae46da86, type: 3}
       propertyPath: m_Name
-      value: TileMaps
+      value: InitialTilemaps
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b82f9be2519b454da7d7f3fae46da86, type: 3}
