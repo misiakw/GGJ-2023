@@ -62,8 +62,11 @@ public class PlayerController : MonoBehaviour
         {
             canJump = true;
         }
+    }
 
-        if(collided.gameObject.tag == "Obstacle" && GlobalStore.GameState == GameState.Running) 
+    private void OnTriggerEnter(Collider collided)
+    {
+        if(collided.tag == "Obstacle" && GlobalStore.GameState == GameState.Running) 
         {
             GlobalStore.GameState = GameState.Died;
             BodyGameObject.transform.eulerAngles = new Vector3(0,0,-90);
