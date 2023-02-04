@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7050384185351541487}
   - component: {fileID: 7050384185351541486}
   - component: {fileID: 7050384185351541481}
+  - component: {fileID: 4375551632036576843}
   m_Layer: 3
   m_Name: ClearZone
   m_TagString: Untagged
@@ -114,3 +115,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &4375551632036576843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7050384185351541480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd22e6b11d4f672489430afd8c0ee64f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
