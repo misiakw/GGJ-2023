@@ -32,6 +32,7 @@ public class MapTilesGenerator : MonoBehaviour
     void Start()
     {
         InvokeRepeating("GenerateMapTile", 0, 2);
+        GenerateBackgroundObject();
         possibleConfigurations = Enum.GetNames(typeof(ObstacleConfigurations)).Count();
     }
 
@@ -50,6 +51,17 @@ public class MapTilesGenerator : MonoBehaviour
         previousMapTileYPos = Math.Max(previousMapTileYPos, -3);
         mapTile.gameObject.GetComponent<MapTileController>().yPos = previousMapTileYPos;
         GenerateObstacles(mapTile);
+    }
+
+    private List<string> backgroundImages = new List<string> { "bg1", "bg2", "bg3"};
+
+    void GenerateBackgroundObject()
+    {
+        //SpriteRenderer sr = new SpriteRenderer();
+        //sr.sprite = Resources.Load<Sprite>("EnvironmentImages/Background/" + backgroundImages[Random.Range(0, backgroundImages.Count)]);
+        //GameObject go = sr.gameObject;
+        //Instantiate(go);
+
     }
 
     void GenerateObstacles(GameObject mapTile)
