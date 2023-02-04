@@ -9,11 +9,14 @@ public class StartAnimation : MonoBehaviour
 
     private Animator animator;
     private bool playerCreated = false;
+    private Vector3 initialPosition;
+    private GameObject previousPlayer;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        initialPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
 
     // Update is called once per frame
@@ -23,11 +26,21 @@ public class StartAnimation : MonoBehaviour
         {
             Debug.Log("animation finished");
             playerCreated = true;
-            var player = Instantiate(PlayerPrefab, new Vector3(-8, 12.5f, 0), new Quaternion());
-            
+            previousPlayer = Instantiate(PlayerPrefab, new Vector3(-8, 12.5f, 0), new Quaternion());
+            previousPlayer.GetComponent<PlayerController>().startAnimation = this;
+            GlobalStore.GameState = GameState.Running;
             
         }
         Move();
+    }
+
+    public void StartGrow()
+    {
+        transform.position = new Vector3(-12.57f, -3.57f, 0f);
+        playerCreated = false;
+        Destroy(previousPlayer);
+        animator.Play("RootAnimation");
+        GetComponent<AudioSource>().Play();
     }
 
     private void Move()

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float jumpStrength = 4.5F;
     public bool canJump = false;
     public GameObject BodyGameObject;
+    public StartAnimation startAnimation;
 
     private ControllerDevice controller = ControllerDevice.Instance;
 
@@ -35,7 +36,8 @@ public class PlayerController : MonoBehaviour
     {
         DestroyObstacles();
 
-        GlobalStore.GameState = GameState.Running;
+        startAnimation.StartGrow();
+        //GlobalStore.GameState = GameState.Running;
         BodyGameObject.transform.eulerAngles = new Vector3(0, 0, 0);
     }
 
