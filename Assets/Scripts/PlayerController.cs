@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,9 +15,27 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        controller.OnCrouchEnter += (o, e) => gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
-        controller.OnCrouchLeave += (o, e) => gameObject.transform.localScale = new Vector3(1, 1, 1);
-        controller.OnJumpStart += OnJumpStart;
+        controller.OnCrouchEnter += (o, e) => Shrink();
+        controller.OnCrouchLeave += (o, e) => Grow();
+        controller.OnJumpStart += OnJumpStart; 
+    }
+
+    void Shrink()
+    {
+        if (GlobalStore.GameState == GameState.Died)
+        {
+            return;
+        }
+        gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+    }
+
+    void Grow()
+    {
+        if (GlobalStore.GameState == GameState.Died)
+        {
+            return;
+        }
+        gameObject.transform.localScale = new Vector3(1, 1, 1);
     }
 
     public void OnJumpStart(object sender, EventArgs args)
@@ -36,8 +55,12 @@ public class PlayerController : MonoBehaviour
     {
         DestroyObstacles();
 
+        SceneManager.UnloadScene("MainScene");
+        controller.OnCrouchEnter = null;
+        controller.OnCrouchLeave = null;
+        controller.OnJumpStart = null;
+        SceneManager.LoadScene("MainScene");
         startAnimation.StartGrow();
-        //GlobalStore.GameState = GameState.Running;
         BodyGameObject.transform.eulerAngles = new Vector3(0, 0, 0);
     }
 

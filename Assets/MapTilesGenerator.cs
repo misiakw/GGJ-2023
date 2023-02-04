@@ -46,7 +46,7 @@ public class MapTilesGenerator : MonoBehaviour
     {
         GameObject mapTile = Instantiate(mapTilePrefab);
         mapTilesList.Add(mapTile);
-        previousMapTileYPos = Random.Range(previousMapTileYPos - 0.8f, previousMapTileYPos + 0.8f);
+        previousMapTileYPos = Random.Range(previousMapTileYPos - 0.8f, previousMapTileYPos + 0.8f); //Comment this line to make single level tiles
         previousMapTileYPos = Math.Min(previousMapTileYPos, 9);
         previousMapTileYPos = Math.Max(previousMapTileYPos, -3);
         mapTile.gameObject.GetComponent<MapTileController>().yPos = previousMapTileYPos;
@@ -83,7 +83,8 @@ public class MapTilesGenerator : MonoBehaviour
                 CreateObject(branchPrefab, mapTile);
                 break;
             case ObstacleConfigurations.RootBranch:
-                CreateObject(branchPrefab, mapTile);
+                go = CreateObject(branchPrefab, mapTile);
+                go.transform.localPosition += new Vector3(0, 3, 0);
                 CreateObject(rootPrefab, mapTile);
                 break;
             case ObstacleConfigurations.TwoRoots:
