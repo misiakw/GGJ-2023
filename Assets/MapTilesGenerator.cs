@@ -5,12 +5,14 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MapTilesGenerator : MonoBehaviour
 {
     public GameObject rootPrefab;
     public GameObject branchPrefab;
     public GameObject mapTilePrefab;
+    public GameObject floorPrefab;
 
     enum ObstacleConfigurations 
     {
@@ -18,12 +20,16 @@ public class MapTilesGenerator : MonoBehaviour
         Root,
         Branch,
         RootBranch,
-        ThreeRoots,
-        ThreeBranches,
-        //NoFloor,
+        TwoRoots,
+        TwoBranches,
+        NoFloor,
     }
 
+    private ObstacleConfigurations previousObstacleConfiguration;
+    private float previousMapTileYPos = 0;
     int possibleConfigurations = 0;
+
+    private List<GameObject> mapTilesList = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -35,18 +41,31 @@ public class MapTilesGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
     }
 
     void GenerateMapTile()
     {
         GameObject mapTile = Instantiate(mapTilePrefab);
+        mapTilesList.Add(mapTile);
+        previousMapTileYPos = Random.Range(previousMapTileYPos - 0.8f, previousMapTileYPos + 0.8f);
+        previousMapTileYPos = Math.Min(previousMapTileYPos, 9);
+        previousMapTileYPos = Math.Max(previousMapTileYPos, -3);
+        mapTile.gameObject.GetComponent<MapTileController>().yPos = previousMapTileYPos;
         GenerateObstacles(mapTile);
     }
 
     void GenerateObstacles(GameObject mapTile)
     {
         GameObject go;
-        switch((ObstacleConfigurations)UnityEngine.Random.Range(0, possibleConfigurations))
+        ObstacleConfigurations newObstacleConfiguration;
+        do
+        {
+            newObstacleConfiguration = (ObstacleConfigurations)Random.Range(0, possibleConfigurations);
+        } while (newObstacleConfiguration == previousObstacleConfiguration);
+        previousObstacleConfiguration = newObstacleConfiguration;
+
+        switch (newObstacleConfiguration)
         {
             case ObstacleConfigurations.Root:
                 CreateObject(rootPrefab, mapTile);
@@ -58,23 +77,21 @@ public class MapTilesGenerator : MonoBehaviour
                 CreateObject(branchPrefab, mapTile);
                 CreateObject(rootPrefab, mapTile);
                 break;
-            case ObstacleConfigurations.ThreeRoots:
-                CreateObject(rootPrefab, mapTile);
+            case ObstacleConfigurations.TwoRoots:
                 go = CreateObject(rootPrefab, mapTile);
-                go.transform.localPosition += new Vector3(1, 0, 0);
+                go.transform.localPosition += new Vector3(-2.5f, 0, 0);
                 go = CreateObject(rootPrefab, mapTile);
-                go.transform.localPosition += new Vector3(2, 0, 0);
+                go.transform.localPosition += new Vector3(2.5f, 0, 0);
                 break;
-            case ObstacleConfigurations.ThreeBranches:
-                CreateObject(branchPrefab, mapTile);
+            case ObstacleConfigurations.TwoBranches:
+                go = CreateObject(branchPrefab, mapTile);
+                go.transform.localPosition += new Vector3(-1, 0, 0);
                 go = CreateObject(branchPrefab, mapTile);
                 go.transform.localPosition += new Vector3(1, 0, 0);
-                go = CreateObject(branchPrefab, mapTile);
-                go.transform.localPosition += new Vector3(2, 0, 0);
                 break;
-            //case ObstacleConfigurations.NoFloor:
-            //    Destroy(mapTile.Find("Floor"));
-            //    break;
+            case ObstacleConfigurations.NoFloor:
+                mapTile.transform.Find("Floor").localScale = new Vector3(5, 1, 1);
+                break;
         }
     }
 

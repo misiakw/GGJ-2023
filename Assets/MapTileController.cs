@@ -6,6 +6,7 @@ using UnityEngine;
 public class MapTileController : MonoBehaviour
 {
     public int height = 5;
+    public float yPos = 0;
     private GameObject ceiling;
     public Rigidbody rb;
 
@@ -15,6 +16,7 @@ public class MapTileController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.position = new Vector3(transform.position.x, yPos, 0);    
         rb.velocity = _defaultObstacleVelocity;
         ceiling = transform.Find("Ceiling").gameObject;
         ceiling.transform.localPosition = new Vector3(0, height, 0);
