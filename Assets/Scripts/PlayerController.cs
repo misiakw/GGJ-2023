@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     public float jumpStrength = 4.5F;
     public bool canJump = false;
-    private Vector3 _defaultPlayerPosition;
     public GameObject BodyGameObject;
 
     private ControllerDevice controller = ControllerDevice.Instance;
@@ -38,7 +37,6 @@ public class PlayerController : MonoBehaviour
 
         GlobalStore.GameState = GameState.Running;
         BodyGameObject.transform.eulerAngles = new Vector3(0, 0, 0);
-        gameObject.transform.position = _defaultPlayerPosition;
     }
 
     private static void DestroyObstacles()

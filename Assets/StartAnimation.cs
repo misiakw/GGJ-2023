@@ -5,9 +5,7 @@ using UnityEngine;
 public class StartAnimation : MonoBehaviour
 {
 
-    public GameObject animatedRoot;
     public GameObject PlayerPrefab;
-
 
     private Animator animator;
     private bool playerCreated = false;
@@ -15,7 +13,7 @@ public class StartAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = animatedRoot.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -26,17 +24,24 @@ public class StartAnimation : MonoBehaviour
             Debug.Log("animation finished");
             playerCreated = true;
             var player = Instantiate(PlayerPrefab, new Vector3(-8, 12.5f, 0), new Quaternion());
+            
+            
+        }
+        Move();
+    }
+
+    private void Move()
+    {
+        if (GlobalStore.GameState == GameState.Running)
+        {
+            var speed = new Vector3(GlobalStore.DefaultObstacleVelocity.x * Time.deltaTime, 0, 0);
+            transform.position += speed;
         }
     }
 
     private bool isAimationFinished()
     {
         var state = animator.GetCurrentAnimatorStateInfo(0);
-        return state.length <= state.normalizedTime;
-    }
-
-    private void CreatePlayer()
-    {
-
+        return state.length/2 <= state.normalizedTime;
     }
 }

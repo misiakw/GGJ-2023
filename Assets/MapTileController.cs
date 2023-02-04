@@ -11,7 +11,7 @@ public class MapTileController : MonoBehaviour
     private GameObject floor;
     public Rigidbody rb;
 
-    private Vector3 _defaultObstacleVelocity = new Vector3(-5, 0, 0);
+    private Vector3 _defaultObstacleVelocity = GlobalStore.DefaultObstacleVelocity;
     private Vector3 _stoppedObstacleVelocity = new Vector3(0, 0, 0);
 
     private List<string> platformImages = new List<string> { "Platform 01 Ground1", "Platform 02 Ground2" };

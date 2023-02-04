@@ -17,16 +17,18 @@ public class BackgroundController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        foreach(Transform child in transform.GetComponentInChildren<Transform>())
+        if (GlobalStore.GameState == GameState.Running)
         {
-            float speed = child.name.StartsWith("Trees") ? 0.01f
-                : child.name.StartsWith("Backtrees") ? 0.002f
-                : 0.001f;
-            child.Translate(Vector3.left * speed);
-            if (child.localPosition.x <= -19.2)
+            foreach (Transform child in transform.GetComponentInChildren<Transform>())
             {
-                child.localPosition += new Vector3(57.6f, 0, 0);
+                float speed = child.name.StartsWith("Trees") ? 0.01f
+                    : child.name.StartsWith("Backtrees") ? 0.002f
+                    : 0.001f;
+                child.Translate(Vector3.left * speed);
+                if (child.localPosition.x <= -19.2)
+                {
+                    child.localPosition += new Vector3(57.6f, 0, 0);
+                }
             }
         }
     }
