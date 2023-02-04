@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,24 +10,23 @@ public class PlayerController : MonoBehaviour
     private Vector3 _defaultPlayerPosition;
     public GameObject BodyGameObject;
 
-    private IController controller;
+    private ControllerDevice controller = ControllerDevice.Instance;
 
     void Start()
     {
-        controller = ControllerDevice.Instance;
-        var pos = gameObject.transform.position;
-        _defaultPlayerPosition = new Vector3(pos.x, pos.y, pos.z);
+        controller.OnCrouchEnter += (o, e) => gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+        controller.OnCrouchLeave += (o, e) => gameObject.transform.localScale = new Vector3(1, 1, 1);
+        controller.OnJumpStart += OnJumpStart;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnJumpStart(object sender, EventArgs args)
     {
-        if(GlobalStore.GameState == GameState.Running)
+        if (GlobalStore.GameState == GameState.Running && canJump)
         {
-            ManageRunningInput();
+            canJump = false;
+            rb.AddForce(0, jumpStrength * 100, 0);
         }
-
-        if (GlobalStore.GameState == GameState.Died && controller.IsJumpDown)
+        if (GlobalStore.GameState == GameState.Died)
         {
             RestartGame();
         }
@@ -49,28 +50,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ManageRunningInput()
+    // Update is called once per frame
+    void Update()
     {
-        if (canJump && controller.IsJumpDown)
-        {
-            canJump = false;
-            rb.AddForce(0, jumpStrength * 100, 0);
-        }
-
-        if (controller.IsCrouchDown)
-        {
-            gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
-        }
-
-        if (controller.IsCrouchUp)
-        {
-            gameObject.transform.localScale = new Vector3(1, 1, 1);
-        }
+       controller.Loop();
     }
 
     void OnCollisionEnter(Collision collided)
     {
-        if(collided.gameObject.tag == "Floor") 
+        if (collided.gameObject.tag == "Floor")
         {
             canJump = true;
         }
