@@ -24,35 +24,50 @@ public class PlayerController : MonoBehaviour
             ManageRunningInput();
         }
 
-        if (GlobalStore.GameState == GameState.Died) 
+        if (GlobalStore.GameState == GameState.Died && controller.IsJumpDown)
         {
-            if(controller.IsJumpDown) 
-            {
-                GlobalStore.GameState = GameState.Running;
-                gameObject.transform.eulerAngles = new Vector3(0,0,0);
-                gameObject.transform.position = _defaultPlayerPosition;
-            }    
+            RestartGame();
         }
     }
 
-  private void ManageRunningInput()
-  {
-    if (canJump && controller.IsJumpDown)
+    private void RestartGame()
     {
-      canJump = false;
-      rb.AddForce(0, jumpStrength * 100, 0);
-    }
-    if (controller.IsCrouchDown)
-    {
-      gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
-    }
-    if (controller.IsCrouchUp)
-    {
-      gameObject.transform.localScale = new Vector3(1, 1, 1);
-    }
-  }
+        DestroyObstacles();
 
-  void OnCollisionEnter(Collision collided)
+        GlobalStore.GameState = GameState.Running;
+        gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+        gameObject.transform.position = _defaultPlayerPosition;
+    }
+
+    private static void DestroyObstacles()
+    {
+        var obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+        foreach (var obstacle in obstacles)
+        {
+        Destroy(obstacle);
+        }
+    }
+
+    private void ManageRunningInput()
+    {
+        if (canJump && controller.IsJumpDown)
+        {
+            canJump = false;
+            rb.AddForce(0, jumpStrength * 100, 0);
+        }
+
+        if (controller.IsCrouchDown)
+        {
+            gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+        }
+
+        if (controller.IsCrouchUp)
+        {
+            gameObject.transform.localScale = new Vector3(1, 1, 1);
+        }
+    }
+
+    void OnCollisionEnter(Collision collided)
     {
         if(collided.gameObject.tag == "Floor") 
         {
