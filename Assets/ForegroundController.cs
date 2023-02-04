@@ -17,12 +17,21 @@ public class ForegroundController : MonoBehaviour
         {
             foreach (Transform child in transform.GetComponentInChildren<Transform>())
             {
-                float speed = child.name.StartsWith("Trees") ? 0.04f
-                    : 0.001f;
-                child.Translate(Vector3.left * speed);
-                if (child.localPosition.x <= -120)
+                if (child.name.StartsWith("Trees"))
                 {
-                    child.localPosition += new Vector3(240, 0, 0);
+                    child.Translate(Vector3.left * 0.04f);
+                    if (child.localPosition.x <= -120)
+                    {
+                        child.localPosition += new Vector3(240, 0, 0);
+                    }
+                }
+                else
+                {
+                    child.Translate(Vector3.left * 0.02f);
+                    if (child.localPosition.x <= -32)
+                    {
+                        child.localPosition += new Vector3(57, 0, 0);
+                    }
                 }
             }
         }

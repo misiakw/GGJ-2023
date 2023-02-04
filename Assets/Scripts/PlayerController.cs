@@ -60,7 +60,6 @@ public class PlayerController : MonoBehaviour
         controller.OnCrouchLeave = null;
         controller.OnJumpStart = null;
         SceneManager.LoadScene("MainScene");
-        startAnimation.StartGrow();
         BodyGameObject.transform.eulerAngles = new Vector3(0, 0, 0);
     }
 
