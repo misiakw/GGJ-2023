@@ -18,7 +18,10 @@ public class StartAnimation : MonoBehaviour
     void Start()
     {
         var walkSoundObject = GameObject.Find("WalkSound");
-        _walkSound = walkSoundObject.GetComponent<AudioSource>();
+        if (walkSoundObject != null)
+        {
+            _walkSound = walkSoundObject.GetComponent<AudioSource>();
+        }
         animator = GetComponent<Animator>();
     }
 
@@ -32,8 +35,9 @@ public class StartAnimation : MonoBehaviour
             previousPlayer = Instantiate(PlayerPrefab, new Vector3(-8, 12.5f, 0), new Quaternion());
             previousPlayer.GetComponent<PlayerController>().startAnimation = this;
             GlobalStore.GameState = GameState.Running;
-            _walkSound.Play();
-        }
+            if(_walkSound != null)
+                _walkSound.Play();
+        }   
         Move();
     }
 
