@@ -669,8 +669,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3945937003953495908}
-  jumpStrength: 3
+  jumpStrength: 4.5
   canJump: 0
+  BodyGameObject: {fileID: 8028034938991605985}
 --- !u!95 &2772203599652651319
 Animator:
   serializedVersion: 5

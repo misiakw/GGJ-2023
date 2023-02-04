@@ -29,6 +29,8 @@ public class MapTilesGenerator : MonoBehaviour
     private float previousMapTileYPos = 0;
     int possibleConfigurations = 0;
 
+    private List<GameObject> mapTilesList = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,12 +41,16 @@ public class MapTilesGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
     }
 
     void GenerateMapTile()
     {
         GameObject mapTile = Instantiate(mapTilePrefab);
-        previousMapTileYPos = Random.Range(previousMapTileYPos - 1, previousMapTileYPos + 1);
+        mapTilesList.Add(mapTile);
+        previousMapTileYPos = Random.Range(previousMapTileYPos - 0.8f, previousMapTileYPos + 0.8f);
+        previousMapTileYPos = Math.Min(previousMapTileYPos, 9);
+        previousMapTileYPos = Math.Max(previousMapTileYPos, -3);
         mapTile.gameObject.GetComponent<MapTileController>().yPos = previousMapTileYPos;
         GenerateObstacles(mapTile);
     }
