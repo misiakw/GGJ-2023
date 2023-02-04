@@ -13,29 +13,50 @@ public class PlayerController : MonoBehaviour
         controller = ControllerDevice.Instance;
     }
 
-        // Update is called once per frame
-        void Update()
+    // Update is called once per frame
+    void Update()
     {
-        if(canJump && controller.IsJumpDown)
+        if(GlobalStore.GameState == GameState.Running)
         {
-            canJump = false;
-            rb.AddForce(0, jumpStrength*100, 0);
+            ManageRunningInput();
         }
-        if(controller.IsCrouchDown) 
+
+        if (GlobalStore.GameState == GameState.Died) 
         {
-            gameObject.transform.localScale = new Vector3(1, 0.5f ,1);
-        }
-        if(controller.IsCrouchUp) 
-        {
-            gameObject.transform.localScale = new Vector3(1,1,1);
+            if(controller.IsJumpDown) 
+            {
+                GlobalStore.GameState = GameState.Running;
+            }    
         }
     }
 
-    void OnCollisionEnter(Collision collided)
+  private void ManageRunningInput()
+  {
+    if (canJump && controller.IsJumpDown)
+    {
+      canJump = false;
+      rb.AddForce(0, jumpStrength * 100, 0);
+    }
+    if (controller.IsCrouchDown)
+    {
+      gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+    }
+    if (controller.IsCrouchUp)
+    {
+      gameObject.transform.localScale = new Vector3(1, 1, 1);
+    }
+  }
+
+  void OnCollisionEnter(Collision collided)
     {
         if(collided.gameObject.tag == "Floor") 
         {
             canJump = true;
+        }
+
+        if(collided.gameObject.tag == "Obstacle") 
+        {
+            GlobalStore.GameState = GameState.Died;
         }
     }
 }
