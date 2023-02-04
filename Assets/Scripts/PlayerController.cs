@@ -17,15 +17,26 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        var jumpSoundObject = GameObject.Find("JumpSound");
-        _jumpSound = jumpSoundObject.GetComponent<AudioSource>();
-        var dieSoundObject = GameObject.Find("DieSound");
-        _dieSound = dieSoundObject.GetComponent<AudioSource>();
-        var walkSoundObject = GameObject.Find("WalkSound");
-        _walkSound = walkSoundObject.GetComponent<AudioSource>();
-        controller.OnCrouchEnter += (o, e) => Shrink();
-        controller.OnCrouchLeave += (o, e) => Grow();
-        controller.OnJumpStart += OnJumpStart; 
+        
+        controller.OnCrouchEnter += Shrink;
+        controller.OnCrouchLeave += Grow;
+        controller.OnJumpStart += OnJumpStart;
+
+        var audioSources = gameObject.GetComponentsInChildren<AudioSource>();
+
+        foreach (AudioSource source in audioSources)
+        {
+            switch (source.name)
+            {
+                case "JumpSound":
+                    _jumpSound = source; break;
+                case "DieSound":
+                    _dieSound = source; break;
+                case "WalkSound":
+                    _walkSound = source; break;
+            }
+        }
+
     }
 
     void Shrink(object sender, EventArgs args)
@@ -111,6 +122,5 @@ public class PlayerController : MonoBehaviour
         controller.OnCrouchEnter -= Shrink;
         controller.OnCrouchLeave -= Grow;
         controller.OnJumpStart -= OnJumpStart;
-
     }
 }

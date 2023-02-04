@@ -300,6 +300,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8422299784453820246, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
+      propertyPath: generator
+      value: 
+      objectReference: {fileID: 1566812652}
     - target: {fileID: 8422299784453820247, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
       propertyPath: m_Name
       value: MapTile (3)
@@ -587,6 +591,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8422299784453820246, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
+      propertyPath: generator
+      value: 
+      objectReference: {fileID: 1566812652}
     - target: {fileID: 8422299784453820247, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
       propertyPath: m_Name
       value: MapTile (1)
@@ -724,6 +732,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8422299784453820246, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
+      propertyPath: generator
+      value: 
+      objectReference: {fileID: 1566812652}
     - target: {fileID: 8422299784453820247, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
       propertyPath: m_Name
       value: MapTile (2)
@@ -838,6 +850,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8422299784453820246, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
+      propertyPath: generator
+      value: 
+      objectReference: {fileID: 1566812652}
     - target: {fileID: 8422299784453820247, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
       propertyPath: m_Name
       value: MapTile
