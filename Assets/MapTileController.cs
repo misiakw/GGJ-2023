@@ -9,7 +9,6 @@ public class MapTileController : MonoBehaviour
     public int height = 5;
     public float yPos = 0;
     private GameObject floor;
-    public Rigidbody rb;
 
     private Vector3 _defaultObstacleVelocity = GlobalStore.DefaultObstacleVelocity;
     private Vector3 _stoppedObstacleVelocity = new Vector3(0, 0, 0);
@@ -22,11 +21,8 @@ public class MapTileController : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(transform.position.x, yPos, 0);    
-        //rb.velocity = _defaultObstacleVelocity;
 
         floor = transform.Find("Floor").gameObject;
-        //floor.transform.Find("Sprite").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("EnvironmentImages/MainPlan/" + platformImages[Random.Range(0, platformImages.Count)]);
-        //floor.transform.Find("Sprite2").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("EnvironmentImages/MainPlan/" + platformImages[Random.Range(0, platformImages.Count)]);
     }
 
     // Update is called once per frame
@@ -43,13 +39,6 @@ public class MapTileController : MonoBehaviour
 
             transform.position += new Vector3(GlobalStore.DefaultObstacleVelocity.x * Time.deltaTime, 0, 0);
         }
-
-
-        /*rb.velocity = GlobalStore.GameState == GameState.Running
-            ? _defaultObstacleVelocity
-            : GlobalStore.GameState == GameState.Died
-            ? _stoppedObstacleVelocity
-            : throw new ArgumentException("Unhandled gamestate");*/
     }
 
     private bool alreadyGenerated = false;
