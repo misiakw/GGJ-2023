@@ -11,10 +11,14 @@ public class StartAnimation : MonoBehaviour
     private bool playerCreated = false;
     private Vector3 initialPosition;
     private GameObject previousPlayer;
+    private AudioSource _walkSound;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        var walkSoundObject = GameObject.Find("WalkSound");
+        _walkSound = walkSoundObject.GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         initialPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
@@ -29,7 +33,7 @@ public class StartAnimation : MonoBehaviour
             previousPlayer = Instantiate(PlayerPrefab, new Vector3(-8, 12.5f, 0), new Quaternion());
             previousPlayer.GetComponent<PlayerController>().startAnimation = this;
             GlobalStore.GameState = GameState.Running;
-            
+            _walkSound.Play();
         }
         Move();
     }
