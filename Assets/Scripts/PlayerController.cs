@@ -5,8 +5,10 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody rb;
-    public float jumpStrength = 1;
+    public float jumpStrength = 4.5F;
     public bool canJump = false;
+    private Vector3 _defaultPlayerPosition;
+    public GameObject BodyGameObject;
 
     private ControllerDevice controller = ControllerDevice.Instance;
 
@@ -19,7 +21,38 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpStart(object sender, EventArgs args)
     {
-        if (canJump)
+        if(GlobalStore.GameState == GameState.Running)
+        {
+            ManageRunningInput();
+        }
+
+        if (GlobalStore.GameState == GameState.Died && controller.IsJumpDown)
+        {
+            RestartGame();
+        }
+    }
+
+    private void RestartGame()
+    {
+        DestroyObstacles();
+
+        GlobalStore.GameState = GameState.Running;
+        BodyGameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+        gameObject.transform.position = _defaultPlayerPosition;
+    }
+
+    private static void DestroyObstacles()
+    {
+        var obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+        foreach (var obstacle in obstacles)
+        {
+        Destroy(obstacle);
+        }
+    }
+
+    private void ManageRunningInput()
+    {
+        if (canJump && controller.IsJumpDown)
         {
             canJump = false;
             rb.AddForce(0, jumpStrength * 100, 0);
@@ -37,6 +70,12 @@ public class PlayerController : MonoBehaviour
         if (collided.gameObject.tag == "Floor")
         {
             canJump = true;
+        }
+
+        if(collided.gameObject.tag == "Obstacle" && GlobalStore.GameState == GameState.Running) 
+        {
+            GlobalStore.GameState = GameState.Died;
+            BodyGameObject.transform.eulerAngles = new Vector3(0,0,-90);
         }
     }
 }
