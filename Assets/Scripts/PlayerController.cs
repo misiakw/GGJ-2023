@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        
+
+        GlobalStore.Score = 0;
         controller.OnCrouchEnter += Shrink;
         controller.OnCrouchLeave += Grow;
         controller.OnJumpStart += OnJumpStart;

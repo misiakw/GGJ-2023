@@ -9,8 +9,6 @@ public class ScoreController : MonoBehaviour
     public GameObject ReslultTextObject;
     private Text _resultText;
 
-    public int Score = 0;
-
     private float elapsedTime;
     public float timePerScorePoint = 1f;
 
@@ -23,10 +21,10 @@ public class ScoreController : MonoBehaviour
 
     private void Update()
     {
-        _text.text = Score.ToString();
-        _resultText.text = $"Your score: {Score}";
+        _text.text = GlobalStore.Score.ToString();
+        _resultText.text = $"Your score: {GlobalStore.Score}";
         
-        if(GlobalStore.GameState == GameState.Running || Score == 0) 
+        if(GlobalStore.GameState == GameState.Running || GlobalStore.Score == 0) 
         {
             TextObject.SetActive(true);
             ReslultTextObject.SetActive(false);
@@ -46,7 +44,7 @@ public class ScoreController : MonoBehaviour
         if (elapsedTime >= timePerScorePoint)
         {
             elapsedTime = 0;
-            Score++;
+            GlobalStore.Score++;
         }
     }
 }
