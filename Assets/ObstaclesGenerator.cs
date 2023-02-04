@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class ObstaclesGenerator : MonoBehaviour
 {
-    public GameObject obstaclePrefab;
+    public GameObject rootPrefab;
+    public GameObject branchPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,13 @@ public class ObstaclesGenerator : MonoBehaviour
 
     void GenerateObstacle()
     {
-        GameObject newObstacle = Instantiate(obstaclePrefab);
+        if(Random.value > 0.5)
+        {
+            GameObject newObstacle = Instantiate(branchPrefab);
+        }
+        else
+        {
+            GameObject newObstacle = Instantiate(rootPrefab);
+        }
     }
 }
