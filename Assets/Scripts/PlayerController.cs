@@ -1,7 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,12 +13,12 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        controller.OnCrouchEnter += (o, e) => Shrink();
-        controller.OnCrouchLeave += (o, e) => Grow();
+        controller.OnCrouchEnter += Shrink;
+        controller.OnCrouchLeave += Grow;
         controller.OnJumpStart += OnJumpStart; 
     }
 
-    void Shrink()
+    void Shrink(object sender, EventArgs args)
     {
         if (GlobalStore.GameState == GameState.Died)
         {
@@ -29,7 +27,7 @@ public class PlayerController : MonoBehaviour
         gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
     }
 
-    void Grow()
+    void Grow(object sender, EventArgs args)
     {
         if (GlobalStore.GameState == GameState.Died)
         {
@@ -51,15 +49,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void RestartGame()
+    public void RestartGame()
     {
         DestroyObstacles();
-
-        SceneManager.UnloadScene("MainScene");
-        controller.OnCrouchEnter = null;
-        controller.OnCrouchLeave = null;
-        controller.OnJumpStart = null;
-        SceneManager.LoadScene("MainScene");
         startAnimation.StartGrow();
         BodyGameObject.transform.eulerAngles = new Vector3(0, 0, 0);
     }
@@ -69,7 +61,7 @@ public class PlayerController : MonoBehaviour
         var obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
         foreach (var obstacle in obstacles)
         {
-        Destroy(obstacle);
+            Destroy(obstacle);
         }
     }
 
@@ -94,5 +86,13 @@ public class PlayerController : MonoBehaviour
             GlobalStore.GameState = GameState.Died;
             BodyGameObject.transform.eulerAngles = new Vector3(0,0,-90);
         }
+    }
+
+    public void OnDestroy()
+    {
+        controller.OnCrouchEnter -= Shrink;
+        controller.OnCrouchLeave -= Grow;
+        controller.OnJumpStart -= OnJumpStart;
+
     }
 }

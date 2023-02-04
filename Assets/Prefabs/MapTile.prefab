@@ -94,7 +94,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8422299784453820245}
   - component: {fileID: 8422299784453820246}
-  - component: {fileID: -303324535145302532}
   m_Layer: 6
   m_Name: MapTile
   m_TagString: Floor
@@ -110,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8422299784453820247}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24, y: 0, z: -0.019216709}
+  m_LocalPosition: {x: 30, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -132,23 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 5
   yPos: 0
-  rb: {fileID: -303324535145302532}
---- !u!54 &-303324535145302532
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8422299784453820247}
-  serializedVersion: 2
-  m_Mass: 100
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 124
-  m_CollisionDetection: 0
+  rb: {fileID: 0}
+  generator: {fileID: 0}
 --- !u!1 &8615994176090706376
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +226,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4270793614424225632, guid: 1a502245e59a03946bfe5c92702fa7aa, type: 3}
       propertyPath: m_Size.x
-      value: 0.99
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270793614424225632, guid: 1a502245e59a03946bfe5c92702fa7aa, type: 3}
+      propertyPath: m_Size.y
+      value: 20.208944
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270793614424225632, guid: 1a502245e59a03946bfe5c92702fa7aa, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270793614424225632, guid: 1a502245e59a03946bfe5c92702fa7aa, type: 3}
+      propertyPath: m_Center.y
+      value: -9.604472
       objectReference: {fileID: 0}
     - target: {fileID: 4270793614424225633, guid: 1a502245e59a03946bfe5c92702fa7aa, type: 3}
       propertyPath: m_Name
