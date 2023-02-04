@@ -5,12 +5,15 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     public float jumpStrength = 1;
     public bool canJump = false;
+    private Vector3 _defaultPlayerPosition;
 
     private IController controller;
 
     void Start()
     {
         controller = ControllerDevice.Instance;
+        var pos = gameObject.transform.position;
+        _defaultPlayerPosition = new Vector3(pos.x, pos.y, pos.z);
     }
 
     // Update is called once per frame
@@ -26,6 +29,8 @@ public class PlayerController : MonoBehaviour
             if(controller.IsJumpDown) 
             {
                 GlobalStore.GameState = GameState.Running;
+                gameObject.transform.eulerAngles = new Vector3(0,0,0);
+                gameObject.transform.position = _defaultPlayerPosition;
             }    
         }
     }
@@ -54,9 +59,10 @@ public class PlayerController : MonoBehaviour
             canJump = true;
         }
 
-        if(collided.gameObject.tag == "Obstacle") 
+        if(collided.gameObject.tag == "Obstacle" && GlobalStore.GameState == GameState.Running) 
         {
             GlobalStore.GameState = GameState.Died;
+            gameObject.transform.eulerAngles = new Vector3(0,0,-90);
         }
     }
 }
