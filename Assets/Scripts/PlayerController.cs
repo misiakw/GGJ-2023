@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public GameObject BodyGameObject;
     public StartAnimation startAnimation;
     private AudioSource _jumpSound;
+    private AudioSource _dieSound;
+    private AudioSource _walkSound;
 
     private ControllerDevice controller = ControllerDevice.Instance;
 
@@ -17,6 +19,10 @@ public class PlayerController : MonoBehaviour
     {
         var jumpSoundObject = GameObject.Find("JumpSound");
         _jumpSound = jumpSoundObject.GetComponent<AudioSource>();
+        var dieSoundObject = GameObject.Find("DieSound");
+        _dieSound = dieSoundObject.GetComponent<AudioSource>();
+        var walkSoundObject = GameObject.Find("WalkSound");
+        _walkSound = walkSoundObject.GetComponent<AudioSource>();
         controller.OnCrouchEnter += (o, e) => Shrink();
         controller.OnCrouchLeave += (o, e) => Grow();
         controller.OnJumpStart += OnJumpStart; 
@@ -44,6 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         if (GlobalStore.GameState == GameState.Running && canJump)
         {
+            _walkSound.Stop();
             canJump = false;
             rb.AddForce(0, jumpStrength * 100, 0);
             _jumpSound.Play();
@@ -72,7 +79,7 @@ public class PlayerController : MonoBehaviour
         var obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
         foreach (var obstacle in obstacles)
         {
-        Destroy(obstacle);
+            Destroy(obstacle);
         }
     }
 
@@ -87,6 +94,10 @@ public class PlayerController : MonoBehaviour
         if (collided.gameObject.tag == "Floor")
         {
             canJump = true;
+            if(GlobalStore.GameState == GameState.Running) 
+            {
+                _walkSound.Play();
+            }
         }
     }
 
@@ -94,6 +105,8 @@ public class PlayerController : MonoBehaviour
     {
         if(collided.tag == "Obstacle" && GlobalStore.GameState == GameState.Running) 
         {
+            _walkSound.Stop();
+            _dieSound.Play();
             GlobalStore.GameState = GameState.Died;
             BodyGameObject.transform.eulerAngles = new Vector3(0,0,-90);
         }
