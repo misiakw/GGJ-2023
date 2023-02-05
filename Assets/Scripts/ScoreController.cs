@@ -7,7 +7,6 @@ public class ScoreController : MonoBehaviour
     public GameObject TextObject;
     private Text _text;
     public GameObject ReslultTextObject;
-    private Text _resultText;
 
     private float elapsedTime;
     public float timePerScorePoint = 1f;
@@ -16,25 +15,15 @@ public class ScoreController : MonoBehaviour
     void Start()
     {
         _text = TextObject.GetComponent<Text>();
-        _resultText = ReslultTextObject.GetComponent<Text>();
     }
 
     private void Update()
     {
-        _text.text = GlobalStore.Score.ToString();
-        _resultText.text = $"Your score: {GlobalStore.Score}";
+        _text.text = $"{GlobalStore.Score} | HI: {GlobalStore.HighestScore}";
         
-        if(GlobalStore.ShouldScrollScreen() || GlobalStore.Score == 0) 
+        if(GlobalStore.ShouldScrollScreen()) 
         {
-            TextObject.SetActive(true);
-            ReslultTextObject.SetActive(false);
-            if(GlobalStore.ShouldScrollScreen()) {
-                ManageScoreIncrement();
-            }
-        }
-        else {
-            TextObject.SetActive(false);
-            ReslultTextObject.SetActive(true);
+            ManageScoreIncrement();
         }
     }
 

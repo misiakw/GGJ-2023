@@ -144,6 +144,10 @@ public class PlayerController : MonoBehaviour
             _walkSound.Stop();
             _dieSound.Play();
             GlobalStore.GameState = GameState.Died;
+            if(GlobalStore.HighestScore < GlobalStore.Score) 
+            {
+                GlobalStore.HighestScore = GlobalStore.Score;
+            }
             BodyGameObject.transform.eulerAngles = new Vector3(0,0,-90);
             RestartGame();
         }
