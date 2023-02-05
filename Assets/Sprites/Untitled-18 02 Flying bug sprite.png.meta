@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 510
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -127,7 +127,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Untitled-18 02 Flying bug sprite_0
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 436
+        width: 1016
+        height: 573
+      alignment: 9
+      pivot: {x: 0.012836637, y: 0.5227316}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d89d617edddbcde40a295e0928e3655f
+      internalID: -372661514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Untitled-18 02 Flying bug sprite_1
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 187
+        width: 299
+        height: 94
+      alignment: 9
+      pivot: {x: 0.973743, y: 0.48267934}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a807646c8538f8b4e825662f89fbb8bc
+      internalID: -958918924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Untitled-18 02 Flying bug sprite_2
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 73
+        width: 417
+        height: 319
+      alignment: 9
+      pivot: {x: 0.9763415, y: 0.6327018}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2abb6728af05374b96913281d121fe4
+      internalID: -318279532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Untitled-18 02 Flying bug sprite_3
+      rect:
+        serializedVersion: 2
+        x: 1247
+        y: 76
+        width: 500
+        height: 951
+      alignment: 9
+      pivot: {x: 0.29485303, y: 0.022340529}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07650f90cb6eac246a566377c64a5cb4
+      internalID: -50947170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Untitled-18 02 Flying bug sprite_4
+      rect:
+        serializedVersion: 2
+        x: 1875
+        y: 265
+        width: 731
+        height: 295
+      alignment: 9
+      pivot: {x: 0.038950283, y: 0.6710939}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3896e5fb28e59640925ab2b7f317265
+      internalID: 498558245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Untitled-18 02 Flying bug sprite_5
+      rect:
+        serializedVersion: 2
+        x: 1872
+        y: 672
+        width: 850
+        height: 339
+      alignment: 9
+      pivot: {x: 0.03837115, y: 0.5864503}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e96a6848a81b2a249902d090b5b2bee9
+      internalID: 2082323994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -138,7 +264,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Untitled-18 02 Flying bug sprite_2: -318279532
+      Untitled-18 02 Flying bug sprite_3: -50947170
+      Untitled-18 02 Flying bug sprite_0: -372661514
+      Untitled-18 02 Flying bug sprite_5: 498558245
+      Untitled-18 02 Flying bug sprite_1: -958918924
+      Untitled-18 02 Flying bug sprite_4: 552205548
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
