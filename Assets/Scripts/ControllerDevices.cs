@@ -21,10 +21,12 @@ public abstract class BtnController : BaseControler, IController
 {
     protected BtnController(ControllerDevice controller) : base(controller) { }
     private bool isCrouching = false;
+    private bool isDashing = false;
 
     protected abstract bool JumpDown();
     protected abstract bool CrouchDown();
     protected  abstract bool CrouchUp();
+    protected  abstract bool DashDown();
     public virtual void Loop()
     {
         if (isCrouching && CrouchUp())
@@ -38,6 +40,12 @@ public abstract class BtnController : BaseControler, IController
             _controller.OnCrouchEnter?.Invoke(this, null);
         }
 
+        if (DashDown())
+        {
+            isDashing = true;
+            _controller.OnDashStart?.Invoke(this, null);
+        }
+
         if (JumpDown())
         {
             _controller.OnJumpStart?.Invoke(this, null);
@@ -48,14 +56,19 @@ public class Keyboard: BtnController, IController
 {
     private KeyCode _jump;
     private KeyCode _crouch;
-    public Keyboard(KeyCode jump, KeyCode crouch, ControllerDevice controller): base(controller)
+    private KeyCode _dash;
+    public Keyboard(KeyCode jump, KeyCode crouch, KeyCode dash, ControllerDevice controller): base(controller)
     {
         _jump = jump;
         _crouch = crouch;
+        _dash = dash;
     }
 
     protected override bool CrouchDown() => Input.GetKeyDown(_crouch);
     protected override bool CrouchUp() => Input.GetKeyUp(_crouch);
+
+    protected override bool DashDown() => Input.GetKeyDown(_dash);
+
     protected override bool JumpDown() => Input.GetKeyDown(_jump);
 }
 
@@ -74,6 +87,11 @@ public class GamepadBtnController : BtnController, IController
             base.Loop();
         }
     }
+
+    protected override bool DashDown()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public class XboxPadController : BtnController, IController
@@ -90,6 +108,11 @@ public class XboxPadController : BtnController, IController
         {
             base.Loop();
         }
+    }
+
+    protected override bool DashDown()
+    {
+        throw new NotImplementedException();
     }
 }
 
@@ -110,9 +133,9 @@ public class ControllerDevice : IController
     private IList<IController> _devices = new List<IController>();
     private ControllerDevice()
     {
-        _devices.Add(new Keyboard(KeyCode.W, KeyCode.S, this));
-        _devices.Add(new Keyboard(KeyCode.UpArrow, KeyCode.DownArrow, this));
-        _devices.Add(new Keyboard(KeyCode.Space, KeyCode.LeftControl, this));
+        _devices.Add(new Keyboard(KeyCode.W, KeyCode.S, KeyCode.E, this));
+        _devices.Add(new Keyboard(KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow, this));
+        _devices.Add(new Keyboard(KeyCode.Space, KeyCode.LeftControl, KeyCode.LeftShift, this));
         _devices.Add(new GamepadBtnController(this));
         _devices.Add(new XboxPadController(this));
     }
@@ -121,6 +144,8 @@ public class ControllerDevice : IController
     public EventHandler OnCrouchEnter;
     public EventHandler OnCrouchLeave;
     public EventHandler OnJumpStart;
+    public EventHandler OnDashStart;
+
     public void Loop()
     {
         foreach(var d in _devices)

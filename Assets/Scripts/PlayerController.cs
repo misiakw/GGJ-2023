@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         controller.OnCrouchEnter += Shrink;
         controller.OnCrouchLeave += Grow;
         controller.OnJumpStart += OnJumpStart;
+        controller.OnDashStart += DashStart;
 
         var audioSources = gameObject.GetComponentsInChildren<AudioSource>();
 
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
         gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = 10;
     }
 
     void Grow(object sender, EventArgs args)
@@ -62,6 +64,22 @@ public class PlayerController : MonoBehaviour
             return;
         }
         gameObject.transform.localScale = new Vector3(1, 1, 1);
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
+    }
+
+    void DashStart(object sender, EventArgs args)
+    {
+        if (!GlobalStore.ShouldScrollScreen())
+        {
+            return;
+        }
+        GlobalStore.IsDashing = true;
+        Invoke("DashStop", 0.2f);
+    }
+
+    void DashStop()
+    {
+        GlobalStore.IsDashing = false;
     }
 
     public void OnJumpStart(object sender, EventArgs args)
@@ -85,7 +103,7 @@ public class PlayerController : MonoBehaviour
     {
 
         DestroyGameObjects();
-
+        DashStop();
         Destroy(startAnimation.previousPlayer);
 
         var newRoot = Instantiate(startAnimation.gameObject, new Vector3(-12.57f, -3.56f, 0), new Quaternion());
