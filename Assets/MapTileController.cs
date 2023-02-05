@@ -8,6 +8,9 @@ public class MapTileController : MonoBehaviour
 {
     public int height = 5;
     public float yPos = 0;
+    public float xPos = 0;
+    public GameObject FloorLeft;
+    public GameObject FloorRight;
 
     public MapTilesGenerator generator;
 
@@ -16,7 +19,6 @@ public class MapTileController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(transform.position.x, yPos, 0);   
     }
 
     // Update is called once per frame
@@ -36,11 +38,24 @@ public class MapTileController : MonoBehaviour
     }
 
     private bool alreadyGenerated = false;
+
+    public void MakeHole()
+    {
+        if (Random.Range(1, 2) == 1)
+        {
+            Destroy(FloorLeft);
+        }
+        else
+        {
+            Destroy(FloorRight);
+        }
+    }
+
     public void GenerateNewTile()
     {
         if(!alreadyGenerated) {
             alreadyGenerated = true;
-            generator.GenerateMapTile();
+            generator.GenerateMapTile(transform.position);
         }
     }
 }
