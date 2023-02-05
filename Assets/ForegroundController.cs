@@ -13,7 +13,7 @@ public class ForegroundController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GlobalStore.GameState == GameState.Running)
+        if (GlobalStore.ShouldScrollScreen())
         {
             foreach (Transform child in transform.GetComponentInChildren<Transform>())
             {

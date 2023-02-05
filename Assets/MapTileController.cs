@@ -16,12 +16,7 @@ public class MapTileController : MonoBehaviour
     public GameObject LeftRising;
     public GameObject LeftFalling;
 
-    private Vector3 _defaultObstacleVelocity = GlobalStore.DefaultObstacleVelocity;
-    private Vector3 _stoppedObstacleVelocity = new Vector3(0, 0, 0);
-
     public MapTilesGenerator generator;
-
-    private List<string> platformImages = new List<string> { "Platform 01 Ground1", "Platform 02 Ground2" };
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +26,7 @@ public class MapTileController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GlobalStore.GameState == GameState.Running)
+        if(GlobalStore.ShouldScrollScreen())
         {
             if (transform.position.x <= -30)
             {

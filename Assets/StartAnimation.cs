@@ -11,7 +11,6 @@ public class StartAnimation : MonoBehaviour
     private Animator animator;
     private bool playerCreated = false;
     private GameObject previousPlayer;
-    private AudioSource _walkSound;
 
 
     // Start is called before the first frame update
@@ -29,13 +28,13 @@ public class StartAnimation : MonoBehaviour
             playerCreated = true;
             previousPlayer = Instantiate(PlayerPrefab, new Vector3(-8, 12.5f, 0), new Quaternion());
             previousPlayer.GetComponent<PlayerController>().startAnimation = this;
-            GlobalStore.GameState = GameState.Running;
         }
         Move();
     }
 
     public void StartGrow()
     {
+        GlobalStore.GameState = GameState.Loading;
         transform.position = new Vector3(-12.57f, -3.57f, 0f);
         playerCreated = false;
         if(previousPlayer!= null && !previousPlayer.IsDestroyed()) {
@@ -48,7 +47,7 @@ public class StartAnimation : MonoBehaviour
 
     private void Move()
     {
-        if (GlobalStore.GameState == GameState.Running)
+        if (GlobalStore.ShouldScrollScreen())
         {
             var speed = new Vector3(GlobalStore.ObstacleVelocity.x * Time.deltaTime, 0, 0);
             transform.position += speed;

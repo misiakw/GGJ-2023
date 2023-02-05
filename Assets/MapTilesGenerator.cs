@@ -9,7 +9,6 @@ public class MapTilesGenerator : MonoBehaviour
     public GameObject rootPrefab;
     public GameObject branchPrefab;
     public GameObject mapTilePrefab;
-    public GameObject floorPrefab;
     public GameObject currencyPrefab;
 
     enum ObstacleConfigurations 

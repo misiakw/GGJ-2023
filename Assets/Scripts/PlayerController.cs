@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public float jumpStrength = 5F;
-    public bool canJump = true;
+    public float jumpStrength = 7F;
+    public bool canJump = false;
     public GameObject BodyGameObject;
     public StartAnimation startAnimation;
     private AudioSource _jumpSound;
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     void Shrink(object sender, EventArgs args)
     {
-        if (GlobalStore.GameState == GameState.Died)
+        if (!GlobalStore.ShouldScrollScreen())
         {
             return;
         }
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
     void Grow(object sender, EventArgs args)
     {
-        if (GlobalStore.GameState == GameState.Died)
+        if (!GlobalStore.ShouldScrollScreen())
         {
             return;
         }
@@ -63,21 +63,18 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpStart(object sender, EventArgs args)
     {
-        if (GlobalStore.GameState == GameState.Running)
+        if (GlobalStore.ShouldScrollScreen() && canJump)
         {
             _walkSound.Stop();
-            //canJump = false;
+            canJump = false;
             rb.velocity += new Vector2(0, jumpStrength);
             _jumpSound.Play();
         }
-        if (GlobalStore.GameState == GameState.Died)
-        {
-            RestartGame();
-        }
     }
 
-    public void RestartGame()
+    public void RestartGame(bool forceStateChange = false)
     {
+
         DestroyObstacles();
         startAnimation.StartGrow();
         BodyGameObject.transform.eulerAngles = new Vector3(0, 0, 0);
@@ -103,7 +100,12 @@ public class PlayerController : MonoBehaviour
         if (collided.gameObject.tag == "Floor")
         {
             canJump = true;
-            if(GlobalStore.GameState == GameState.Running) 
+            if (GlobalStore.GameState == GameState.Loading)
+            {
+                GlobalStore.GameState = GameState.Running;
+            }
+            
+            if(GlobalStore.ShouldScrollScreen()) 
             {
                 _walkSound.Play();
             }
@@ -118,6 +120,7 @@ public class PlayerController : MonoBehaviour
             _dieSound.Play();
             GlobalStore.GameState = GameState.Died;
             BodyGameObject.transform.eulerAngles = new Vector3(0,0,-90);
+            RestartGame();
         }
         if(collided.tag == "Currency" && GlobalStore.GameState == GameState.Running)
         {

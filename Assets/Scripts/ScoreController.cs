@@ -24,11 +24,11 @@ public class ScoreController : MonoBehaviour
         _text.text = GlobalStore.Score.ToString();
         _resultText.text = $"Your score: {GlobalStore.Score}";
         
-        if(GlobalStore.GameState == GameState.Running || GlobalStore.Score == 0) 
+        if(GlobalStore.ShouldScrollScreen() || GlobalStore.Score == 0) 
         {
             TextObject.SetActive(true);
             ReslultTextObject.SetActive(false);
-            if(GlobalStore.GameState == GameState.Running) {
+            if(GlobalStore.ShouldScrollScreen()) {
                 ManageScoreIncrement();
             }
         }
