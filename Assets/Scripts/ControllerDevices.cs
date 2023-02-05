@@ -63,9 +63,9 @@ public class GamepadBtnController : BtnController, IController
 {
     public GamepadBtnController(ControllerDevice controller) : base(controller) { }
 
-    protected override bool CrouchDown() => Gamepad.current.aButton.wasPressedThisFrame;
-    protected override bool CrouchUp() => Gamepad.current.aButton.wasReleasedThisFrame;
-    protected override bool JumpDown() => Gamepad.current.xButton.isPressed;
+    protected override bool CrouchDown() => Gamepad.current.bButton.wasPressedThisFrame;
+    protected override bool CrouchUp() => Gamepad.current.bButton.wasReleasedThisFrame;
+    protected override bool JumpDown() => Gamepad.current.aButton.isPressed;
 
     public override void Loop()
     {
