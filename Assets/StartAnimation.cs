@@ -10,7 +10,7 @@ public class StartAnimation : MonoBehaviour
 
     private Animation animator;
     private bool playerCreated = false;
-    private GameObject previousPlayer;
+    public GameObject previousPlayer;
 
     private bool ShouldStartGrowing = false;
 
@@ -27,7 +27,7 @@ public class StartAnimation : MonoBehaviour
         {
             var hit = Physics2D.Raycast(new Vector2(-8, 12.5f), Vector2.down);
 
-            if (hit.collider == null  || hit.collider.tag != "Floor")
+            if (hit.collider == null)
             {
                 GlobalStore.GameState = GameState.Running;
             }
@@ -40,6 +40,12 @@ public class StartAnimation : MonoBehaviour
             animator.Stop();
         }
 
+        DropPlayer();
+        Move();
+    }
+
+    private void DropPlayer()
+    {
         if (!playerCreated && ShouldStartGrowing && isAimationFinished())
         {
             Debug.Log("animation finished");
@@ -47,11 +53,11 @@ public class StartAnimation : MonoBehaviour
             previousPlayer = Instantiate(PlayerPrefab, new Vector3(-8, 12.5f, 0), new Quaternion());
             previousPlayer.GetComponent<PlayerController>().startAnimation = this;
         }
-        Move();
     }
 
     public void StartGrow()
     {
+        return;
         GlobalStore.GameState = GameState.Loading;
         transform.position = new Vector3(-12.57f, -3.57f, 0f);
         playerCreated = false;
@@ -59,7 +65,7 @@ public class StartAnimation : MonoBehaviour
             Destroy(previousPlayer);
             previousPlayer = null;
         }
-        animator.Rewind();
+        transform.position = new Vector3(-12.57f, -3.56f, 0);
         animator.Play();
         GetComponent<AudioSource>().Play();
     }
