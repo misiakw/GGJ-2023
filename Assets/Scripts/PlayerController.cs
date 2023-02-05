@@ -78,9 +78,24 @@ public class PlayerController : MonoBehaviour
     public void RestartGame(bool forceStateChange = false)
     {
 
-        DestroyObstacles();
+        DestroyGameObjects();
         startAnimation.StartGrow();
         BodyGameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+    }
+
+    private static void DestroyGameObjects()
+    {
+        DestroyCurrencies();
+        DestroyObstacles();
+    }
+
+    private static void DestroyCurrencies()
+    {
+        var currencies = GameObject.FindGameObjectsWithTag("Currency");
+        foreach (var currency in currencies)
+        {
+            Destroy(currency);
+        }
     }
 
     private static void DestroyObstacles()
