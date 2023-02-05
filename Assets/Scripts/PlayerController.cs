@@ -66,6 +66,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpStart(object sender, EventArgs args)
     {
+        if (GlobalStore.GameState == GameState.Loading)
+        {
+            GlobalStore.GameState = GameState.Running;
+        }
         if (GlobalStore.ShouldScrollScreen() && canJump)
         {
             _walkSound.Stop();
@@ -75,10 +79,6 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (GlobalStore.GameState == GameState.Loading)
-        {
-            GlobalStore.GameState = GameState.Running;
-        }
     }
 
     public void RestartGame(bool forceStateChange = false)

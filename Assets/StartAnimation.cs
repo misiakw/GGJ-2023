@@ -25,7 +25,7 @@ public class StartAnimation : MonoBehaviour
     {
         if(!ShouldStartGrowing)
         {
-            var hit = Physics2D.Raycast(new Vector2(-8, 12.5f), Vector2.down);
+            var hit = Physics2D.Raycast(new Vector2(-8, -5f), Vector2.up);
 
             if (hit.collider == null)
             {
