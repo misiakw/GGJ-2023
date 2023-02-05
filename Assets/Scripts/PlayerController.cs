@@ -73,13 +73,24 @@ public class PlayerController : MonoBehaviour
             rb.velocity += new Vector2(0, jumpStrength);
             _jumpSound.Play();
         }
+
+
+        if (GlobalStore.GameState == GameState.Loading)
+        {
+            GlobalStore.GameState = GameState.Running;
+        }
     }
 
     public void RestartGame(bool forceStateChange = false)
     {
 
         DestroyGameObjects();
-        startAnimation.StartGrow();
+
+        Destroy(startAnimation.previousPlayer);
+
+        var newRoot = Instantiate(startAnimation.gameObject, new Vector3(-12.57f, -3.56f, 0), new Quaternion());
+        startAnimation = newRoot.GetComponent<StartAnimation>();
+
         BodyGameObject.transform.eulerAngles = new Vector3(0, 0, 0);
     }
 
@@ -118,10 +129,6 @@ public class PlayerController : MonoBehaviour
         if (collided.gameObject.tag == "Floor")
         {
             canJump = true;
-            if (GlobalStore.GameState == GameState.Loading)
-            {
-                GlobalStore.GameState = GameState.Running;
-            }
             
             if(GlobalStore.ShouldScrollScreen()) 
             {
