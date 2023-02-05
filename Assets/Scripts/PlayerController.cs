@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private AudioSource _jumpSound;
     private AudioSource _dieSound;
     private AudioSource _walkSound;
+    private AudioSource _pickupSound;
 
     private ControllerDevice controller = ControllerDevice.Instance;
 
@@ -38,6 +39,8 @@ public class PlayerController : MonoBehaviour
                     _dieSound = source; break;
                 case "WalkSound":
                     _walkSound = source; break;
+                case "PickupSound":
+                    _pickupSound = source; break;
             }
         }
 
@@ -124,6 +127,7 @@ public class PlayerController : MonoBehaviour
         }
         if(collided.tag == "Currency" && GlobalStore.GameState == GameState.Running)
         {
+            _pickupSound.Play();
             GlobalStore.Score += 10;
             Destroy(collided.gameObject);
         }
