@@ -99,9 +99,10 @@ public class MapTilesGenerator : MonoBehaviour
                 break;
         }
 
-        if (Random.Range(0, 100) < 80) //generation % for currency
+        if (Random.Range(0, 100) < 90) //generation % for currency
         {
             go = CreateObject(currencyPrefab, mapTile);
+            go.transform.localPosition += new Vector3(Random.Range(0,10), 0, 0);
         }
     }
 
