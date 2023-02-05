@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+        gameObject.transform.localScale = new Vector3(1.5f, 0.75f, 1);
     }
 
     void Grow(object sender, EventArgs args)
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        gameObject.transform.localScale = new Vector3(1, 1, 1);
+        gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1);
     }
 
     public void OnJumpStart(object sender, EventArgs args)
