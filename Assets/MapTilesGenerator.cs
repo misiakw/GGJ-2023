@@ -65,7 +65,7 @@ public class MapTilesGenerator : MonoBehaviour
         ObstacleConfigurations newObstacleConfiguration;
         do
         {
-            newObstacleConfiguration = (ObstacleConfigurations)Random.Range(0, possibleConfigurations);
+            newObstacleConfiguration = (ObstacleConfigurations)Random.Range(0, possibleConfigurations + 3);
         } while (newObstacleConfiguration == previousObstacleConfiguration);
         previousObstacleConfiguration = newObstacleConfiguration;
 
@@ -99,7 +99,7 @@ public class MapTilesGenerator : MonoBehaviour
                 break;
         }
 
-        if (Random.Range(0, 5) == 0)
+        if (Random.Range(0, 100) < 80) //generation % for currency
         {
             go = CreateObject(currencyPrefab, mapTile);
         }
