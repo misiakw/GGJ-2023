@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collided)
     {
-        if(collided.tag == "Obstacle" && GlobalStore.GameState == GameState.Running) 
+        if((collided.tag == "Obstacle" || collided.tag == "DeathZone") && GlobalStore.GameState == GameState.Running) 
         {
             _walkSound.Stop();
             _dieSound.Play();
