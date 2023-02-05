@@ -141,7 +141,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerTailMove
+  m_Name: PlayerRunLegs 0
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -154,7 +154,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 20e1003579a64e24f8db43fe3585b261, type: 2}
+  m_Motion: {fileID: 7400000, guid: e96bd151b509d9043aa15cb5c70b22d8, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
