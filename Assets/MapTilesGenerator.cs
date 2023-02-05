@@ -10,6 +10,7 @@ public class MapTilesGenerator : MonoBehaviour
     public GameObject branchPrefab;
     public GameObject mapTilePrefab;
     public GameObject floorPrefab;
+    public GameObject currencyPrefab;
 
     enum ObstacleConfigurations 
     {
@@ -97,6 +98,11 @@ public class MapTilesGenerator : MonoBehaviour
             case ObstacleConfigurations.NoFloor:
                 mapTile.GetComponent<MapTileController>().MakeHole();
                 break;
+        }
+
+        if (Random.Range(0, 5) == 0)
+        {
+            go = CreateObject(currencyPrefab, mapTile);
         }
     }
 

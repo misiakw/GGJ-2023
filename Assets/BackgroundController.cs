@@ -18,10 +18,10 @@ public class BackgroundController : MonoBehaviour
         {
             foreach (Transform child in transform.GetComponentInChildren<Transform>())
             {
-                float speed = child.name.StartsWith("Trees") ? 0.01f
-                    : child.name.StartsWith("Backtrees") ? 0.002f
-                    : 0.001f;
-                child.Translate(Vector3.left * speed);
+                float speed = child.name.StartsWith("Trees") ? 0.3f
+                    : child.name.StartsWith("Backtrees") ? 0.2f
+                    : 0.1f;
+                child.Translate(GlobalStore.ObstacleVelocity * Time.deltaTime * speed);
                 if (child.localPosition.x <= -19.2)
                 {
                     child.localPosition += new Vector3(57.6f, 0, 0);

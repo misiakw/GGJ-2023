@@ -119,6 +119,11 @@ public class PlayerController : MonoBehaviour
             GlobalStore.GameState = GameState.Died;
             BodyGameObject.transform.eulerAngles = new Vector3(0,0,-90);
         }
+        if(collided.tag == "Currency" && GlobalStore.GameState == GameState.Running)
+        {
+            GlobalStore.Score += 10;
+            Destroy(collided.gameObject);
+        }
     }
 
     public void OnDestroy()

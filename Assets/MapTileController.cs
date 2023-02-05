@@ -26,7 +26,6 @@ public class MapTileController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //transform.position = new Vector3(xPos, yPos, 0);    
     }
 
     // Update is called once per frame
@@ -41,7 +40,7 @@ public class MapTileController : MonoBehaviour
                 return;
             }
 
-            transform.position += new Vector3(GlobalStore.DefaultObstacleVelocity.x * Time.deltaTime, 0, 0);
+            transform.position += new Vector3(GlobalStore.ObstacleVelocity.x * Time.deltaTime, 0, 0);
         }
     }
 
