@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2773196159931635334, guid: 9606897ab3d96d044b2bdfb967948540, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3035012037663204876, guid: 9606897ab3d96d044b2bdfb967948540, type: 3}
       propertyPath: m_SortingOrder
       value: 10
@@ -993,6 +997,10 @@ PrefabInstance:
     - target: {fileID: 4353353688275012404, guid: 1b82f9be2519b454da7d7f3fae46da86, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353353688275012406, guid: 1b82f9be2519b454da7d7f3fae46da86, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4353353688275012407, guid: 1b82f9be2519b454da7d7f3fae46da86, type: 3}
       propertyPath: generator
