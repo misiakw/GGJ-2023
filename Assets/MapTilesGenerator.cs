@@ -20,6 +20,7 @@ public class MapTilesGenerator : MonoBehaviour
         TwoRoots,
         TwoBranches,
         NoFloor,
+        ThreeCurrencies,
     }
 
     private ObstacleConfigurations previousObstacleConfiguration;
@@ -63,7 +64,7 @@ public class MapTilesGenerator : MonoBehaviour
         ObstacleConfigurations newObstacleConfiguration;
         do
         {
-            newObstacleConfiguration = (ObstacleConfigurations)Random.Range(0, possibleConfigurations + 3);
+            newObstacleConfiguration = (ObstacleConfigurations)Random.Range(0, possibleConfigurations + 2);
         } while (newObstacleConfiguration == previousObstacleConfiguration);
         previousObstacleConfiguration = newObstacleConfiguration;
 
@@ -96,9 +97,18 @@ public class MapTilesGenerator : MonoBehaviour
             case ObstacleConfigurations.NoFloor:
                 mapTile.GetComponent<MapTileController>().MakeHole();
                 break;
+            case ObstacleConfigurations.ThreeCurrencies:
+                go = CreateObject(currencyPrefab, mapTile);
+                go.transform.localPosition += new Vector3(2, -1, 0);
+                go = CreateObject(currencyPrefab, mapTile);
+                go.transform.localPosition += new Vector3(5, 3, 0);
+                go = CreateObject(currencyPrefab, mapTile);
+                go.transform.localPosition += new Vector3(8, -1, 0);
+                break;
         }
 
-        if (Random.Range(0, 100) < 90) //generation % for currency
+        if (newObstacleConfiguration != ObstacleConfigurations.ThreeCurrencies 
+            && Random.Range(0, 100) < 90) //generation % for currency
         {
             go = CreateObject(currencyPrefab, mapTile);
             go.transform.localPosition += new Vector3(Random.Range(0, 10), 0, 0);
