@@ -848,7 +848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  jumpStrength: 15
+  jumpStrength: 19
   canJump: 0
   BodyGameObject: {fileID: 8028034938991605985}
   startAnimation: {fileID: 0}
