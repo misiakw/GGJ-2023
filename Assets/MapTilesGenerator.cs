@@ -11,7 +11,7 @@ public class MapTilesGenerator : MonoBehaviour
     public GameObject mapTilePrefab;
     public GameObject currencyPrefab;
 
-    enum ObstacleConfigurations 
+    enum ObstacleConfigurations
     {
         None,
         Root,
@@ -37,7 +37,7 @@ public class MapTilesGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void GenerateMapTile(Vector3 callerTransform)
@@ -57,8 +57,6 @@ public class MapTilesGenerator : MonoBehaviour
         GenerateObstacles(mapTile);
     }
 
-    private List<string> backgroundImages = new List<string> { "bg1", "bg2", "bg3"};
-
     void GenerateObstacles(GameObject mapTile)
     {
         GameObject go;
@@ -75,7 +73,8 @@ public class MapTilesGenerator : MonoBehaviour
                 CreateObject(rootPrefab, mapTile);
                 break;
             case ObstacleConfigurations.Branch:
-                CreateObject(branchPrefab, mapTile);
+                go = CreateObject(branchPrefab, mapTile);
+                go.transform.localPosition += new Vector3(0, Random.Range(0, 1f), 0);
                 break;
             //case ObstacleConfigurations.RootBranch:
             //    go = CreateObject(branchPrefab, mapTile);
@@ -90,9 +89,9 @@ public class MapTilesGenerator : MonoBehaviour
                 break;
             case ObstacleConfigurations.TwoBranches:
                 go = CreateObject(branchPrefab, mapTile);
-                go.transform.localPosition += new Vector3(-1, 0, 0);
+                go.transform.localPosition += new Vector3(-1, Random.Range(0, 1f), 0);
                 go = CreateObject(branchPrefab, mapTile);
-                go.transform.localPosition += new Vector3(1, 0, 0);
+                go.transform.localPosition += new Vector3(1, Random.Range(0, 1f), 0);
                 break;
             case ObstacleConfigurations.NoFloor:
                 mapTile.GetComponent<MapTileController>().MakeHole();
@@ -102,7 +101,7 @@ public class MapTilesGenerator : MonoBehaviour
         if (Random.Range(0, 100) < 90) //generation % for currency
         {
             go = CreateObject(currencyPrefab, mapTile);
-            go.transform.localPosition += new Vector3(Random.Range(0,10), 0, 0);
+            go.transform.localPosition += new Vector3(Random.Range(0, 10), 0, 0);
         }
     }
 
