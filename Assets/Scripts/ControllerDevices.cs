@@ -112,6 +112,7 @@ public class ControllerDevice : IController
     {
         _devices.Add(new Keyboard(KeyCode.W, KeyCode.S, this));
         _devices.Add(new Keyboard(KeyCode.UpArrow, KeyCode.DownArrow, this));
+        _devices.Add(new Keyboard(KeyCode.Space, KeyCode.LeftControl, this));
         _devices.Add(new GamepadBtnController(this));
         _devices.Add(new XboxPadController(this));
     }
