@@ -239,7 +239,7 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: 3f5937352dd79ac409e9a7434dbc0bf8, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!114 &1402996886354807708
@@ -266,7 +266,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d5933abbc4c19fc4c9179d6a1d003409, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
