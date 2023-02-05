@@ -17,11 +17,6 @@ public class StartAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var walkSoundObject = GameObject.Find("WalkSound");
-        if (walkSoundObject != null)
-        {
-            _walkSound = walkSoundObject.GetComponent<AudioSource>();
-        }
         animator = GetComponent<Animator>();
     }
 
@@ -35,9 +30,7 @@ public class StartAnimation : MonoBehaviour
             previousPlayer = Instantiate(PlayerPrefab, new Vector3(-8, 12.5f, 0), new Quaternion());
             previousPlayer.GetComponent<PlayerController>().startAnimation = this;
             GlobalStore.GameState = GameState.Running;
-            if(_walkSound != null)
-                _walkSound.Play();
-        }   
+        }
         Move();
     }
 
@@ -57,7 +50,7 @@ public class StartAnimation : MonoBehaviour
     {
         if (GlobalStore.GameState == GameState.Running)
         {
-            var speed = new Vector3(GlobalStore.DefaultObstacleVelocity.x * Time.deltaTime, 0, 0);
+            var speed = new Vector3(GlobalStore.ObstacleVelocity.x * Time.deltaTime, 0, 0);
             transform.position += speed;
         }
     }

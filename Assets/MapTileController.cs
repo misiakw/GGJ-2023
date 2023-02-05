@@ -8,10 +8,6 @@ public class MapTileController : MonoBehaviour
 {
     public int height = 5;
     public float yPos = 0;
-    private GameObject floor;
-
-    private Vector3 _defaultObstacleVelocity = GlobalStore.DefaultObstacleVelocity;
-    private Vector3 _stoppedObstacleVelocity = new Vector3(0, 0, 0);
 
     public MapTilesGenerator generator;
 
@@ -20,9 +16,7 @@ public class MapTileController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(transform.position.x, yPos, 0);    
-
-        floor = transform.Find("Floor").gameObject;
+        transform.position = new Vector3(transform.position.x, yPos, 0);   
     }
 
     // Update is called once per frame
@@ -37,7 +31,7 @@ public class MapTileController : MonoBehaviour
                 return;
             }
 
-            transform.position += new Vector3(GlobalStore.DefaultObstacleVelocity.x * Time.deltaTime, 0, 0);
+            transform.position += new Vector3(GlobalStore.ObstacleVelocity.x * Time.deltaTime, 0, 0);
         }
     }
 

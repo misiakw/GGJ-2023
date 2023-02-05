@@ -10,6 +10,7 @@ public class MapTilesGenerator : MonoBehaviour
     public GameObject branchPrefab;
     public GameObject mapTilePrefab;
     public GameObject floorPrefab;
+    public GameObject currencyPrefab;
 
     enum ObstacleConfigurations 
     {
@@ -90,6 +91,11 @@ public class MapTilesGenerator : MonoBehaviour
             case ObstacleConfigurations.NoFloor:
                 mapTile.transform.Find("Floor").localScale = new Vector3(5, 1, 1);
                 break;
+        }
+
+        if (Random.Range(0, 5) == 0)
+        {
+            go = CreateObject(currencyPrefab, mapTile);
         }
     }
 
