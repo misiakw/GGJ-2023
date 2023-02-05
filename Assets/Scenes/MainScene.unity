@@ -656,9 +656,8 @@ MonoBehaviour:
   rootPrefab: {fileID: 2779224734568502772, guid: 28dbbfead9db69a4eaa1216fb44034ea, type: 3}
   branchPrefab: {fileID: 3112771831680682890, guid: e88e742743ea8df4c8443f5cdd9375b6, type: 3}
   mapTilePrefab: {fileID: 8422299784453820247, guid: d75a3cfea35590e4788e24879d6f6356, type: 3}
-  floorPrefab: {fileID: 0}
-  LastCreated: {fileID: 1967061995}
   currencyPrefab: {fileID: 2296775504719158873, guid: 4e15330462ff42e4986ac0a19287ffe5, type: 3}
+  LastCreated: {fileID: 1967061995}
 --- !u!114 &1566812653
 MonoBehaviour:
   m_ObjectHideFlags: 0
