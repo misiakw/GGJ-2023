@@ -12,6 +12,10 @@ public class MapTileController : MonoBehaviour
     public GameObject FloorLeft;
     public GameObject FloorRight;
 
+    public GameObject LeftFull;
+    public GameObject LeftRising;
+    public GameObject LeftFalling;
+
     private Vector3 _defaultObstacleVelocity = GlobalStore.DefaultObstacleVelocity;
     private Vector3 _stoppedObstacleVelocity = new Vector3(0, 0, 0);
 

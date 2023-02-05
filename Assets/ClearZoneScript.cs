@@ -17,7 +17,7 @@ public class ClearZoneScript : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (OnlyPlayerCollider && collision.gameObject.tag == "Player")
         {

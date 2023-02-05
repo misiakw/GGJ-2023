@@ -26,6 +26,8 @@ public class MapTilesGenerator : MonoBehaviour
     private float previousMapTileYPos = 0;
     int possibleConfigurations = 0;
 
+    public GameObject LastCreated;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,14 +43,17 @@ public class MapTilesGenerator : MonoBehaviour
     public void GenerateMapTile(Vector3 callerTransform)
     {
         GameObject mapTile = Instantiate(mapTilePrefab);
-        previousMapTileYPos = Random.Range(previousMapTileYPos - 1f, previousMapTileYPos + 1f); //Comment this line to make single level tiles
-        previousMapTileYPos = Math.Min(previousMapTileYPos, 9);
-        previousMapTileYPos = Math.Max(previousMapTileYPos, -3);
+        previousMapTileYPos = Random.Range(-1, 2); //Comment this line to make single level tiles
+        if (LastCreated.transform.position.y + previousMapTileYPos > 5)
+            previousMapTileYPos = -1;
+
+        if (LastCreated.transform.position.y - previousMapTileYPos <= -1)
+            previousMapTileYPos = 1;
+
         var controller = mapTile.gameObject.GetComponent<MapTileController>();
         controller.generator = this;
-        //controller.yPos = previousMapTileYPos;
-        //controller.xPos = callerTransform.x + 60;
-        mapTile.transform.position = new Vector3(callerTransform.x + 60, previousMapTileYPos, 0f);
+        mapTile.transform.position = LastCreated.transform.position + new Vector3(9.9f, (float)previousMapTileYPos, 0);
+        LastCreated = mapTile;
         GenerateObstacles(mapTile);
     }
 

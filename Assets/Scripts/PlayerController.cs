@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody rb;
-    public float jumpStrength = 4.5F;
-    public bool canJump = false;
+    public Rigidbody2D rb;
+    public float jumpStrength = 5F;
+    public bool canJump = true;
     public GameObject BodyGameObject;
     public StartAnimation startAnimation;
     private AudioSource _jumpSound;
@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     {
 
         GlobalStore.Score = 0;
+
+        rb = GetComponent<Rigidbody2D>();
+
         controller.OnCrouchEnter += Shrink;
         controller.OnCrouchLeave += Grow;
         controller.OnJumpStart += OnJumpStart;
@@ -60,11 +63,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpStart(object sender, EventArgs args)
     {
-        if (GlobalStore.GameState == GameState.Running && canJump)
+        if (GlobalStore.GameState == GameState.Running)
         {
             _walkSound.Stop();
-            canJump = false;
-            rb.AddForce(0, jumpStrength * 100, 0);
+            //canJump = false;
+            rb.velocity += new Vector2(0, jumpStrength);
             _jumpSound.Play();
         }
         if (GlobalStore.GameState == GameState.Died)
@@ -95,7 +98,7 @@ public class PlayerController : MonoBehaviour
        controller.Loop();
     }
 
-    void OnCollisionEnter(Collision collided)
+    void OnCollisionEnter2D(Collision2D collided)
     {
         if (collided.gameObject.tag == "Floor")
         {
@@ -107,7 +110,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider collided)
+    private void OnTriggerEnter2D(Collider2D collided)
     {
         if(collided.tag == "Obstacle" && GlobalStore.GameState == GameState.Running) 
         {
