@@ -8,21 +8,39 @@ public class StartAnimation : MonoBehaviour
 
     public GameObject PlayerPrefab;
 
-    private Animator animator;
+    private Animation animator;
     private bool playerCreated = false;
     private GameObject previousPlayer;
 
+    private bool ShouldStartGrowing = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponent<Animation>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!playerCreated && isAimationFinished())
+        if(!ShouldStartGrowing)
+        {
+            var hit = Physics2D.Raycast(new Vector2(-8, 12.5f), Vector2.down);
+
+            if (hit.collider == null  || hit.collider.tag != "Floor")
+            {
+                GlobalStore.GameState = GameState.Running;
+            }
+            else
+            {
+                GlobalStore.GameState = GameState.Loading;
+                ShouldStartGrowing = true;
+            }
+
+            animator.Stop();
+        }
+
+        if (!playerCreated && ShouldStartGrowing && isAimationFinished())
         {
             Debug.Log("animation finished");
             playerCreated = true;
@@ -41,7 +59,8 @@ public class StartAnimation : MonoBehaviour
             Destroy(previousPlayer);
             previousPlayer = null;
         }
-        animator.Play("RootAnimation");
+        animator.Rewind();
+        animator.Play();
         GetComponent<AudioSource>().Play();
     }
 
@@ -56,7 +75,7 @@ public class StartAnimation : MonoBehaviour
 
     private bool isAimationFinished()
     {
-        var state = animator.GetCurrentAnimatorStateInfo(0);
+        var state = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
         return state.length/2 <= state.normalizedTime;
     }
 }
