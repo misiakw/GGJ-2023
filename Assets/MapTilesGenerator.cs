@@ -99,11 +99,11 @@ public class MapTilesGenerator : MonoBehaviour
                 break;
             case ObstacleConfigurations.ThreeCurrencies:
                 go = CreateObject(currencyPrefab, mapTile);
-                go.transform.localPosition += new Vector3(2, -1, 0);
+                go.transform.localPosition += new Vector3(2, 0, 0);
                 go = CreateObject(currencyPrefab, mapTile);
-                go.transform.localPosition += new Vector3(5, 3, 0);
+                go.transform.localPosition += new Vector3(5, 4, 0);
                 go = CreateObject(currencyPrefab, mapTile);
-                go.transform.localPosition += new Vector3(8, -1, 0);
+                go.transform.localPosition += new Vector3(8, 0, 0);
                 break;
         }
 
@@ -111,7 +111,7 @@ public class MapTilesGenerator : MonoBehaviour
             && Random.Range(0, 100) < 90) //generation % for currency
         {
             go = CreateObject(currencyPrefab, mapTile);
-            go.transform.localPosition += new Vector3(Random.Range(0, 10), 0, 0);
+            go.transform.localPosition += new Vector3(Random.Range(1, 9), 0, 0);
         }
     }
 
