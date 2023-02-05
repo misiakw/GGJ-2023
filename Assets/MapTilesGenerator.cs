@@ -16,7 +16,7 @@ public class MapTilesGenerator : MonoBehaviour
         None,
         Root,
         Branch,
-        RootBranch,
+        //RootBranch,
         TwoRoots,
         TwoBranches,
         NoFloor,
@@ -77,11 +77,11 @@ public class MapTilesGenerator : MonoBehaviour
             case ObstacleConfigurations.Branch:
                 CreateObject(branchPrefab, mapTile);
                 break;
-            case ObstacleConfigurations.RootBranch:
-                go = CreateObject(branchPrefab, mapTile);
-                go.transform.localPosition += new Vector3(0, 3, 0);
-                CreateObject(rootPrefab, mapTile);
-                break;
+            //case ObstacleConfigurations.RootBranch:
+            //    go = CreateObject(branchPrefab, mapTile);
+            //    go.transform.localPosition += new Vector3(0, 3, 0);
+            //    CreateObject(rootPrefab, mapTile);
+            //    break;
             case ObstacleConfigurations.TwoRoots:
                 go = CreateObject(rootPrefab, mapTile);
                 go.transform.localPosition += new Vector3(-2.5f, 0, 0);
