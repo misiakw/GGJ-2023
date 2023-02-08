@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private GameState currentState = GlobalStore.State.Value;
     private bool isRunning => currentState == GameState.Running;
+    private bool IsDashing = false;
 
     private ControllerDevice controller = ControllerDevice.Instance;
 
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
         GlobalStore.Score = 0;
         //state changes
-        GlobalStore.State.Onchange += (s, v) => currentState = v;
+        GlobalStore.State.Onchange += onStateChange;
 
         rb = GetComponent<Rigidbody2D>();
 
@@ -52,6 +53,17 @@ public class PlayerController : MonoBehaviour
 
     }
     #region movement event listeners
+
+    void onStateChange(object sender, GameState state)
+    {
+        currentState = state;
+
+        if (currentState == GameState.Running)
+        {
+            var xSpeed = 6f + (IsDashing ? 30 : 0) + 5 * GlobalStore.Score / 100;
+            GlobalStore.ObstacleVelocity.Value = new Vector3(xSpeed * -1, 0, 0);
+        }
+    }
     void onShrink(object sender, EventArgs args)
     {
         if (!isRunning)
@@ -78,13 +90,13 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        GlobalStore.IsDashing = true;
+        IsDashing = true;
         Invoke("DashStop", 0.2f);
     }
 
     void DashStop()
     {
-        //GlobalStore.IsDashing = false;
+        IsDashing = false;
     }
 
     public void onJumpStart(object sender, EventArgs args)

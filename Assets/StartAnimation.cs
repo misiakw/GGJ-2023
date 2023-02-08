@@ -78,7 +78,7 @@ public class StartAnimation : MonoBehaviour
     {
         if (currentState == GameState.Running)
         {
-            var speed = new Vector3(GlobalStore.ObstacleVelocity.x * Time.deltaTime, 0, 0);
+            var speed = new Vector3(GlobalStore.ObstacleVelocity.Value.x * Time.deltaTime, 0, 0);
             transform.position += speed;
         }
     }

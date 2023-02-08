@@ -22,7 +22,7 @@ public class BackgroundController : MonoBehaviour
                 float speed = child.name.StartsWith("Trees") ? 0.3f
                     : child.name.StartsWith("Backtrees") ? 0.2f
                     : 0.1f;
-                child.Translate(GlobalStore.ObstacleVelocity * Time.deltaTime * speed);
+                child.Translate(GlobalStore.ObstacleVelocity.Value * Time.deltaTime * speed);
                 if (child.localPosition.x <= -19.2)
                 {
                     child.localPosition += new Vector3(57.6f, 0, 0);

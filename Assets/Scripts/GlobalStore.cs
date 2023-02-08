@@ -8,8 +8,7 @@ public static class GlobalStore
     public static int Score = 0;
     public static bool IsDashing = false;
 
-    //public static ChangeNotified<Vector3>();
-    public static Vector3 ObstacleVelocity { get { return new Vector3(-6f + (IsDashing ? -30 : 0) + -5 * Score / 100, 0, 0); } }
+    public static ChangeNotified<Vector3> ObstacleVelocity = new ChangeNotified<Vector3>(new Vector3(0, 0, 0));
     public static int HighestScore = 0;
 }
 

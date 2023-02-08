@@ -38,7 +38,7 @@ public class MapTileController : MonoBehaviour
                 return;
             }
 
-            transform.position += new Vector3(GlobalStore.ObstacleVelocity.x * Time.deltaTime, 0, 0);
+            transform.position += new Vector3(GlobalStore.ObstacleVelocity.Value.x * Time.deltaTime, 0, 0);
         }
     }
 
