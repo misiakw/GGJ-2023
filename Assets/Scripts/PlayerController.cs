@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float jumpStrength = 7F;
-    public bool canJump = false;
     public GameObject BodyGameObject;
     public StartAnimation startAnimation;
     private AudioSource _jumpSound;
@@ -17,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private GameState currentState = GlobalStore.State.Value;
     private bool isRunning => currentState == GameState.Running;
     private bool IsDashing = false;
+    private short jumpCounter = 0;
 
     private ControllerDevice controller = ControllerDevice.Instance;
 
@@ -105,11 +105,11 @@ public class PlayerController : MonoBehaviour
         {
             GlobalStore.State.Value = GameState.Running;
         }
-        if (isRunning && canJump)
+        if (isRunning && jumpCounter < 2)
         {
             _walkSound.Stop();
-            canJump = false;
-            rb.velocity += new Vector2(0, jumpStrength);
+            jumpCounter++;
+            rb.velocity += new Vector2(0, jumpStrength / jumpCounter);
             _jumpSound.Play();
         }
 
@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collided.gameObject.tag == "Floor")
         {
-            canJump = true;
+            jumpCounter = 0;
 
             if (isRunning)
             {
