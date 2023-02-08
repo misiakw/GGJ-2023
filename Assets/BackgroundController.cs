@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class BackgroundController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    bool isRunning = GlobalStore.State.Value == GameState.Running;
+
     void Start()
     {
-        
+        GlobalStore.State.Onchange += (s, v) => isRunning = v == GameState.Running;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GlobalStore.ShouldScrollScreen())
+        if (isRunning)
         {
             foreach (Transform child in transform.GetComponentInChildren<Transform>())
             {

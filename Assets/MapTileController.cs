@@ -17,16 +17,19 @@ public class MapTileController : MonoBehaviour
     public GameObject LeftFalling;
 
     public MapTilesGenerator generator;
+    private bool alreadyGenerated = false;
+    private bool isRunning = GlobalStore.State.Value == GameState.Running;
 
     // Start is called before the first frame update
     void Start()
     {
+        GlobalStore.State.Onchange += (s, v) => isRunning = v == GameState.Running;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GlobalStore.ShouldScrollScreen())
+        if (GlobalStore.State.Value == GameState.Running)
         {
             if (transform.position.x <= -30)
             {
@@ -38,8 +41,6 @@ public class MapTileController : MonoBehaviour
             transform.position += new Vector3(GlobalStore.ObstacleVelocity.x * Time.deltaTime, 0, 0);
         }
     }
-
-    private bool alreadyGenerated = false;
 
     public void MakeHole()
     {
@@ -55,7 +56,8 @@ public class MapTileController : MonoBehaviour
 
     public void GenerateNewTile()
     {
-        if(!alreadyGenerated) {
+        if (!alreadyGenerated)
+        {
             alreadyGenerated = true;
             generator.GenerateMapTile(transform.position);
         }

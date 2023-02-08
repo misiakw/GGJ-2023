@@ -14,19 +14,24 @@ public class PlayerController : MonoBehaviour
     private AudioSource _walkSound;
     private AudioSource _pickupSound;
 
+    private GameState currentState = GlobalStore.State.Value;
+    private bool isRunning => currentState == GameState.Running;
+
     private ControllerDevice controller = ControllerDevice.Instance;
 
     void Start()
     {
 
         GlobalStore.Score = 0;
+        //state changes
+        GlobalStore.State.Onchange += (s, v) => currentState = v;
 
         rb = GetComponent<Rigidbody2D>();
 
-        controller.OnCrouchEnter += Shrink;
-        controller.OnCrouchLeave += Grow;
-        controller.OnJumpStart += OnJumpStart;
-        controller.OnDashStart += DashStart;
+        controller.OnCrouchEnter += onShrink;
+        controller.OnCrouchLeave += onGrow;
+        controller.OnJumpStart += onJumpStart;
+        controller.OnDashStart += onDashStart;
 
         var audioSources = gameObject.GetComponentsInChildren<AudioSource>();
 
@@ -46,10 +51,10 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
-    void Shrink(object sender, EventArgs args)
+    #region movement event listeners
+    void onShrink(object sender, EventArgs args)
     {
-        if (!GlobalStore.ShouldScrollScreen())
+        if (!isRunning)
         {
             return;
         }
@@ -57,9 +62,9 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 10;
     }
 
-    void Grow(object sender, EventArgs args)
+    void onGrow(object sender, EventArgs args)
     {
-        if (!GlobalStore.ShouldScrollScreen())
+        if (!isRunning)
         {
             return;
         }
@@ -67,9 +72,9 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
     }
 
-    void DashStart(object sender, EventArgs args)
+    void onDashStart(object sender, EventArgs args)
     {
-        if (!GlobalStore.ShouldScrollScreen())
+        if (!isRunning)
         {
             return;
         }
@@ -79,16 +84,16 @@ public class PlayerController : MonoBehaviour
 
     void DashStop()
     {
-        GlobalStore.IsDashing = false;
+        //GlobalStore.IsDashing = false;
     }
 
-    public void OnJumpStart(object sender, EventArgs args)
+    public void onJumpStart(object sender, EventArgs args)
     {
-        if (GlobalStore.GameState == GameState.Loading)
+        if (currentState == GameState.Loading)
         {
-            GlobalStore.GameState = GameState.Running;
+            GlobalStore.State.Value = GameState.Running;
         }
-        if (GlobalStore.ShouldScrollScreen() && canJump)
+        if (isRunning && canJump)
         {
             _walkSound.Stop();
             canJump = false;
@@ -98,6 +103,7 @@ public class PlayerController : MonoBehaviour
 
 
     }
+    #endregion
 
     public void RestartGame(bool forceStateChange = false)
     {
@@ -139,7 +145,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       controller.Loop();
+        controller.Loop();
     }
 
     void OnCollisionEnter2D(Collision2D collided)
@@ -147,8 +153,8 @@ public class PlayerController : MonoBehaviour
         if (collided.gameObject.tag == "Floor")
         {
             canJump = true;
-            
-            if(GlobalStore.ShouldScrollScreen()) 
+
+            if (isRunning)
             {
                 _walkSound.Play();
             }
@@ -157,30 +163,36 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collided)
     {
-        if((collided.tag == "Obstacle" || collided.tag == "DeathZone") && GlobalStore.GameState == GameState.Running) 
+        if (currentState == GameState.Running)
         {
-            _walkSound.Stop();
-            _dieSound.Play();
-            GlobalStore.GameState = GameState.Died;
-            if(GlobalStore.HighestScore < GlobalStore.Score) 
+            switch (collided.tag)
             {
-                GlobalStore.HighestScore = GlobalStore.Score;
+                case "Obstacle":
+                case "DeathZone":
+                    _walkSound.Stop();
+                    _dieSound.Play();
+                    GlobalStore.State.Value = GameState.Died;
+                    if (GlobalStore.HighestScore < GlobalStore.Score)
+                    {
+                        GlobalStore.HighestScore = GlobalStore.Score;
+                    }
+                    BodyGameObject.transform.eulerAngles = new Vector3(0, 0, -90);
+                    RestartGame();
+                    break;
+                case "Currency":
+                    _pickupSound.Play();
+                    GlobalStore.Score += 10;
+                    Destroy(collided.gameObject);
+                    break;
             }
-            BodyGameObject.transform.eulerAngles = new Vector3(0,0,-90);
-            RestartGame();
-        }
-        if(collided.tag == "Currency" && GlobalStore.GameState == GameState.Running)
-        {
-            _pickupSound.Play();
-            GlobalStore.Score += 10;
-            Destroy(collided.gameObject);
         }
     }
 
     public void OnDestroy()
     {
-        controller.OnCrouchEnter -= Shrink;
-        controller.OnCrouchLeave -= Grow;
-        controller.OnJumpStart -= OnJumpStart;
+        controller.OnCrouchEnter -= onShrink;
+        controller.OnCrouchLeave -= onGrow;
+        controller.OnJumpStart -= onJumpStart;
+        controller.OnDashStart -= onDashStart;
     }
 }

@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class ForegroundController : MonoBehaviour
 {
+    bool isRunning = GlobalStore.State.Value == GameState.Running;
     // Start is called before the first frame update
     void Start()
     {
-
+        GlobalStore.State.Onchange += (s, v) => isRunning = v == GameState.Running;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GlobalStore.ShouldScrollScreen())
+        if (isRunning)
         {
             foreach (Transform child in transform.GetComponentInChildren<Transform>())
             {

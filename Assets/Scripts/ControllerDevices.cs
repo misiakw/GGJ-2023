@@ -21,12 +21,11 @@ public abstract class BtnController : BaseControler, IController
 {
     protected BtnController(ControllerDevice controller) : base(controller) { }
     private bool isCrouching = false;
-    private bool isDashing = false;
 
     protected abstract bool JumpDown();
     protected abstract bool CrouchDown();
-    protected  abstract bool CrouchUp();
-    protected  abstract bool DashDown();
+    protected abstract bool CrouchUp();
+    protected abstract bool DashDown();
     public virtual void Loop()
     {
         if (isCrouching && CrouchUp())
@@ -42,7 +41,6 @@ public abstract class BtnController : BaseControler, IController
 
         if (DashDown())
         {
-            isDashing = true;
             _controller.OnDashStart?.Invoke(this, null);
         }
 
@@ -52,12 +50,12 @@ public abstract class BtnController : BaseControler, IController
         }
     }
 }
-public class Keyboard: BtnController, IController
+public class Keyboard : BtnController, IController
 {
     private KeyCode _jump;
     private KeyCode _crouch;
     private KeyCode _dash;
-    public Keyboard(KeyCode jump, KeyCode crouch, KeyCode dash, ControllerDevice controller): base(controller)
+    public Keyboard(KeyCode jump, KeyCode crouch, KeyCode dash, ControllerDevice controller) : base(controller)
     {
         _jump = jump;
         _crouch = crouch;
@@ -120,7 +118,8 @@ public class ControllerDevice : IController
 {
     private static ControllerDevice _instance = null;
 
-    public static ControllerDevice Instance {
+    public static ControllerDevice Instance
+    {
         get
         {
             if (_instance == null)
@@ -148,7 +147,7 @@ public class ControllerDevice : IController
 
     public void Loop()
     {
-        foreach(var d in _devices)
+        foreach (var d in _devices)
         {
             d.Loop();
         }
