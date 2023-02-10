@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,7 +18,6 @@ public class MapTileController : MonoBehaviour
     public GameObject LeftFalling;
 
     public MapTilesGenerator generator;
-    private bool alreadyGenerated = false;
     private bool isRunning = GlobalStore.State.Value == GameState.Running;
 
     // Start is called before the first frame update
@@ -31,14 +31,21 @@ public class MapTileController : MonoBehaviour
     {
         if (GlobalStore.State.Value == GameState.Running)
         {
+            transform.Translate(new Vector3(GlobalStore.ObstacleVelocity.Value.x * Time.deltaTime, 0, 0));
+
             if (transform.position.x <= -30)
             {
-                GenerateNewTile();
-                Destroy(gameObject);
+                transform.position += new Vector3(60, 0, 0);
+                foreach(var child in gameObject.GetComponentsInChildren<Transform>())
+                {
+                    if (child.tag == "Obstacle" || child.tag == "Currency")
+                    {
+                        Destroy(child.gameObject);
+                    }
+                }
+                generator.GenerateMapTile(gameObject);
                 return;
             }
-
-            transform.position += new Vector3(GlobalStore.ObstacleVelocity.Value.x * Time.deltaTime, 0, 0);
         }
     }
 
@@ -51,15 +58,6 @@ public class MapTileController : MonoBehaviour
         else
         {
             Destroy(FloorRight);
-        }
-    }
-
-    public void GenerateNewTile()
-    {
-        if (!alreadyGenerated)
-        {
-            alreadyGenerated = true;
-            generator.GenerateMapTile(transform.position);
         }
     }
 }

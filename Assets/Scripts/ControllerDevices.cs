@@ -88,7 +88,7 @@ public class GamepadBtnController : BtnController, IController
 
     protected override bool DashDown()
     {
-        throw new NotImplementedException();
+        return false;
     }
 }
 
@@ -110,7 +110,7 @@ public class XboxPadController : BtnController, IController
 
     protected override bool DashDown()
     {
-        throw new NotImplementedException();
+        return false;
     }
 }
 

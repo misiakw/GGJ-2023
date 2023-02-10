@@ -24,15 +24,5 @@ public class ClearZoneScript : MonoBehaviour
             collision.gameObject.GetComponent<PlayerController>().RestartGame();
             Destroy(collision.gameObject);
         }
-        else if(!OnlyPlayerCollider)
-        {
-            var mapTileController = collision.gameObject.GetComponent<MapTileController>();
-            if (mapTileController != null)
-            {
-                mapTileController.GenerateNewTile();
-                Destroy(collision.gameObject);
-            }
-
-        }
     }
 }
