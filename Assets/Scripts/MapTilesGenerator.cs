@@ -51,6 +51,8 @@ public class MapTilesGenerator : MonoBehaviour
             previousMapTileYPos = 1;
 
         mapTile.transform.position += new Vector3(0, LastCreated.transform.position.y - mapTile.transform.position.y + previousMapTileYPos, 0);
+        LastCreated.transform.Find("FloorRight/FloorElement (2)/SpriteRight").gameObject.SetActive(mapTile.transform.position.y != LastCreated.transform.position.y);
+        mapTile.transform.Find("FloorLeft/FloorElement (1)/SpriteLeft").gameObject.SetActive(mapTile.transform.position.y != LastCreated.transform.position.y);
         LastCreated = mapTile;
         GenerateObstacles(mapTile);
     }
@@ -104,7 +106,7 @@ public class MapTilesGenerator : MonoBehaviour
                 break;
         }
 
-        if (newObstacleConfiguration != ObstacleConfigurations.ThreeCurrencies 
+        if (newObstacleConfiguration != ObstacleConfigurations.ThreeCurrencies
             && Random.Range(0, 100) < 90) //generation % for currency
         {
             go = CreateObject(currencyPrefab, mapTile);

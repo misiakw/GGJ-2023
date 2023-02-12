@@ -35,29 +35,40 @@ public class MapTileController : MonoBehaviour
 
             if (transform.position.x <= -30)
             {
-                transform.position += new Vector3(60, 0, 0);
-                foreach(var child in gameObject.GetComponentsInChildren<Transform>())
-                {
-                    if (child.tag == "Obstacle" || child.tag == "Currency")
-                    {
-                        Destroy(child.gameObject);
-                    }
-                }
+                ResetTileState();
                 generator.GenerateMapTile(gameObject);
                 return;
             }
         }
     }
 
+    private void ResetTileState()
+    {
+        transform.position += new Vector3(60, 0, 0);
+        foreach (var child in gameObject.GetComponentsInChildren<Transform>())
+        {
+            if (child.tag == "Obstacle" || child.tag == "Currency")
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        FloorLeft.SetActive(true);
+        FloorRight.SetActive(true);
+        transform.Find("FloorCentre/FloorElement/SpriteLeft").gameObject.SetActive(false);
+        transform.Find("FloorCentre/FloorElement (3)/SpriteRight").gameObject.SetActive(false);
+    }
+
     public void MakeHole()
     {
         if (Random.Range(1, 2) == 1)
         {
-            Destroy(FloorLeft);
+            FloorLeft.SetActive(false);
+            transform.Find("FloorCentre/FloorElement/SpriteLeft").gameObject.SetActive(true);
         }
         else
         {
-            Destroy(FloorRight);
+            FloorRight.SetActive(false);
+            transform.Find("FloorCentre/FloorElement (3)/SpriteRight").gameObject.SetActive(true);
         }
     }
 }
