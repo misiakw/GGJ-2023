@@ -21,6 +21,7 @@ public class MapTilesGenerator : MonoBehaviour
         TwoBranches,
         NoFloor,
         ThreeCurrencies,
+        RandomCurrencies
     }
 
     private ObstacleConfigurations previousObstacleConfiguration;
@@ -43,6 +44,7 @@ public class MapTilesGenerator : MonoBehaviour
 
     public void GenerateMapTile(GameObject mapTile)
     {
+        GlobalStore.Score.Value++;
         previousMapTileYPos = Random.Range(-1, 2); //Comment this line to make single level tiles
         if (LastCreated.transform.position.y + previousMapTileYPos > 3)
             previousMapTileYPos = -1;
@@ -51,10 +53,25 @@ public class MapTilesGenerator : MonoBehaviour
             previousMapTileYPos = 1;
 
         mapTile.transform.position += new Vector3(0, LastCreated.transform.position.y - mapTile.transform.position.y + previousMapTileYPos, 0);
-        LastCreated.transform.Find("FloorRight/FloorElement (2)/SpriteRight").gameObject.SetActive(mapTile.transform.position.y != LastCreated.transform.position.y);
-        mapTile.transform.Find("FloorLeft/FloorElement (1)/SpriteLeft").gameObject.SetActive(mapTile.transform.position.y != LastCreated.transform.position.y);
+
+        LastCreated.transform.Find("FloorRight/FloorElement (2)/SpriteRight").gameObject.SetActive(ShowRightEdgeIfNecessary(LastCreated, mapTile));
+        mapTile.transform.Find("FloorLeft/FloorElement (1)/SpriteLeft").gameObject.SetActive(ShowLeftEdgeIfNecessary(LastCreated, mapTile));
         LastCreated = mapTile;
         GenerateObstacles(mapTile);
+    }
+
+    bool ShowRightEdgeIfNecessary(GameObject leftObject, GameObject rightObject)
+    {
+        bool isDifferentYPosition = leftObject.transform.position.y != rightObject.transform.position.y;
+        bool rightObjectHasLeftHole = rightObject.GetComponent<MapTileController>().HolePosition == 1;
+        return isDifferentYPosition || rightObjectHasLeftHole;
+    }
+
+    bool ShowLeftEdgeIfNecessary(GameObject leftObject, GameObject rightObject)
+    {
+        bool isDifferentYPosition = leftObject.transform.position.y != rightObject.transform.position.y;
+        bool leftObjectHasRightHole = leftObject.GetComponent<MapTileController>().HolePosition == 2;
+        return isDifferentYPosition || leftObjectHasRightHole;
     }
 
     void GenerateObstacles(GameObject mapTile)
@@ -104,9 +121,18 @@ public class MapTilesGenerator : MonoBehaviour
                 go = CreateObject(currencyPrefab, mapTile);
                 go.transform.localPosition += new Vector3(8, 0, 0);
                 break;
+            case ObstacleConfigurations.RandomCurrencies:
+                go = CreateObject(currencyPrefab, mapTile);
+                go.transform.localPosition += new Vector3(2, Random.Range(0, 5), 0);
+                go = CreateObject(currencyPrefab, mapTile);
+                go.transform.localPosition += new Vector3(5, Random.Range(0, 5), 0);
+                go = CreateObject(currencyPrefab, mapTile);
+                go.transform.localPosition += new Vector3(8, Random.Range(0, 5), 0);
+                break;
         }
 
         if (newObstacleConfiguration != ObstacleConfigurations.ThreeCurrencies
+            && newObstacleConfiguration != ObstacleConfigurations.RandomCurrencies
             && Random.Range(0, 100) < 90) //generation % for currency
         {
             go = CreateObject(currencyPrefab, mapTile);
