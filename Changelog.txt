@@ -1,1 +1,2 @@
 0.1 - Created Changelog, Added version info to screen
+0.2 - Score back in place, Changed how score is calculated (now based on tiles generated rather than time elapsed), Added missing platform edges when there was a platform with a hole on a different Y position, Added new tile preset with 3 random Ypos orbs
