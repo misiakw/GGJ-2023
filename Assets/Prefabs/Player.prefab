@@ -850,7 +850,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   jumpStrength: 17
-  canJump: 0
   BodyGameObject: {fileID: 8028034938991605985}
   startAnimation: {fileID: 0}
 --- !u!95 &2772203599652651319
@@ -892,7 +891,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &4613454186417145492
 CircleCollider2D:
