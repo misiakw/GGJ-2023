@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float jumpStrength = 7F;
-    public bool canJump = false;
     public GameObject BodyGameObject;
     public StartAnimation startAnimation;
     private AudioSource _jumpSound;
@@ -14,18 +13,27 @@ public class PlayerController : MonoBehaviour
     private AudioSource _walkSound;
     private AudioSource _pickupSound;
 
+    private GameState currentState = GlobalStore.State.Value;
+    private bool isRunning => currentState == GameState.Running;
+    private bool IsDashing = false;
+    private short jumpCounter = 0;
+
     private ControllerDevice controller = ControllerDevice.Instance;
 
     void Start()
     {
 
-        GlobalStore.Score = 0;
+        //state changes
+        GlobalStore.State.Onchange += onStateChange;
+        GlobalStore.Score.Onchange += onScoreChange;
+        GlobalStore.Score.Value = 0;
 
         rb = GetComponent<Rigidbody2D>();
 
-        controller.OnCrouchEnter += Shrink;
-        controller.OnCrouchLeave += Grow;
-        controller.OnJumpStart += OnJumpStart;
+        controller.OnCrouchEnter += onShrink;
+        controller.OnCrouchLeave += onGrow;
+        controller.OnJumpStart += onJumpStart;
+        controller.OnDashStart += onDashStart;
 
         var audioSources = gameObject.GetComponentsInChildren<AudioSource>();
 
@@ -45,47 +53,77 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    #region movement event listeners
 
-    void Shrink(object sender, EventArgs args)
+    void onStateChange(object sender, GameState state)
     {
-        if (!GlobalStore.ShouldScrollScreen())
+        currentState = state;
+    }
+
+    void onScoreChange(object sender, int score)
+    {
+        var xSpeed = 6f + (IsDashing ? 30 : 0) + 5 * score / 100;
+        GlobalStore.ObstacleVelocity.Value = new Vector3(xSpeed * -1, 0, 0);
+    }
+
+    void onShrink(object sender, EventArgs args)
+    {
+        if (!isRunning)
         {
             return;
         }
         gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = 10;
     }
 
-    void Grow(object sender, EventArgs args)
+    void onGrow(object sender, EventArgs args)
     {
-        if (!GlobalStore.ShouldScrollScreen())
+        if (!isRunning)
         {
             return;
         }
         gameObject.transform.localScale = new Vector3(1, 1, 1);
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
     }
 
-    public void OnJumpStart(object sender, EventArgs args)
+    void onDashStart(object sender, EventArgs args)
     {
-        if (GlobalStore.GameState == GameState.Loading)
+        if (!isRunning)
         {
-            GlobalStore.GameState = GameState.Running;
+            return;
         }
-        if (GlobalStore.ShouldScrollScreen() && canJump)
+        IsDashing = true;
+        Invoke("DashStop", 0.2f);
+    }
+
+    void DashStop()
+    {
+        IsDashing = false;
+    }
+
+    public void onJumpStart(object sender, EventArgs args)
+    {
+        if (currentState == GameState.Loading)
+        {
+            GlobalStore.State.Value = GameState.Running;
+        }
+        if (isRunning && jumpCounter < 2)
         {
             _walkSound.Stop();
-            canJump = false;
-            rb.velocity += new Vector2(0, jumpStrength);
+            jumpCounter++;
+            rb.velocity += new Vector2(0, jumpStrength / jumpCounter);
             _jumpSound.Play();
         }
 
 
     }
+    #endregion
 
     public void RestartGame(bool forceStateChange = false)
     {
 
         DestroyGameObjects();
-
+        DashStop();
         Destroy(startAnimation.previousPlayer);
 
         var newRoot = Instantiate(startAnimation.gameObject, new Vector3(-12.57f, -3.56f, 0), new Quaternion());
@@ -121,16 +159,16 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       controller.Loop();
+        controller.Loop();
     }
 
     void OnCollisionEnter2D(Collision2D collided)
     {
         if (collided.gameObject.tag == "Floor")
         {
-            canJump = true;
-            
-            if(GlobalStore.ShouldScrollScreen()) 
+            jumpCounter = 0;
+
+            if (isRunning)
             {
                 _walkSound.Play();
             }
@@ -139,30 +177,32 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collided)
     {
-        if((collided.tag == "Obstacle" || collided.tag == "DeathZone") && GlobalStore.GameState == GameState.Running) 
+        if (currentState == GameState.Running)
         {
-            _walkSound.Stop();
-            _dieSound.Play();
-            GlobalStore.GameState = GameState.Died;
-            if(GlobalStore.HighestScore < GlobalStore.Score) 
+            switch (collided.tag)
             {
-                GlobalStore.HighestScore = GlobalStore.Score;
+                case "Obstacle":
+                case "DeathZone":
+                    _walkSound.Stop();
+                    _dieSound.Play();
+                    GlobalStore.State.Value = GameState.Died;
+                    BodyGameObject.transform.eulerAngles = new Vector3(0, 0, -90);
+                    RestartGame();
+                    break;
+                case "Currency":
+                    _pickupSound.Play();
+                    GlobalStore.Score.Value += 10;
+                    Destroy(collided.gameObject);
+                    break;
             }
-            BodyGameObject.transform.eulerAngles = new Vector3(0,0,-90);
-            RestartGame();
-        }
-        if(collided.tag == "Currency" && GlobalStore.GameState == GameState.Running)
-        {
-            _pickupSound.Play();
-            GlobalStore.Score += 10;
-            Destroy(collided.gameObject);
         }
     }
 
     public void OnDestroy()
     {
-        controller.OnCrouchEnter -= Shrink;
-        controller.OnCrouchLeave -= Grow;
-        controller.OnJumpStart -= OnJumpStart;
+        controller.OnCrouchEnter -= onShrink;
+        controller.OnCrouchLeave -= onGrow;
+        controller.OnJumpStart -= onJumpStart;
+        controller.OnDashStart -= onDashStart;
     }
 }

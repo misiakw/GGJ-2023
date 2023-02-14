@@ -41,19 +41,18 @@ public class MapTilesGenerator : MonoBehaviour
 
     }
 
-    public void GenerateMapTile(Vector3 callerTransform)
+    public void GenerateMapTile(GameObject mapTile)
     {
-        GameObject mapTile = Instantiate(mapTilePrefab);
         previousMapTileYPos = Random.Range(-1, 2); //Comment this line to make single level tiles
-        if (LastCreated.transform.position.y + previousMapTileYPos > 5)
+        if (LastCreated.transform.position.y + previousMapTileYPos > 3)
             previousMapTileYPos = -1;
 
-        if (LastCreated.transform.position.y - previousMapTileYPos <= -1)
+        if (LastCreated.transform.position.y + previousMapTileYPos <= -1)
             previousMapTileYPos = 1;
 
-        var controller = mapTile.gameObject.GetComponent<MapTileController>();
-        controller.generator = this;
-        mapTile.transform.position = LastCreated.transform.position + new Vector3(9.9f, (float)previousMapTileYPos, 0);
+        mapTile.transform.position += new Vector3(0, LastCreated.transform.position.y - mapTile.transform.position.y + previousMapTileYPos, 0);
+        LastCreated.transform.Find("FloorRight/FloorElement (2)/SpriteRight").gameObject.SetActive(mapTile.transform.position.y != LastCreated.transform.position.y);
+        mapTile.transform.Find("FloorLeft/FloorElement (1)/SpriteLeft").gameObject.SetActive(mapTile.transform.position.y != LastCreated.transform.position.y);
         LastCreated = mapTile;
         GenerateObstacles(mapTile);
     }
@@ -107,7 +106,7 @@ public class MapTilesGenerator : MonoBehaviour
                 break;
         }
 
-        if (newObstacleConfiguration != ObstacleConfigurations.ThreeCurrencies 
+        if (newObstacleConfiguration != ObstacleConfigurations.ThreeCurrencies
             && Random.Range(0, 100) < 90) //generation % for currency
         {
             go = CreateObject(currencyPrefab, mapTile);

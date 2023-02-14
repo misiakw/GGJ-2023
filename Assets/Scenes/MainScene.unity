@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TextObject: {fileID: 890371348}
-  ReslultTextObject: {fileID: 0}
+  ResultTextObject: {fileID: 0}
   timePerScorePoint: 1
 --- !u!4 &538185150
 Transform:
@@ -421,7 +421,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -10}
-  m_SizeDelta: {x: 160, y: 50}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &890371350
 MonoBehaviour:

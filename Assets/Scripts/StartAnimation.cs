@@ -13,27 +13,30 @@ public class StartAnimation : MonoBehaviour
     public GameObject previousPlayer;
 
     private bool ShouldStartGrowing = false;
+    private GameState currentState;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animation>();
+
+        GlobalStore.State.Onchange += (s, v) => currentState = v;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!ShouldStartGrowing)
+        if (!ShouldStartGrowing)
         {
             var hit = Physics2D.Raycast(new Vector2(-8, -5f), Vector2.up);
 
             if (hit.collider == null)
             {
-                GlobalStore.GameState = GameState.Running;
+                GlobalStore.State.Value = GameState.Running;
             }
             else
             {
-                GlobalStore.GameState = GameState.Loading;
+                GlobalStore.State.Value = GameState.Loading;
                 ShouldStartGrowing = true;
             }
 
@@ -58,10 +61,11 @@ public class StartAnimation : MonoBehaviour
     public void StartGrow()
     {
         return;
-        GlobalStore.GameState = GameState.Loading;
+        GlobalStore.State.Value = GameState.Loading;
         transform.position = new Vector3(-12.57f, -3.57f, 0f);
         playerCreated = false;
-        if(previousPlayer!= null && !previousPlayer.IsDestroyed()) {
+        if (previousPlayer != null && !previousPlayer.IsDestroyed())
+        {
             Destroy(previousPlayer);
             previousPlayer = null;
         }
@@ -72,9 +76,9 @@ public class StartAnimation : MonoBehaviour
 
     private void Move()
     {
-        if (GlobalStore.ShouldScrollScreen())
+        if (currentState == GameState.Running)
         {
-            var speed = new Vector3(GlobalStore.ObstacleVelocity.x * Time.deltaTime, 0, 0);
+            var speed = new Vector3(GlobalStore.ObstacleVelocity.Value.x * Time.deltaTime, 0, 0);
             transform.position += speed;
         }
     }
@@ -82,6 +86,6 @@ public class StartAnimation : MonoBehaviour
     private bool isAimationFinished()
     {
         var state = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
-        return state.length/2 <= state.normalizedTime;
+        return state.length / 2 <= state.normalizedTime;
     }
 }

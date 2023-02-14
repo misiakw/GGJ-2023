@@ -4,17 +4,37 @@ using UnityEngine.InputSystem;
 
 public static class GlobalStore
 {
-    public static GameState GameState = GameState.Loading;
+    public static ChangeNotified<GameState> State = new ChangeNotified<GameState>(GameState.Loading);
+    public static ChangeNotified<int> Score = new ChangeNotified<int>(0);
+    public static bool IsDashing = false;
 
-    public static bool ShouldScrollScreen() => GameState == GameState.Running;
-    public static int Score = 0;
-    public static Vector3 ObstacleVelocity { get { return new Vector3(-6f + -5 * Score / 100, 0, 0); } }
+    public static ChangeNotified<Vector3> ObstacleVelocity = new ChangeNotified<Vector3>(new Vector3(0, 0, 0));
     public static int HighestScore = 0;
 }
 
-public enum GameState 
+public enum GameState
 {
     Running,
     Died,
     Loading
+}
+
+public class ChangeNotified<T>
+{
+    public EventHandler<T> Onchange;
+    private T _value;
+    public T Value
+    {
+        get => _value;
+        set
+        {
+            _value = value;
+            Onchange?.Invoke(this, _value);
+        }
+    }
+
+    public ChangeNotified(T starting)
+    {
+        _value = starting;
+    }
 }
