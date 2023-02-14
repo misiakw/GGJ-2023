@@ -23,9 +23,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
 
-        GlobalStore.Score = 0;
         //state changes
         GlobalStore.State.Onchange += onStateChange;
+        GlobalStore.Score.Onchange += onScoreChange;
+        GlobalStore.Score.Value = 0;
 
         rb = GetComponent<Rigidbody2D>();
 
@@ -57,13 +58,14 @@ public class PlayerController : MonoBehaviour
     void onStateChange(object sender, GameState state)
     {
         currentState = state;
-
-        if (currentState == GameState.Running)
-        {
-            var xSpeed = 6f + (IsDashing ? 30 : 0) + 5 * GlobalStore.Score / 100;
-            GlobalStore.ObstacleVelocity.Value = new Vector3(xSpeed * -1, 0, 0);
-        }
     }
+
+    void onScoreChange(object sender, int score)
+    {
+        var xSpeed = 6f + (IsDashing ? 30 : 0) + 5 * score / 100;
+        GlobalStore.ObstacleVelocity.Value = new Vector3(xSpeed * -1, 0, 0);
+    }
+
     void onShrink(object sender, EventArgs args)
     {
         if (!isRunning)
@@ -184,16 +186,12 @@ public class PlayerController : MonoBehaviour
                     _walkSound.Stop();
                     _dieSound.Play();
                     GlobalStore.State.Value = GameState.Died;
-                    if (GlobalStore.HighestScore < GlobalStore.Score)
-                    {
-                        GlobalStore.HighestScore = GlobalStore.Score;
-                    }
                     BodyGameObject.transform.eulerAngles = new Vector3(0, 0, -90);
                     RestartGame();
                     break;
                 case "Currency":
                     _pickupSound.Play();
-                    GlobalStore.Score += 10;
+                    GlobalStore.Score.Value += 10;
                     Destroy(collided.gameObject);
                     break;
             }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,7 +18,6 @@ public class MapTileController : MonoBehaviour
     public GameObject LeftFalling;
 
     public MapTilesGenerator generator;
-    private bool alreadyGenerated = false;
     private bool isRunning = GlobalStore.State.Value == GameState.Running;
 
     // Start is called before the first frame update
@@ -31,35 +31,44 @@ public class MapTileController : MonoBehaviour
     {
         if (GlobalStore.State.Value == GameState.Running)
         {
+            transform.Translate(new Vector3(GlobalStore.ObstacleVelocity.Value.x * Time.deltaTime, 0, 0));
+
             if (transform.position.x <= -30)
             {
-                GenerateNewTile();
-                Destroy(gameObject);
+                ResetTileState();
+                generator.GenerateMapTile(gameObject);
                 return;
             }
-
-            transform.position += new Vector3(GlobalStore.ObstacleVelocity.Value.x * Time.deltaTime, 0, 0);
         }
+    }
+
+    private void ResetTileState()
+    {
+        transform.position += new Vector3(60, 0, 0);
+        foreach (var child in gameObject.GetComponentsInChildren<Transform>())
+        {
+            if (child.tag == "Obstacle" || child.tag == "Currency")
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        FloorLeft.SetActive(true);
+        FloorRight.SetActive(true);
+        transform.Find("FloorCentre/FloorElement/SpriteLeft").gameObject.SetActive(false);
+        transform.Find("FloorCentre/FloorElement (3)/SpriteRight").gameObject.SetActive(false);
     }
 
     public void MakeHole()
     {
         if (Random.Range(1, 2) == 1)
         {
-            Destroy(FloorLeft);
+            FloorLeft.SetActive(false);
+            transform.Find("FloorCentre/FloorElement/SpriteLeft").gameObject.SetActive(true);
         }
         else
         {
-            Destroy(FloorRight);
-        }
-    }
-
-    public void GenerateNewTile()
-    {
-        if (!alreadyGenerated)
-        {
-            alreadyGenerated = true;
-            generator.GenerateMapTile(transform.position);
+            FloorRight.SetActive(false);
+            transform.Find("FloorCentre/FloorElement (3)/SpriteRight").gameObject.SetActive(true);
         }
     }
 }

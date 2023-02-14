@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public static class GlobalStore
 {
     public static ChangeNotified<GameState> State = new ChangeNotified<GameState>(GameState.Loading);
-    public static int Score = 0;
+    public static ChangeNotified<int> Score = new ChangeNotified<int>(0);
     public static bool IsDashing = false;
 
     public static ChangeNotified<Vector3> ObstacleVelocity = new ChangeNotified<Vector3>(new Vector3(0, 0, 0));
