@@ -8,7 +8,7 @@ public static class GlobalStore
     public static ChangeNotified<int> Score = new ChangeNotified<int>(0);
     public static bool IsDashing = false;
 
-    public static ChangeNotified<Vector3> ObstacleVelocity = new ChangeNotified<Vector3>(new Vector3(0, 0, 0));
+    public static ChangeNotified<Vector3> ObstacleVelocity = new ChangeNotified<Vector3>(new Vector3(-6, 0, 0));
     public static int HighestScore = 0;
 }
 
@@ -35,6 +35,6 @@ public class ChangeNotified<T>
 
     public ChangeNotified(T starting)
     {
-        _value = starting;
+        Value = starting;
     }
 }

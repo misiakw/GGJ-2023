@@ -62,7 +62,7 @@ public class MapTileController : MonoBehaviour
 
     public void MakeHole()
     {
-        if (Random.Range(1, 2) == 1)
+        if (Random.Range(0, 2) == 1)
         {
             FloorLeft.SetActive(false);
             transform.Find("FloorCentre/FloorElement/SpriteLeft").gameObject.SetActive(true);

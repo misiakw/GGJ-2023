@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private bool isRunning => currentState == GameState.Running;
     private bool IsDashing = false;
     private short jumpCounter = 0;
+    private float elapsedTimeFromBirth = 0;
+    private const int timeBeforeSpeedIncrease = 20;
 
     private ControllerDevice controller = ControllerDevice.Instance;
 
@@ -25,7 +27,6 @@ public class PlayerController : MonoBehaviour
 
         //state changes
         GlobalStore.State.Onchange += onStateChange;
-        GlobalStore.Score.Onchange += onScoreChange;
         GlobalStore.Score.Value = 0;
 
         rb = GetComponent<Rigidbody2D>();
@@ -51,19 +52,12 @@ public class PlayerController : MonoBehaviour
                     _pickupSound = source; break;
             }
         }
-
     }
     #region movement event listeners
 
     void onStateChange(object sender, GameState state)
     {
         currentState = state;
-    }
-
-    void onScoreChange(object sender, int score)
-    {
-        var xSpeed = 6f + (IsDashing ? 30 : 0) + 5 * score / 100;
-        GlobalStore.ObstacleVelocity.Value = new Vector3(xSpeed * -1, 0, 0);
     }
 
     void onShrink(object sender, EventArgs args)
@@ -121,10 +115,10 @@ public class PlayerController : MonoBehaviour
 
     public void RestartGame(bool forceStateChange = false)
     {
-
         DestroyGameObjects();
         DashStop();
         Destroy(startAnimation.previousPlayer);
+        GlobalStore.ObstacleVelocity.Value = new Vector3(-6f, 0, 0);
 
         var newRoot = Instantiate(startAnimation.gameObject, new Vector3(-12.57f, -3.56f, 0), new Quaternion());
         startAnimation = newRoot.GetComponent<StartAnimation>();
@@ -160,6 +154,17 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         controller.Loop();
+        ManageGameSpeed();
+    }
+
+    void ManageGameSpeed()
+    {
+        elapsedTimeFromBirth += Time.deltaTime;
+        if (elapsedTimeFromBirth >= timeBeforeSpeedIncrease)
+        {
+            elapsedTimeFromBirth = 0;
+            GlobalStore.ObstacleVelocity.Value = new Vector3(GlobalStore.ObstacleVelocity.Value.x * 1.4f, GlobalStore.ObstacleVelocity.Value.y, 0);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collided)
@@ -191,7 +196,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Currency":
                     _pickupSound.Play();
-                    GlobalStore.Score.Value += 10;
+                    GlobalStore.Score.Value++;
                     Destroy(collided.gameObject);
                     break;
             }

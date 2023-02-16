@@ -54,10 +54,10 @@ public class MapTilesGenerator : MonoBehaviour
 
         mapTile.transform.position += new Vector3(0, LastCreated.transform.position.y - mapTile.transform.position.y + previousMapTileYPos, 0);
 
+        GenerateObstacles(mapTile);
         LastCreated.transform.Find("FloorRight/FloorElement (2)/SpriteRight").gameObject.SetActive(ShowRightEdgeIfNecessary(LastCreated, mapTile));
         mapTile.transform.Find("FloorLeft/FloorElement (1)/SpriteLeft").gameObject.SetActive(ShowLeftEdgeIfNecessary(LastCreated, mapTile));
         LastCreated = mapTile;
-        GenerateObstacles(mapTile);
     }
 
     bool ShowRightEdgeIfNecessary(GameObject leftObject, GameObject rightObject)
@@ -83,7 +83,6 @@ public class MapTilesGenerator : MonoBehaviour
             newObstacleConfiguration = (ObstacleConfigurations)Random.Range(0, possibleConfigurations + 2);
         } while (newObstacleConfiguration == previousObstacleConfiguration);
         previousObstacleConfiguration = newObstacleConfiguration;
-
         switch (newObstacleConfiguration)
         {
             case ObstacleConfigurations.Root:
