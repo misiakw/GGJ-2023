@@ -1,3 +1,17 @@
-0.1 - Created Changelog, Added version info to screen
-0.2 - Score back in place, Changed how score is calculated (now based on tiles generated rather than time elapsed), Added missing platform edges when there was a platform with a hole on the same Y position, Added new tile preset with 3 random Ypos orbs
-0.3 - Player should no longer fall through floor, Readded bugs animations, Orbs are now worth 1 point, Fixed last scenario of missing platform edges, Game speed now increases by 40% every 20s, Holes now spawned on both left and right side of the platform
+0.1 - 	Created Changelog, 
+		Added version info to screen
+		
+0.2 - 	Score back in place, 
+		Changed how score is calculated (now based on tiles generated rather than time elapsed), 
+		Added missing platform edges when there was a platform with a hole on the same Y position, 
+		Added new tile preset with 3 random Ypos orbs
+		
+0.3 -	Player should no longer fall through floor, 
+		Readded bugs animations, 
+		Orbs are now worth 1 point, 
+		Fixed last scenario of missing platform edges, 
+		Game speed now increases by 40% every 20s, 
+		Holes now spawned on both left and right side of the platform
+0.4 -	Fixed jumping on gamepad
+		Restart game at death
+		Added new Player sprite aspire ball (crouching still done on scaling, may cause issues, but will bo done by animations)

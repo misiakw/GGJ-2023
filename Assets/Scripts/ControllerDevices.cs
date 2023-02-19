@@ -20,12 +20,21 @@ public abstract class BaseControler
 public abstract class BtnController : BaseControler, IController
 {
     protected BtnController(ControllerDevice controller) : base(controller) { }
-    private bool isCrouching = false;
+    protected bool isCrouching = false;
+    protected DateTime JumpDownTime = DateTime.Now;
 
     protected abstract bool JumpDown();
     protected abstract bool CrouchDown();
     protected abstract bool CrouchUp();
     protected abstract bool DashDown();
+
+    protected virtual void processJump()
+    {
+        if (JumpDown())
+        {
+            _controller.OnJumpStart?.Invoke(this, null);
+        }
+    }
     public virtual void Loop()
     {
         if (isCrouching && CrouchUp())
@@ -43,11 +52,7 @@ public abstract class BtnController : BaseControler, IController
         {
             _controller.OnDashStart?.Invoke(this, null);
         }
-
-        if (JumpDown())
-        {
-            _controller.OnJumpStart?.Invoke(this, null);
-        }
+        processJump();
     }
 }
 public class Keyboard : BtnController, IController
@@ -74,9 +79,23 @@ public class GamepadBtnController : BtnController, IController
 {
     public GamepadBtnController(ControllerDevice controller) : base(controller) { }
 
-    protected override bool CrouchDown() => Gamepad.current.aButton.wasPressedThisFrame;
-    protected override bool CrouchUp() => Gamepad.current.aButton.wasReleasedThisFrame;
-    protected override bool JumpDown() => Gamepad.current.xButton.isPressed;
+    protected override bool CrouchDown() => Gamepad.current.aButton.isPressed;
+    protected override bool CrouchUp() => isCrouching && !Gamepad.current.aButton.isPressed;
+    protected override bool JumpDown() => Gamepad.current.bButton.isPressed;
+
+    private bool waitingForRelease = false;
+    protected override void processJump()
+    {
+        if (waitingForRelease && !Gamepad.current.bButton.isPressed)
+        {
+            waitingForRelease = false;
+        }
+        if (JumpDown() && !waitingForRelease)
+        {
+            waitingForRelease = true;
+            _controller.OnJumpStart?.Invoke(this, null);
+        }
+    }
 
     public override void Loop()
     {
@@ -132,11 +151,12 @@ public class ControllerDevice : IController
     private IList<IController> _devices = new List<IController>();
     private ControllerDevice()
     {
-        _devices.Add(new Keyboard(KeyCode.W, KeyCode.S, KeyCode.E, this));
+        //_devices.Add(new Keyboard(KeyCode.W, KeyCode.S, KeyCode.E, this));
         _devices.Add(new Keyboard(KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow, this));
-        _devices.Add(new Keyboard(KeyCode.Space, KeyCode.LeftControl, KeyCode.LeftShift, this));
+        //_devices.Add(new Keyboard(KeyCode.Space, KeyCode.LeftControl, KeyCode.LeftShift, this));
         _devices.Add(new GamepadBtnController(this));
-        _devices.Add(new XboxPadController(this));
+        //_devices.Add(new XboxPadController(this));
+
     }
 
 
@@ -151,5 +171,10 @@ public class ControllerDevice : IController
         {
             d.Loop();
         }
+    }
+
+    public void Init()
+    {
+        throw new NotImplementedException();
     }
 }
