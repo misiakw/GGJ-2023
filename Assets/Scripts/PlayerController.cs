@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public float jumpStrength = 7F;
+    private MoveConsts moveConsts;
+    public float jumpStrength;
     public StartAnimation startAnimation;
     private AudioSource _jumpSound;
     private AudioSource _dieSound;
@@ -24,6 +25,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        moveConsts = MoveConsts.instance;
+        Debug.Log(JsonUtility.ToJson(moveConsts, true));
+        jumpStrength = moveConsts.jumpStrength;
 
         //state changes
         GlobalStore.State.Onchange += onStateChange;
@@ -81,8 +85,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
         animator.SetBool("Crouching", true);
-        //gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
-        gameObject.GetComponent<Rigidbody2D>().gravityScale = 10;
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = moveConsts.squashedGravity;
     }
 
     void onGrow(object sender, EventArgs args)
@@ -92,8 +95,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
         animator.SetBool("Crouching", false);
-        //gameObject.transform.localScale = new Vector3(1, 1, 1);
-        gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = moveConsts.gravity;
     }
 
     /*void onDashStart(object sender, EventArgs args)
@@ -130,9 +132,23 @@ public class PlayerController : MonoBehaviour
 
             _walkSound.Stop();
             jumpCounter++;
-            rb.velocity += new Vector2(0, jumpStrength / jumpCounter);
-            if (rb.velocity.y > 1.5 * jumpStrength)
-                rb.velocity = new Vector2(rb.velocity.x, 1.5f * jumpStrength);
+
+            if(rb.velocity.y > 0)
+            {
+                rb.velocity += new Vector2(0, jumpStrength * moveConsts.doubleJumpStrategy.risingJumpMultiplier);
+            }
+            else if(!moveConsts.doubleJumpStrategy.zeroFallVelocity)
+            {
+                rb.velocity += new Vector2(0, jumpStrength * moveConsts.doubleJumpStrategy.fallJumpMultiplier);
+            }
+            else
+            {
+                rb.velocity = new Vector2(0, jumpStrength * moveConsts.doubleJumpStrategy.fallJumpMultiplier);
+            }
+
+
+            if (rb.velocity.y > moveConsts.doubleJumpStrategy.topJumpSpeedMultiplier * jumpStrength)
+                rb.velocity = new Vector2(rb.velocity.x, moveConsts.doubleJumpStrategy.topJumpSpeedMultiplier * jumpStrength);
             _jumpSound.Play();
         }
 
@@ -186,7 +202,10 @@ public class PlayerController : MonoBehaviour
         if (elapsedTimeFromBirth >= timeBeforeSpeedIncrease)
         {
             elapsedTimeFromBirth = 0;
-            GlobalStore.ObstacleVelocity.Value = new Vector3(GlobalStore.ObstacleVelocity.Value.x * 1.4f, GlobalStore.ObstacleVelocity.Value.y, 0);
+            GlobalStore.ObstacleVelocity.Value = new Vector3(
+                GlobalStore.ObstacleVelocity.Value.x * moveConsts.speedIncreaseMultiplier, 
+                GlobalStore.ObstacleVelocity.Value.y, 
+                0);
         }
     }
 
