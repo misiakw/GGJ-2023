@@ -421,6 +421,7 @@ GameObject:
   - component: {fileID: 810728170}
   - component: {fileID: 810728169}
   - component: {fileID: 810728168}
+  - component: {fileID: 810728172}
   m_Layer: 0
   m_Name: Score
   m_TagString: Untagged
@@ -595,6 +596,27 @@ RectTransform:
   m_AnchoredPosition: {x: 5.83, y: 9.981467}
   m_SizeDelta: {x: 4.5105, y: 1.3164}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &810728172
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810728167}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1001 &1071666574
 PrefabInstance:
   m_ObjectHideFlags: 0
