@@ -65,8 +65,8 @@ public class PlayerController : MonoBehaviour
         switch (state)
         {
             case GameState.Running:
-                if(animator != null)
-                    animator.SetBool("Running", true);
+                if (animator != null)
+                    animator.SetTrigger("StartRunning");
                 break;
             case GameState.Loading:
             case GameState.Died:
@@ -80,8 +80,8 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
         animator.SetBool("Crouching", true);
+        //gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 10;
     }
 
@@ -91,8 +91,8 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        gameObject.transform.localScale = new Vector3(1, 1, 1);
         animator.SetBool("Crouching", false);
+        //gameObject.transform.localScale = new Vector3(1, 1, 1);
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
     }
 
@@ -185,7 +185,6 @@ public class PlayerController : MonoBehaviour
         elapsedTimeFromBirth += Time.deltaTime;
         if (elapsedTimeFromBirth >= timeBeforeSpeedIncrease)
         {
-            Debug.Log("speed increased");
             elapsedTimeFromBirth = 0;
             GlobalStore.ObstacleVelocity.Value = new Vector3(GlobalStore.ObstacleVelocity.Value.x * 1.4f, GlobalStore.ObstacleVelocity.Value.y, 0);
         }
@@ -195,8 +194,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collided.gameObject.tag == "Floor")
         {
-            if(jumpCounter > 0)
-                animator.SetBool("Jumping", false);
+            animator.SetBool("Jumping", false);
             jumpCounter = 0;
 
             if (isRunning)
