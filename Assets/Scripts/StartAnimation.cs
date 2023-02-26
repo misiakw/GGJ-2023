@@ -12,7 +12,7 @@ public class StartAnimation : MonoBehaviour
     private bool playerCreated = false;
     public GameObject previousPlayer;
 
-    private bool ShouldStartGrowing = false;
+    private bool ShouldStartGrowing = true;
     private GameState currentState;
 
     // Start is called before the first frame update
@@ -26,7 +26,7 @@ public class StartAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!ShouldStartGrowing)
+        /*if (!ShouldStartGrowing)
         {
             var hit = Physics2D.Raycast(new Vector2(-8, -5f), Vector2.up);
 
@@ -41,7 +41,7 @@ public class StartAnimation : MonoBehaviour
             }
 
             animator.Stop();
-        }
+        }*/
 
         DropPlayer();
         Move();
@@ -53,7 +53,7 @@ public class StartAnimation : MonoBehaviour
         {
             Debug.Log("animation finished");
             playerCreated = true;
-            previousPlayer = Instantiate(PlayerPrefab, new Vector3(-8, 12.5f, 0), new Quaternion());
+            previousPlayer = Instantiate(PlayerPrefab, new Vector3(-8, 6.5f, 0), new Quaternion());
             previousPlayer.GetComponent<PlayerController>().startAnimation = this;
         }
     }
@@ -85,6 +85,7 @@ public class StartAnimation : MonoBehaviour
 
     private bool isAimationFinished()
     {
+        return true;
         var state = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
         return state.length / 2 <= state.normalizedTime;
     }

@@ -8,7 +8,7 @@ public class MoveConsts
 {
     public float gravity = 4f;
     public float squashedGravity = 10f;
-    public float jumpStrength = 17f;
+    public float jumpStrength = 15f;
     public float speedIncreaseMultiplier = 1.4f;
 
     public DoubleJumpStrategy doubleJumpStrategy = new DoubleJumpStrategy();

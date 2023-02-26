@@ -15,3 +15,10 @@
 0.4 -	Fixed jumping on gamepad
 		Restart game at death
 		Added new Player sprite aspire ball (crouching still done on scaling, may cause issues, but will bo done by animations)
+
+0.5 -	Changed gampad button mapping (A-jump, left stick - crouch)
+		Fixed speed increase - waiting berofe start don't affect timer, timer reseted each death
+		Added animation triggered on given actions
+		Animated person on run, jump and crouch (to be tweaked)
+		Added MoveConst.json configuration to change player bahaviour
+		changed starting animation (tentaclesfree)

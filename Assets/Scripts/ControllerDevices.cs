@@ -79,14 +79,17 @@ public class GamepadBtnController : BtnController, IController
 {
     public GamepadBtnController(ControllerDevice controller) : base(controller) { }
 
-    protected override bool CrouchDown() => Gamepad.current.aButton.isPressed;
-    protected override bool CrouchUp() => isCrouching && !Gamepad.current.aButton.isPressed;
-    protected override bool JumpDown() => Gamepad.current.bButton.isPressed;
+    //protected override bool CrouchDown() => Gamepad.current.aButton.isPressed;
+    //protected override bool CrouchUp() => isCrouching && !Gamepad.current.aButton.isPressed;
+    protected override bool CrouchDown() => Gamepad.current.leftStick.down.ReadValue() > 0.3;
+    protected override bool CrouchUp() => Gamepad.current.leftStick.down.ReadValue() == 0;
+
+    protected override bool JumpDown() => Gamepad.current.aButton.isPressed;
 
     private bool waitingForRelease = false;
     protected override void processJump()
     {
-        if (waitingForRelease && !Gamepad.current.bButton.isPressed)
+        if (waitingForRelease && !Gamepad.current.aButton.isPressed)
         {
             waitingForRelease = false;
         }
