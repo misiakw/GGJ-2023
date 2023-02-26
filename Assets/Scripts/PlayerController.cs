@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     private GameState currentState = GlobalStore.State.Value;
     private bool isRunning => currentState == GameState.Running;
-    private bool isDashing = false;
+    //private bool isDashing = false;
     private short jumpCounter = 0;
     private float elapsedTimeFromBirth = 0;
     private const int timeBeforeSpeedIncrease = 20;
@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
         //state changes
         GlobalStore.State.Onchange += onStateChange;
         GlobalStore.Score.Value = 0;
+        GlobalStore.ObstacleVelocity.Value = GlobalStore.PLAYER_STARTUP_SPEED;
+        elapsedTimeFromBirth = 0;
 
         rb = GetComponent<Rigidbody2D>();
 
@@ -111,9 +113,10 @@ public class PlayerController : MonoBehaviour
 
     public void onJumpStart(object sender, EventArgs args)
     {
-        Debug.Log("jump");
         if (currentState == GameState.Loading)
         {
+            GlobalStore.ObstacleVelocity.Value = GlobalStore.PLAYER_STARTUP_SPEED;
+            elapsedTimeFromBirth = 0;
             GlobalStore.State.Value = GameState.Running;
             return;
         }
@@ -128,8 +131,8 @@ public class PlayerController : MonoBehaviour
             _walkSound.Stop();
             jumpCounter++;
             rb.velocity += new Vector2(0, jumpStrength / jumpCounter);
-            if (rb.velocity.y > 2*jumpStrength)
-                rb.velocity = new Vector2(rb.velocity.x, 2*jumpStrength);
+            if (rb.velocity.y > 1.5 * jumpStrength)
+                rb.velocity = new Vector2(rb.velocity.x, 1.5f * jumpStrength);
             _jumpSound.Play();
         }
 
@@ -140,13 +143,7 @@ public class PlayerController : MonoBehaviour
     public void RestartGame(bool forceStateChange = false)
     {
         DestroyGameObjects();
-        SceneManager.LoadScene("MainScene");
-        //DashStop();
-        //Destroy(startAnimation.previousPlayer);
-        //GlobalStore.ObstacleVelocity.Value = new Vector3(-6f, 0, 0);
-
-        //var newRoot = Instantiate(startAnimation.gameObject, new Vector3(-12.57f, -3.56f, 0), new Quaternion());
-       //startAnimation = newRoot.GetComponent<StartAnimation>();
+        SceneManager.LoadScene("MainScene");;
     }
 
     private static void DestroyGameObjects()
@@ -177,7 +174,10 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         controller.Loop();
-        ManageGameSpeed();
+        if (currentState == GameState.Running)
+        {
+            ManageGameSpeed();
+        }
     }
 
     void ManageGameSpeed()
@@ -185,6 +185,7 @@ public class PlayerController : MonoBehaviour
         elapsedTimeFromBirth += Time.deltaTime;
         if (elapsedTimeFromBirth >= timeBeforeSpeedIncrease)
         {
+            Debug.Log("speed increased");
             elapsedTimeFromBirth = 0;
             GlobalStore.ObstacleVelocity.Value = new Vector3(GlobalStore.ObstacleVelocity.Value.x * 1.4f, GlobalStore.ObstacleVelocity.Value.y, 0);
         }

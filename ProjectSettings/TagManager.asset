@@ -16,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Obstacle
-  - 
+  - Labels
   - 
   - 
   - 
@@ -44,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Labels
+    uniqueID: 2399206901
     locked: 0

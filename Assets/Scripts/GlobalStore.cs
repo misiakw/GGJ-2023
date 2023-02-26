@@ -8,7 +8,8 @@ public static class GlobalStore
     public static ChangeNotified<int> Score = new ChangeNotified<int>(0);
     public static bool IsDashing = false;
 
-    public static ChangeNotified<Vector3> ObstacleVelocity = new ChangeNotified<Vector3>(new Vector3(-6, 0, 0));
+    public static ChangeNotified<Vector3> ObstacleVelocity = new ChangeNotified<Vector3>(PLAYER_STARTUP_SPEED);
+    public static Vector3 PLAYER_STARTUP_SPEED => new Vector3(-6, 0, 0);
     public static int HighestScore = 0;
 }
 
