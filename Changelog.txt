@@ -21,4 +21,6 @@
 		Added animation triggered on given actions
 		Animated person on run, jump and crouch (to be tweaked)
 		Added MoveConst.json configuration to change player bahaviour
-		changed starting animation (tentaclesfree)
+		changed starting animation (tentaclesfree
+0.5.1 -	Fixed restart
+		Add Splash screen, game icon, game properties

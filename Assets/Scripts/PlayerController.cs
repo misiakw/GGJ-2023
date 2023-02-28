@@ -26,13 +26,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         moveConsts = MoveConsts.instance;
-        Debug.Log(JsonUtility.ToJson(moveConsts, true));
         jumpStrength = moveConsts.jumpStrength;
 
         //state changes
         GlobalStore.State.Onchange += onStateChange;
         GlobalStore.Score.Value = 0;
         GlobalStore.ObstacleVelocity.Value = GlobalStore.PLAYER_STARTUP_SPEED;
+        GlobalStore.State.Value = GameState.Loading;
         elapsedTimeFromBirth = 0;
 
         rb = GetComponent<Rigidbody2D>();
@@ -115,6 +115,7 @@ public class PlayerController : MonoBehaviour
 
     public void onJumpStart(object sender, EventArgs args)
     {
+        Debug.Log($"state: {currentState}");
         if (currentState == GameState.Loading)
         {
             GlobalStore.ObstacleVelocity.Value = GlobalStore.PLAYER_STARTUP_SPEED;
