@@ -12,6 +12,7 @@
 		Fixed last scenario of missing platform edges, 
 		Game speed now increases by 40% every 20s, 
 		Holes now spawned on both left and right side of the platform
+		
 0.4 -	Fixed jumping on gamepad
 		Restart game at death
 		Added new Player sprite aspire ball (crouching still done on scaling, may cause issues, but will bo done by animations)
@@ -22,5 +23,13 @@
 		Animated person on run, jump and crouch (to be tweaked)
 		Added MoveConst.json configuration to change player bahaviour
 		changed starting animation (tentaclesfree
+		
 0.5.1 -	Fixed restart
 		Add Splash screen, game icon, game properties
+		
+0.6 -	Changed bugs sprites
+		Changed background images
+		Changed platform images
+		Changed the way sprites are rendered so that Score is on top
+		Fixed floating bugs animations so they now properly move up and down and crouch is required to pass through some of them
+		Changed game speed increases to 30% (was 40%)
