@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - Currency
   - DeathZone
+  - Menu
   layers:
   - Default
   - TransparentFX

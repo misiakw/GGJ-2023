@@ -167,12 +167,27 @@ public class ControllerDevice : IController
     public EventHandler OnCrouchLeave;
     public EventHandler OnJumpStart;
     public EventHandler OnDashStart;
+    public EventHandler OnMenuPress;
 
     public void Loop()
     {
         foreach (var d in _devices)
         {
             d.Loop();
+        }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                OnMenuPress?.Invoke(this, null);
+            }
+        }
+        if (Input.GetKey(KeyCode.M))
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OnMenuPress?.Invoke(this, null);
+            }
         }
     }
 

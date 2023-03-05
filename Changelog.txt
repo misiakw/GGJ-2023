@@ -33,3 +33,6 @@
 		Changed the way sprites are rendered so that Score is on top
 		Fixed floating bugs animations so they now properly move up and down and crouch is required to pass through some of them
 		Changed game speed increases to 30% (was 40%)
+0.6.1 -	Added menu (triggered by esc+m)
+		Ability to close game via menu
+		Ability to toggle fullscreen (via menu) to move between screens

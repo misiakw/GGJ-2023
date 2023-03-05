@@ -115,7 +115,6 @@ public class PlayerController : MonoBehaviour
 
     public void onJumpStart(object sender, EventArgs args)
     {
-        Debug.Log($"state: {currentState}");
         if (currentState == GameState.Loading)
         {
             GlobalStore.ObstacleVelocity.Value = GlobalStore.PLAYER_STARTUP_SPEED;
