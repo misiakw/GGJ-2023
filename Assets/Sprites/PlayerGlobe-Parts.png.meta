@@ -1,0 +1,784 @@
+fileFormatVersion: 2
+guid: 7debfb27f1af61b4482bfdb02211f088
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_0
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 759
+        width: 24
+        height: 46
+      alignment: 9
+      pivot: {x: 0.875971, y: 0.9424996}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 508798c9e1e34e04c864f8ced87d1607
+      internalID: 1579648222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_1
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 777
+        width: 48
+        height: 30
+      alignment: 9
+      pivot: {x: 0.071567856, y: 0.3321269}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a02e690c9f1dc084c990631f8c2d26de
+      internalID: -1018807409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_2
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 776
+        width: 39
+        height: 33
+      alignment: 9
+      pivot: {x: 0.9250696, y: 0.9006126}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d348865dbc247b4786366418982b3aa
+      internalID: -1445131421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_3
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 778
+        width: 42
+        height: 28
+      alignment: 9
+      pivot: {x: 0.080311365, y: 0.90470016}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24471cd87843b1c4c9e0ca2561b836d5
+      internalID: 1894107255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_4
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 757
+        width: 15
+        height: 58
+      alignment: 9
+      pivot: {x: 0.34611613, y: 0.95225155}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 250c782a40793d146a35b700503f396c
+      internalID: 204182325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_5
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 751
+        width: 138
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8e1e69946292474597f846d60627f95
+      internalID: 1053367732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_6
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 691
+        width: 17
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9668e1c110d5f74f956ab29ac5e32d7
+      internalID: 745329695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_7
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 691
+        width: 24
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16e0bb089f85c88479ce7bcf2e2a7802
+      internalID: 2126085269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_8
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 622
+        width: 127
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34fd906c8400d514e98879936e9c2c90
+      internalID: 180171967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_9
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 656
+        width: 133
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b53749a096d7b1a48ba980aad8e42437
+      internalID: -1166108925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_10
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 657
+        width: 20
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c4f5e4c6a6aa51498cd7b1d0e433aa5
+      internalID: -1129405392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_11
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 653
+        width: 19
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 279731f7104d3f34b8dbe092964a0965
+      internalID: -45105379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_12
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 563
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe709098112ec4e48ae84a85457e0286
+      internalID: -719534226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_13
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 566
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 957eb78ca52307f4baf45f8892860cc5
+      internalID: 904328625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_14
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 471
+        width: 127
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28a5fd800ea6c814182c81df128192e3
+      internalID: -701286986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_15
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 514
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c029e96221aab14c9ee37f79cb52acd
+      internalID: -962020138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_16
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 516
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48c345c3aa822384cac29963d80eda70
+      internalID: -11080785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_17
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 464
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c64f3793920960d40b735259d8805344
+      internalID: -518852640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_18
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 465
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa3791ba45c6e8e4dbd917af8963daef
+      internalID: -185792026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_19
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 392
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 465b4493a1779ed4497235223b11d699
+      internalID: -1874011639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_20
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 389
+        width: 30
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7f5087a56b7c7d41bf3df7beed6b9d7
+      internalID: 695279740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_21
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 314
+        width: 131
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe494863698350f498ce19ecea22a4cb
+      internalID: 1968559094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_22
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 316
+        width: 31
+        height: 33
+      alignment: 9
+      pivot: {x: 0.08783759, y: 0.16812873}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6162d899a49d07e4d9e8ef9f68240ba9
+      internalID: 63600387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_23
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 319
+        width: 35
+        height: 38
+      alignment: 9
+      pivot: {x: 0.91141444, y: 0.15842478}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52432d8ea4c9e2e47bfa2cca7f0ee2fc
+      internalID: -1773558321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_24
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 202
+        width: 40
+        height: 55
+      alignment: 9
+      pivot: {x: 0.9259197, y: 0.4955103}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb509757ba227984ea6485a3b5af6800
+      internalID: -1838539766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_25
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 202
+        width: 40
+        height: 55
+      alignment: 9
+      pivot: {x: 0.07408027, y: 0.49999943}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ffe9ac37deecee419607208b1adc6cd
+      internalID: 1048201604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_26
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 209
+        width: 82
+        height: 39
+      alignment: 9
+      pivot: {x: 0.03327979, y: 0.93050915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10c41eff2dd3a8049b596358c066f39f
+      internalID: -737149202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_27
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 98
+        width: 59
+        height: 41
+      alignment: 9
+      pivot: {x: 0.20107767, y: 0.91030324}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbfa4237913335b42964eb67840f1956
+      internalID: -779042236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_28
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 99
+        width: 58
+        height: 42
+      alignment: 9
+      pivot: {x: 0.78536433, y: 0.93283516}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34f89ab8a91b5344aa2348d6f3411395
+      internalID: 250251368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGlobe-Parts_29
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 125
+        width: 84
+        height: 41
+      alignment: 9
+      pivot: {x: 0.9683671, y: 0.91030365}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e3454b56069bf041a8b4f69618ee853
+      internalID: 1860892797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      PlayerGlobe-Parts_11: -45105379
+      PlayerGlobe-Parts_29: 1860892797
+      PlayerGlobe-Parts_23: -1773558321
+      PlayerGlobe-Parts_4: 204182325
+      PlayerGlobe-Parts_7: 2126085269
+      PlayerGlobe-Parts_12: -719534226
+      PlayerGlobe-Parts_2: -1445131421
+      PlayerGlobe-Parts_13: 904328625
+      PlayerGlobe-Parts_9: -1166108925
+      PlayerGlobe-Parts_24: -1838539766
+      PlayerGlobe-Parts_1: -1018807409
+      PlayerGlobe-Parts_10: -1129405392
+      PlayerGlobe-Parts_17: -518852640
+      PlayerGlobe-Parts_19: -1874011639
+      PlayerGlobe-Parts_8: 180171967
+      PlayerGlobe-Parts_30: -260851847
+      PlayerGlobe-Parts_21: 1968559094
+      PlayerGlobe-Parts_5: 1053367732
+      PlayerGlobe-Parts_20: 695279740
+      PlayerGlobe-Parts_22: 63600387
+      PlayerGlobe-Parts_0: 1579648222
+      PlayerGlobe-Parts_16: -11080785
+      PlayerGlobe-Parts_6: 745329695
+      PlayerGlobe-Parts_26: -737149202
+      PlayerGlobe-Parts_27: -779042236
+      PlayerGlobe-Parts_3: 1894107255
+      PlayerGlobe-Parts_28: 250251368
+      PlayerGlobe-Parts_25: 1048201604
+      PlayerGlobe-Parts_14: -701286986
+      PlayerGlobe-Parts_15: -962020138
+      PlayerGlobe-Parts_18: -185792026
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

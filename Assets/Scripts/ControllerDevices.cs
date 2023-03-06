@@ -20,12 +20,21 @@ public abstract class BaseControler
 public abstract class BtnController : BaseControler, IController
 {
     protected BtnController(ControllerDevice controller) : base(controller) { }
-    private bool isCrouching = false;
+    protected bool isCrouching = false;
+    protected DateTime JumpDownTime = DateTime.Now;
 
     protected abstract bool JumpDown();
     protected abstract bool CrouchDown();
     protected abstract bool CrouchUp();
     protected abstract bool DashDown();
+
+    protected virtual void processJump()
+    {
+        if (JumpDown())
+        {
+            _controller.OnJumpStart?.Invoke(this, null);
+        }
+    }
     public virtual void Loop()
     {
         if (isCrouching && CrouchUp())
@@ -43,11 +52,7 @@ public abstract class BtnController : BaseControler, IController
         {
             _controller.OnDashStart?.Invoke(this, null);
         }
-
-        if (JumpDown())
-        {
-            _controller.OnJumpStart?.Invoke(this, null);
-        }
+        processJump();
     }
 }
 public class Keyboard : BtnController, IController
@@ -74,9 +79,26 @@ public class GamepadBtnController : BtnController, IController
 {
     public GamepadBtnController(ControllerDevice controller) : base(controller) { }
 
-    protected override bool CrouchDown() => Gamepad.current.bButton.wasPressedThisFrame;
-    protected override bool CrouchUp() => Gamepad.current.bButton.wasReleasedThisFrame;
+    //protected override bool CrouchDown() => Gamepad.current.aButton.isPressed;
+    //protected override bool CrouchUp() => isCrouching && !Gamepad.current.aButton.isPressed;
+    protected override bool CrouchDown() => Gamepad.current.leftStick.down.ReadValue() > 0.3;
+    protected override bool CrouchUp() => Gamepad.current.leftStick.down.ReadValue() == 0;
+
     protected override bool JumpDown() => Gamepad.current.aButton.isPressed;
+
+    private bool waitingForRelease = false;
+    protected override void processJump()
+    {
+        if (waitingForRelease && !Gamepad.current.aButton.isPressed)
+        {
+            waitingForRelease = false;
+        }
+        if (JumpDown() && !waitingForRelease)
+        {
+            waitingForRelease = true;
+            _controller.OnJumpStart?.Invoke(this, null);
+        }
+    }
 
     public override void Loop()
     {
@@ -132,11 +154,12 @@ public class ControllerDevice : IController
     private IList<IController> _devices = new List<IController>();
     private ControllerDevice()
     {
-        _devices.Add(new Keyboard(KeyCode.W, KeyCode.S, KeyCode.E, this));
+        //_devices.Add(new Keyboard(KeyCode.W, KeyCode.S, KeyCode.E, this));
         _devices.Add(new Keyboard(KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow, this));
-        _devices.Add(new Keyboard(KeyCode.Space, KeyCode.LeftControl, KeyCode.LeftShift, this));
+        //_devices.Add(new Keyboard(KeyCode.Space, KeyCode.LeftControl, KeyCode.LeftShift, this));
         _devices.Add(new GamepadBtnController(this));
-        _devices.Add(new XboxPadController(this));
+        //_devices.Add(new XboxPadController(this));
+
     }
 
 
@@ -144,6 +167,7 @@ public class ControllerDevice : IController
     public EventHandler OnCrouchLeave;
     public EventHandler OnJumpStart;
     public EventHandler OnDashStart;
+    public EventHandler OnMenuPress;
 
     public void Loop()
     {
@@ -151,5 +175,24 @@ public class ControllerDevice : IController
         {
             d.Loop();
         }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                OnMenuPress?.Invoke(this, null);
+            }
+        }
+        if (Input.GetKey(KeyCode.M))
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OnMenuPress?.Invoke(this, null);
+            }
+        }
+    }
+
+    public void Init()
+    {
+        throw new NotImplementedException();
     }
 }

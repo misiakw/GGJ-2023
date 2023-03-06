@@ -6,10 +6,12 @@ using UnityEngine;
 public class BackgroundController : MonoBehaviour
 {
     bool isRunning = GlobalStore.State.Value == GameState.Running;
+    Vector3 velocity = GlobalStore.ObstacleVelocity.Value;
 
     void Start()
     {
         GlobalStore.State.Onchange += (s, v) => isRunning = v == GameState.Running;
+        GlobalStore.ObstacleVelocity.Onchange += (s, v) => velocity = v;
     }
 
     // Update is called once per frame
@@ -19,13 +21,23 @@ public class BackgroundController : MonoBehaviour
         {
             foreach (Transform child in transform.GetComponentInChildren<Transform>())
             {
-                float speed = child.name.StartsWith("Trees") ? 0.3f
-                    : child.name.StartsWith("Backtrees") ? 0.2f
-                    : 0.1f;
-                child.Translate(GlobalStore.ObstacleVelocity.Value * Time.deltaTime * speed);
-                if (child.localPosition.x <= -19.2)
+                float speed = 0f;
+                switch(true)
                 {
-                    child.localPosition += new Vector3(57.6f, 0, 0);
+                    case bool b when child.name.StartsWith("Rocks"):
+                        speed = 0.2f;
+                        break;
+                    case bool b when child.name.StartsWith("Cloud"):
+                        speed = 0.1f;
+                        break;
+                    case bool b when child.name.StartsWith("Ground"):
+                        speed = 0.3f;
+                        break;
+                }
+                child.Translate(velocity * Time.deltaTime * speed);
+                if (child.localPosition.x <= -26)
+                {
+                    child.localPosition += new Vector3(52f, 0, 0);
                 }
             }
         }

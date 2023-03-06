@@ -19,6 +19,7 @@ public class MapTileController : MonoBehaviour
 
     public MapTilesGenerator generator;
     private bool isRunning = GlobalStore.State.Value == GameState.Running;
+    public int HolePosition = 0; //0 - No Hole, 1 - Left Hole, 2 - Right Hole
 
     // Start is called before the first frame update
     void Start()
@@ -56,19 +57,22 @@ public class MapTileController : MonoBehaviour
         FloorRight.SetActive(true);
         transform.Find("FloorCentre/FloorElement/SpriteLeft").gameObject.SetActive(false);
         transform.Find("FloorCentre/FloorElement (3)/SpriteRight").gameObject.SetActive(false);
+        HolePosition = 0;
     }
 
     public void MakeHole()
     {
-        if (Random.Range(1, 2) == 1)
+        if (Random.Range(0, 2) == 1)
         {
             FloorLeft.SetActive(false);
             transform.Find("FloorCentre/FloorElement/SpriteLeft").gameObject.SetActive(true);
+            HolePosition = 1;
         }
         else
         {
             FloorRight.SetActive(false);
             transform.Find("FloorCentre/FloorElement (3)/SpriteRight").gameObject.SetActive(true);
+            HolePosition = 2;
         }
     }
 }
