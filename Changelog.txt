@@ -1,0 +1,38 @@
+0.1 - 	Created Changelog, 
+		Added version info to screen
+		
+0.2 - 	Score back in place, 
+		Changed how score is calculated (now based on tiles generated rather than time elapsed), 
+		Added missing platform edges when there was a platform with a hole on the same Y position, 
+		Added new tile preset with 3 random Ypos orbs
+		
+0.3 -	Player should no longer fall through floor, 
+		Readded bugs animations, 
+		Orbs are now worth 1 point, 
+		Fixed last scenario of missing platform edges, 
+		Game speed now increases by 40% every 20s, 
+		Holes now spawned on both left and right side of the platform
+		
+0.4 -	Fixed jumping on gamepad
+		Restart game at death
+		Added new Player sprite aspire ball (crouching still done on scaling, may cause issues, but will bo done by animations)
+
+0.5 -	Changed gampad button mapping (A-jump, left stick - crouch)
+		Fixed speed increase - waiting berofe start don't affect timer, timer reseted each death
+		Added animation triggered on given actions
+		Animated person on run, jump and crouch (to be tweaked)
+		Added MoveConst.json configuration to change player bahaviour
+		changed starting animation (tentaclesfree
+		
+0.5.1 -	Fixed restart
+		Add Splash screen, game icon, game properties
+		
+0.6 -	Changed bugs sprites
+		Changed background images
+		Changed platform images
+		Changed the way sprites are rendered so that Score is on top
+		Fixed floating bugs animations so they now properly move up and down and crouch is required to pass through some of them
+		Changed game speed increases to 30% (was 40%)
+0.6.1 -	Added menu (triggered by esc+m)
+		Ability to close game via menu
+		Ability to toggle fullscreen (via menu) to move between screens

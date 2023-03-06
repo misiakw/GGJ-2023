@@ -1,0 +1,12 @@
+{
+    "gravity": 4.0,
+    "squashedGravity": 10.0,
+    "jumpStrength": 15.0,
+    "speedIncreaseMultiplier": 1.2999999523162842,
+    "doubleJumpStrategy": {
+        "topJumpSpeedMultiplier": 1.5,
+        "risingJumpMultiplier": 0.5,
+        "fallJumpMultiplier": 1.0,
+        "zeroFallVelocity": true
+    }
+}
