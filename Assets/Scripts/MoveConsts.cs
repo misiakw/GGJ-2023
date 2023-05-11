@@ -4,8 +4,40 @@ using System;
 using System.IO;
 using UnityEngine;
 
+public static class MoveConstNotifier
+{
+    static private EventHandler<MoveConsts> onLoad;
+    static private bool isLoaded = false;
+    static private object loadLock = new object();
+
+    public static void RegisterLoad(Action<MoveConsts> action)
+    {
+        lock(loadLock)
+        {
+            if (isLoaded)
+            {
+                action(MoveConsts.instance);
+            }
+            else
+            {
+                onLoad += ((s, mc) => action(mc));
+            }
+        }
+    }
+    public static void Load(MoveConsts consts)
+    {
+        lock(loadLock)
+        {
+            isLoaded = true;
+            onLoad.Invoke(consts, consts);
+        }
+    }
+}
+
 public class MoveConsts
 {
+
+    public bool useKeyboard = true;
     public float gravity = 4f;
     public float squashedGravity = 10f;
     public float jumpStrength = 15f;
@@ -27,7 +59,10 @@ public class MoveConsts
         get
         {
             if (_instance == null)
+            {
                 _instance = loadConsts();
+                MoveConstNotifier.Load(_instance);
+            }
             return _instance;
         }
     }
@@ -36,31 +71,45 @@ public class MoveConsts
     private static MoveConsts loadConsts()
     {
         var filePath = Path.Combine(Application.dataPath, "MoveConsts.json");
+        MoveConsts consts = null;
         if (File.Exists(filePath))
         {
             var contentst = File.ReadAllText(filePath);
             try
             {
-                var consts = JsonUtility.FromJson<MoveConsts>(contentst);
+                consts = JsonUtility.FromJson<MoveConsts>(contentst);
+                //if(consts == null)
                 storeConsts(consts);
-                return consts;
+
             }
             catch (Exception ex)
             {
                 Debug.LogError(ex);
-                return new MoveConsts();
+                consts = new MoveConsts();
             }
         }
         else
         {
-            var consts = new MoveConsts();
+            consts = new MoveConsts();
             storeConsts(consts);
-            return consts;
         }
+
+        return consts;
     }
     private static void storeConsts(MoveConsts consts)
     {
         var filePath = Path.Combine(Application.dataPath, "MoveConsts.json");
         File.WriteAllText(filePath, JsonUtility.ToJson(consts, true));
     }
+
+   /* static public void TriggerOnLoad(Action<MoveConsts> call)
+    {
+        lock (MoveConstNotifier.loadLock)
+        {
+            if (MoveConstNotifier.isLoaded)
+                call(instance);
+            else
+                MoveConstNotifier.onLoadAction.Add(call);
+        }
+    }*/
 }

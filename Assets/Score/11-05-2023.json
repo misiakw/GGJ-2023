@@ -1,3 +1,9 @@
 {
-    "Score": []
+    "Score": [
+        {
+            "PlayerName": "your name",
+            "PlayerScore": 9,
+            "TimeStr": "18:32"
+        }
+    ]
 }

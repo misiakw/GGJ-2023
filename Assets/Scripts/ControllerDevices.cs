@@ -154,11 +154,12 @@ public class ControllerDevice : IController
     private IList<IController> _devices = new List<IController>();
     private ControllerDevice()
     {
-        //_devices.Add(new Keyboard(KeyCode.W, KeyCode.S, KeyCode.E, this));
-        _devices.Add(new Keyboard(KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow, this));
-        //_devices.Add(new Keyboard(KeyCode.Space, KeyCode.LeftControl, KeyCode.LeftShift, this));
+        MoveConstNotifier.RegisterLoad((c) =>
+        {
+            if (c.useKeyboard)
+                _devices.Add(new Keyboard(KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow, this));
+        });
         _devices.Add(new GamepadBtnController(this));
-        //_devices.Add(new XboxPadController(this));
 
     }
 
