@@ -211,11 +211,10 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collided)
     {
-        if (collided.gameObject.tag == "Floor")
+        if (collided.otherCollider is BoxCollider2D && collided.gameObject.tag == "Floor")
         {
             animator.SetBool("Jumping", false);
             jumpCounter = 0;
-
             if (isRunning)
             {
                 _walkSound.Play();
