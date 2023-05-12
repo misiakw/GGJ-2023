@@ -38,7 +38,7 @@
 		Ability to close game via menu
 		Ability to toggle fullscreen (via menu) to move between screens
 		
-0.7 - 	Keyboard controlls can be disabled cia MoveConst file
+1.1 - 	Keyboard controlls can be disabled cia MoveConst file
 		Added doublejump resert on separate feet collider (jump below platform issue)
 		Changet input name to allow big S and numbers
 		Disable running when score screen is displayed

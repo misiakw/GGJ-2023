@@ -197,7 +197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &514140854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: V 1.0
+  m_text: V 1.1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1194,6 +1194,26 @@ PrefabInstance:
     - target: {fileID: 2622897538969543039, guid: 375aa53fcb4a7e44187ae7710d26330c, type: 3}
       propertyPath: m_Name
       value: GameScoreBoards
+      objectReference: {fileID: 0}
+    - target: {fileID: 2857629090463416792, guid: 375aa53fcb4a7e44187ae7710d26330c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2857629090463416792, guid: 375aa53fcb4a7e44187ae7710d26330c, type: 3}
+      propertyPath: m_TagString
+      value: PlayerScoreWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240360287754140313, guid: 375aa53fcb4a7e44187ae7710d26330c, type: 3}
+      propertyPath: m_ContentType
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240360287754140313, guid: 375aa53fcb4a7e44187ae7710d26330c, type: 3}
+      propertyPath: m_CharacterValidation
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240360287754140313, guid: 375aa53fcb4a7e44187ae7710d26330c, type: 3}
+      propertyPath: m_RestoreOriginalTextOnEscape
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5464948661063288561, guid: 375aa53fcb4a7e44187ae7710d26330c, type: 3}
       propertyPath: m_RootOrder
