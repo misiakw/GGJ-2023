@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -117,9 +118,13 @@ public class PlayerController : MonoBehaviour
     {
         if (currentState == GameState.Loading)
         {
-            GlobalStore.ObstacleVelocity.Value = GlobalStore.PLAYER_STARTUP_SPEED;
-            elapsedTimeFromBirth = 0;
-            GlobalStore.State.Value = GameState.Running;
+            var playerScoreWindow = GameObject.FindGameObjectsWithTag("PlayerScoreWindow");
+            if (!playerScoreWindow.Any() || playerScoreWindow[0].activeSelf == false)
+            {
+                GlobalStore.ObstacleVelocity.Value = GlobalStore.PLAYER_STARTUP_SPEED;
+                elapsedTimeFromBirth = 0;
+                GlobalStore.State.Value = GameState.Running;
+            }
             return;
         }
         if (isRunning && jumpCounter < 2)
@@ -211,11 +216,10 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collided)
     {
-        if (collided.gameObject.tag == "Floor")
+        if (collided.otherCollider is BoxCollider2D && collided.gameObject.tag == "Floor")
         {
             animator.SetBool("Jumping", false);
             jumpCounter = 0;
-
             if (isRunning)
             {
                 _walkSound.Play();

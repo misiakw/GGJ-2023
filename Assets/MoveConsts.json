@@ -1,4 +1,5 @@
 {
+    "useKeyboard": true,
     "gravity": 4.0,
     "squashedGravity": 10.0,
     "jumpStrength": 15.0,
