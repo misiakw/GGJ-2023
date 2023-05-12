@@ -1,3 +1,14 @@
 {
-    "Score": []
+    "Score": [
+        {
+            "PlayerName": "sadsadsa",
+            "PlayerScore": 6,
+            "TimeStr": "09:52"
+        },
+        {
+            "PlayerName": "XSdsadsad",
+            "PlayerScore": 5,
+            "TimeStr": "09:47"
+        }
+    ]
 }

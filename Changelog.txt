@@ -40,3 +40,5 @@
 		
 0.7 - 	Keyboard controlls can be disabled cia MoveConst file
 		Added doublejump resert on separate feet collider (jump below platform issue)
+		Changet input name to allow big S and numbers
+		Disable running when score screen is displayed
