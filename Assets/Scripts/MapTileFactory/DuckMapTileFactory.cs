@@ -19,6 +19,9 @@ namespace Assets.Scripts.MapTileFactory
                 case 2:
                     Variation2(mapTile);
                     break;
+                case 3:
+                    Variation3(mapTile);
+                    break;
             }
         }
 
@@ -70,6 +73,37 @@ namespace Assets.Scripts.MapTileFactory
             go.transform.localPosition += new Vector3(-3.5f, 0, 0);
             go = MapTileFactoryHelper.CreateObject(PrefabStorage.OrbPrefab, mapTile);
             go.transform.localPosition += new Vector3(-2.5f, 0, 0);
+        }
+
+        static void Variation3(GameObject mapTile)
+        {
+            GameObject go;
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.FlyingBugPrefab, mapTile);
+            go.transform.localPosition += new Vector3(-5.5f, 3, 0);
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.FlyingBugPrefab, mapTile);
+            go.transform.localPosition += new Vector3(-4.5f, 2, 0);
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.FlyingBugPrefab, mapTile);
+            go.transform.localPosition += new Vector3(-5.5f, 1, 0);
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.FlyingBugPrefab, mapTile);
+            go.transform.localPosition += new Vector3(-4.5f, 0, 0);
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.FlyingBugPrefab, mapTile);
+            go.transform.localPosition += new Vector3(2.5f, 3, 0);
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.FlyingBugPrefab, mapTile);
+            go.transform.localPosition += new Vector3(3.5f, 2, 0);
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.FlyingBugPrefab, mapTile);
+            go.transform.localPosition += new Vector3(2.5f, 1, 0);
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.FlyingBugPrefab, mapTile);
+            go.transform.localPosition += new Vector3(3.5f, 0, 0);
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.OrbPrefab, mapTile);
+            go.transform.localPosition += new Vector3(-2.5f, 0.75f, 0);
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.OrbPrefab, mapTile);
+            go.transform.localPosition += new Vector3(-0.5f, 0.75f, 0);
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.OrbPrefab, mapTile);
+            go.transform.localPosition += new Vector3(1.5f, 0.75f, 0);
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.OrbPrefab, mapTile);
+            go.transform.localPosition += new Vector3(-4.5f, 0, 0);
+            go = MapTileFactoryHelper.CreateObject(PrefabStorage.OrbPrefab, mapTile);
+            go.transform.localPosition += new Vector3(3.5f, 0, 0);
         }
     }
 }

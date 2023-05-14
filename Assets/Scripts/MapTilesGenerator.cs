@@ -2,6 +2,7 @@ using Assets.Scripts;
 using Assets.Scripts.MapTileFactory;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -30,15 +31,14 @@ public class MapTilesGenerator : MonoBehaviour
     private float previousMapTileYPos = 0;
     int possibleConfigurations = 0;
     int currentTile = 0;
-    string[] tilesets = new string[] { "JumpDuck4" };
-    //string[] tilesets = new string[] { "Jump1", "DoubleJump1", "DoubleJump1", "Duck1", "Duck1", "JumpDuck1", "JumpDuck1", "JumpDuck1", "Duck2", "DoubleJump2", "DoubleJump", "JumpDuck2" };
+    string[] tilesets;
 
     public GameObject LastCreated;
 
     // Start is called before the first frame update
     void Start()
     {
-        possibleConfigurations = Enum.GetNames(typeof(ObstacleConfigurations)).Count();
+        tilesets = LoadLevels();
         PrefabStorage.SetPrefabs(currencyPrefab, rootPrefab, branchPrefab);
     }
 
@@ -77,6 +77,9 @@ public class MapTilesGenerator : MonoBehaviour
             case "Jump3":
                 JumpMapTileFactory.GenerateTile(mapTile, 3);
                 break;
+            case "Jump4":
+                JumpMapTileFactory.GenerateTile(mapTile, 4);
+                break;
             case "DoubleJump1":
                 DoubleJumpMapTileFactory.GenerateTile(mapTile, 1);
                 break;
@@ -95,6 +98,9 @@ public class MapTilesGenerator : MonoBehaviour
             case "Duck2":
                 DuckMapTileFactory.GenerateTile(mapTile, 2);
                 break;
+            case "Duck3":
+                DuckMapTileFactory.GenerateTile(mapTile, 3);
+                break;
             case "JumpDuck1":
                 JumpDuckMapTileFactory.GenerateTile(mapTile, 1);
                 break;
@@ -107,14 +113,34 @@ public class MapTilesGenerator : MonoBehaviour
             case "JumpDuck4":
                 JumpDuckMapTileFactory.GenerateTile(mapTile, 4);
                 break;
+            case "JumpDuck5":
+                JumpDuckMapTileFactory.GenerateTile(mapTile, 5);
+                break;
+            case "JumpDuck6":
+                JumpDuckMapTileFactory.GenerateTile(mapTile, 6);
+                break;
+            case "Other1":
+                OtherMapTileFactory.GenerateTile(mapTile, 1);
+                break;
+            case "Other2":
+                OtherMapTileFactory.GenerateTile(mapTile, 2);
+                break;
+            case "Other3":
+                OtherMapTileFactory.GenerateTile(mapTile, 3);
+                break;
         }
         currentTile++;
     }
 
-    //GameObject CreateObject(GameObject prefab, GameObject parent)
-    //{
-    //    GameObject go = Instantiate(prefab);
-    //    go.transform.SetParent(parent.transform, false);
-    //    return go;
-    //}
+    private string[] LoadLevels()
+    {
+        var filePath = Path.Combine(Application.dataPath, "Levels.txt");
+        string[] levels;
+        if (File.Exists(filePath))
+        {
+            return File.ReadAllLines(filePath);
+        }
+        
+        return new string[] { "Jump1", "DoubleJump1", "DoubleJump1", "Duck1", "Duck1", "JumpDuck1", "JumpDuck1", "JumpDuck1", "Duck2", "DoubleJump2", "DoubleJump", "JumpDuck2", "JumpDuck3", "JumpDuck4", "Other1", "Duck3", "Jump3" };
+    }
 }
