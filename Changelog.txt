@@ -42,3 +42,9 @@
 		Added doublejump resert on separate feet collider (jump below platform issue)
 		Changet input name to allow big S and numbers
 		Disable running when score screen is displayed
+		
+1.2 - 	Level presets added
+		Gamespeed no longer changes over time
+		Foreground opacity changed to 50% so obstacles remain visible
+		MainCamera moved to the left so version number is visible again
+		Presets are no longer generated randomly - ordered set in the Levels.txt file
