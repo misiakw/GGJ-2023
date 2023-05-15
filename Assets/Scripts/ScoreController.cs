@@ -51,8 +51,9 @@ public class ScoreManager
 
     private ScoreManager()
     {
+        var parsedDateStr = 
         dirPath = Path.Combine(Application.dataPath, "Score");
-        filePath = Path.Combine(dirPath, $"{DateTime.Now.ToShortDateString().Replace('.', '-')}.json");
+        filePath = Path.Combine(dirPath, $"{DateTime.Now.ToString("MM-dd-yyyy")}.json");
         _scoreBoard = LoadScore();
     }
     public static ScoreManager instance
