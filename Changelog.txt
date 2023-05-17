@@ -48,3 +48,7 @@
 		Foreground opacity changed to 50% so obstacles remain visible
 		MainCamera moved to the left so version number is visible again
 		Presets are no longer generated randomly - ordered set in the Levels.txt file
+		
+1.3	-	Jumping revamped: 
+			You can only jump touching the floor and additional one mid-air. 
+			Jump height is the same for all jumps.

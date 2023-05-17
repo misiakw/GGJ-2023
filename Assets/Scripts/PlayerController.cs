@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private GameState currentState = GlobalStore.State.Value;
     private bool isRunning => currentState == GameState.Running;
     //private bool isDashing = false;
-    private short jumpCounter = 0;
+    private bool canDoubleJump = true;
     private float elapsedTimeFromBirth = 0;
     private const int timeBeforeSpeedIncrease = 20;
 
@@ -127,33 +127,15 @@ public class PlayerController : MonoBehaviour
             }
             return;
         }
-        if (isRunning && jumpCounter < 2)
+        if (isRunning && canDoubleJump)
         {
-            if (jumpCounter == 0)
-            {
-                animator.SetBool("Jumping", true);
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-            }
-
+            animator.SetBool("Jumping", true);
             _walkSound.Stop();
-            jumpCounter++;
-
-            if(rb.velocity.y > 0)
+            if (floorsTouching == 0)
             {
-                rb.velocity += new Vector2(0, jumpStrength * moveConsts.doubleJumpStrategy.risingJumpMultiplier);
+                canDoubleJump = false;
             }
-            else if(!moveConsts.doubleJumpStrategy.zeroFallVelocity)
-            {
-                rb.velocity += new Vector2(0, jumpStrength * moveConsts.doubleJumpStrategy.fallJumpMultiplier);
-            }
-            else
-            {
-                rb.velocity = new Vector2(0, jumpStrength * moveConsts.doubleJumpStrategy.fallJumpMultiplier);
-            }
-
-
-            if (rb.velocity.y > moveConsts.doubleJumpStrategy.topJumpSpeedMultiplier * jumpStrength)
-                rb.velocity = new Vector2(rb.velocity.x, moveConsts.doubleJumpStrategy.topJumpSpeedMultiplier * jumpStrength);
+            rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
             _jumpSound.Play();
         }
 
@@ -164,7 +146,7 @@ public class PlayerController : MonoBehaviour
     public void RestartGame(bool forceStateChange = false)
     {
         DestroyGameObjects();
-        SceneManager.LoadScene("MainScene");;
+        SceneManager.LoadScene("MainScene");
     }
 
     private static void DestroyGameObjects()
@@ -208,22 +190,33 @@ public class PlayerController : MonoBehaviour
         {
             elapsedTimeFromBirth = 0;
             GlobalStore.ObstacleVelocity.Value = new Vector3(
-                GlobalStore.ObstacleVelocity.Value.x * moveConsts.speedIncreaseMultiplier, 
-                GlobalStore.ObstacleVelocity.Value.y, 
+                GlobalStore.ObstacleVelocity.Value.x * moveConsts.speedIncreaseMultiplier,
+                GlobalStore.ObstacleVelocity.Value.y,
                 0);
         }
     }
+
+    private int floorsTouching = 0;
 
     void OnCollisionEnter2D(Collision2D collided)
     {
         if (collided.otherCollider is BoxCollider2D && collided.gameObject.tag == "Floor")
         {
+            floorsTouching++;
+            canDoubleJump = true;
             animator.SetBool("Jumping", false);
-            jumpCounter = 0;
             if (isRunning)
             {
                 _walkSound.Play();
             }
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collided)
+    {
+        if (collided.otherCollider is BoxCollider2D && collided.gameObject.tag == "Floor")
+        {
+            floorsTouching--;
         }
     }
 
