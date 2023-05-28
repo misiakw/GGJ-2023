@@ -4,6 +4,9 @@
     "squashedGravity": 10.0,
     "jumpStrength": 15.0,
     "speedIncreaseMultiplier": 1.0,
+    "enableDashing": false,
+    "dashSpeed": 8.0,
+    "dashTime": 0.4000000059604645,
     "doubleJumpStrategy": {
         "topJumpSpeedMultiplier": 1.5,
         "risingJumpMultiplier": 0.5,

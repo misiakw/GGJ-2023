@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
 
     private GameState currentState = GlobalStore.State.Value;
     private bool isRunning => currentState == GameState.Running;
-    //private bool isDashing = false;
+    private bool canDash = false;
+    private bool isDashing = false;
     private bool canDoubleJump = true;
     private float elapsedTimeFromBirth = 0;
     private const int timeBeforeSpeedIncrease = 20;
@@ -41,7 +42,7 @@ public class PlayerController : MonoBehaviour
         controller.OnCrouchEnter += onShrink;
         controller.OnCrouchLeave += onGrow;
         controller.OnJumpStart += onJumpStart;
-        //controller.OnDashStart += onDashStart;
+        controller.OnDashStart += onDashStart;
 
         animator = GetComponent<Animator>();
 
@@ -99,20 +100,26 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<Rigidbody2D>().gravityScale = moveConsts.gravity;
     }
 
-    /*void onDashStart(object sender, EventArgs args)
+    void onDashStart(object sender, EventArgs args)
     {
-        if (!isRunning)
+        if (!moveConsts.enableDashing || !isRunning || !canDash || isDashing)
         {
             return;
         }
+        canDash = false;
         isDashing = true;
-        Invoke("DashStop", 0.2f);
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+        GlobalStore.ObstacleVelocity.Value = new Vector3(GlobalStore.ObstacleVelocity.Value.x - moveConsts.dashSpeed, 0, 0);
+        Invoke("DashStop", moveConsts.dashTime);
     }
 
     void DashStop()
     {
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = moveConsts.gravity;
+        GlobalStore.ObstacleVelocity.Value = new Vector3(GlobalStore.ObstacleVelocity.Value.x + moveConsts.dashSpeed, 0, 0);
         isDashing = false;
-    }*/
+    }
 
     public void onJumpStart(object sender, EventArgs args)
     {
@@ -204,6 +211,7 @@ public class PlayerController : MonoBehaviour
         {
             floorsTouching++;
             canDoubleJump = true;
+            canDash = true;
             animator.SetBool("Jumping", false);
             if (isRunning)
             {
@@ -247,6 +255,6 @@ public class PlayerController : MonoBehaviour
         controller.OnCrouchEnter -= onShrink;
         controller.OnCrouchLeave -= onGrow;
         controller.OnJumpStart -= onJumpStart;
-        //controller.OnDashStart -= onDashStart;
+        controller.OnDashStart -= onDashStart;
     }
 }

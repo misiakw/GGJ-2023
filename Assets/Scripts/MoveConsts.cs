@@ -41,7 +41,10 @@ public class MoveConsts
     public float gravity = 4f;
     public float squashedGravity = 10f;
     public float jumpStrength = 15f;
-    public float speedIncreaseMultiplier = 1.3f;
+    public float speedIncreaseMultiplier = 1f;
+    public bool enableDashing = true;
+    public float dashSpeed = 8f;
+    public float dashTime = 0.4f;
 
     public DoubleJumpStrategy doubleJumpStrategy = new DoubleJumpStrategy();
     [Serializable]

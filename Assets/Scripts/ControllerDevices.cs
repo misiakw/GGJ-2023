@@ -85,6 +85,7 @@ public class GamepadBtnController : BtnController, IController
     protected override bool CrouchUp() => Gamepad.current.leftStick.down.ReadValue() == 0;
 
     protected override bool JumpDown() => Gamepad.current.aButton.isPressed;
+    protected override bool DashDown() => Gamepad.current.bButton.isPressed;
 
     private bool waitingForRelease = false;
     protected override void processJump()
@@ -106,11 +107,6 @@ public class GamepadBtnController : BtnController, IController
         {
             base.Loop();
         }
-    }
-
-    protected override bool DashDown()
-    {
-        return false;
     }
 }
 

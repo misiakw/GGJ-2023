@@ -52,3 +52,7 @@
 1.3	-	Jumping revamped: 
 			You can only jump touching the floor and additional one mid-air. 
 			Jump height is the same for all jumps.
+			
+1.4	-	Dashing added:
+			Dashing can be enabled/disabled in MoveConsts
+			Dash speed increase and time it lasts is editable in MoveConsts
